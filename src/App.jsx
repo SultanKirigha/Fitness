@@ -1,0 +1,28 @@
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/layout/Layout.jsx";
+
+import Home from "./pages/Home.jsx";
+import Programs from "./pages/Programs.jsx";
+import Trainers from "./pages/Trainers.jsx";
+import Pricing from "./pages/Pricing.jsx";
+import About from "./pages/About.jsx";
+import Contact from "./pages/Contact.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+
+function App() {
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/programs" element={<Programs />} />
+        <Route path="/trainers" element={<Trainers />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Layout>
+  );
+}
+
+export default App;
