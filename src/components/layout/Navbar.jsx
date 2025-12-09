@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { NAV_LINKS } from "../../data/navigation";
 import { useTheme } from "../../context/ThemeContext.jsx";
+import logoGreen from "../../assets/logo.svg";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -14,12 +15,12 @@ function Navbar() {
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-4 md:px-8 lg:px-16 py-3">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <span className="h-8 w-8 rounded-full bg-brand flex items-center justify-center text-xs font-bold">
-            SF
-          </span>
-          <span className="font-semibold tracking-wide text-slate-900 dark:text-white">
-            Safarishape Fitness
-          </span>
+          
+          <img
+            src={logoGreen}
+            alt="Safarishape Fit Wellness"
+            className="h-8 w-auto md:h-9"
+          />
         </Link>
 
         {/* Desktop navigation */}

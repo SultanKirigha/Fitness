@@ -11,17 +11,19 @@ import Dashboard from "./pages/Dashboard.jsx";
 
 function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/programs" element={<Programs />} />
-        <Route path="/trainers" element={<Trainers />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </Layout>
+    <div className="min-h-screen bg-transparent text-inherit transition-colors duration-300 app-shell">
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/programs" element={<Programs />} />
+          <Route path="/trainers" element={<Trainers />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </Layout>
+    </div>
   );
 }
 
