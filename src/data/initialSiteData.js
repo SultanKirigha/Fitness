@@ -172,5 +172,95 @@ export const initialSiteData = {
       photoUrl:
         "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/53e83c30-86fd-4962-85c3-7be7d8b4b554/Dennis+Paddy.jpg",
     },
+    
   ],
+  // =====================
+  // FOOTER
+  // =====================
+  footer: {
+    about:
+      "Safarishape is a coaching-first fitness space that blends strength, conditioning, and mobility so you can move, feel, and live better – not just for one season, but long term.",
+    operations: {
+      weekday: "Monday – Friday · 5:30am – 10:00pm",
+      saturday: "Saturday · 7:00am – 5:00pm",
+      sunday: "Sunday & public holidays · 8:00am – 2:00pm",
+    },
+    address: {
+      line1: "City Park Drive, Valley View Office Park",
+      line2: "Tower A, 1st Floor, Nairobi, Kenya",
+      phone: "+254 700 000 000",
+      email: "hello@safarishape.fit",
+    },
+    social: {
+      instagram: "https://instagram.com/",
+      facebook: "https://facebook.com/",
+      twitter: "https://x.com/",
+      youtube: "https://youtube.com/",
+      tiktok: "https://tiktok.com/",
+    },
+  },
+   // =====================
+  // EVENTS
+  // =====================
+  // Put these images in: public/images/events/...
+  events: [
+    {
+      id: "karura-hike",
+      title: "Karura Forest Community Hike",
+      date: "2025-01-25",
+      time: "07:00 – 10:30",
+      type: "Hike",
+      location: "Karura Forest, Nairobi",
+      isOnline: false,
+      highlight: "Easy to moderate pace, all levels welcome.",
+      summary:
+        "Start your Saturday with a guided hike through Karura. We move, talk, and finish with a simple mobility flow in the clearing.",
+      registrationUrl: "#",
+      imageUrl: "https://friendsofkarura.org/wp-content/uploads/2025/12/Karura-Forest-Services-Restored.jpg",
+    },
+    {
+      id: "sunrise-trail",
+      title: "Sunrise Trail Run and Mobility",
+      date: "2025-02-08",
+      time: "06:00 – 08:30",
+      type: "Outdoor",
+      location: "Ngong Hills trail head",
+      isOnline: false,
+      highlight: "Short trail loops plus recovery work.",
+      summary:
+        "Gentle trail loops at your pace followed by coached stretching and breath work as the sun comes up.",
+      registrationUrl: "#",
+      imageUrl: "https://friendsofkarura.org/wp-content/uploads/2024/09/Running-team_Karura-Forest.jpg",
+    },
+    {
+      id: "park-bootcamp",
+      title: "Park Strength and Conditioning Session",
+      date: "2025-02-22",
+      time: "09:00 – 11:00",
+      type: "Bootcamp",
+      location: "Central Park, Nairobi",
+      isOnline: false,
+      highlight: "Bodyweight strength and circuits in the park.",
+      summary:
+        "A full body session built around bodyweight, bands, and partner drills. Bring water and a friend.",
+      registrationUrl: "#",
+      imageUrl: "https://www.broadmooroutfitters.com/wp-content/uploads/2022/07/stephen-leonardi-6E6oMx-69Ns-unsplash-1.jpg",
+    },
+    {
+      id: "online-info-night",
+      title: "Online Info Night: Training With Safarishape",
+      date: "2025-03-05",
+      time: "19:00 – 20:00",
+      type: "Online",
+      location: "Live on Zoom",
+      isOnline: true,
+      highlight: "Ask questions before you start.",
+      summary:
+        "A live online session where we walk through how blocks work, how we coach, and what to expect in your first month.",
+      registrationUrl: "#",
+      imageUrl: "https://www.broadmooroutfitters.com/wp-content/uploads/2022/07/annie-spratt-JSra0N9uP1s-unsplash-1536x1022.jpg",
+    },
+  ],
+
+
 };
