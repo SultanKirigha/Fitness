@@ -1,14 +1,48 @@
 export const initialSiteData = {
   home: {
-    heroTitle: "Train for the life you want.",
+    heroTitle: "Coaching that respects your life and your season.",
     heroSubtitle:
-      "Safarishape helps you build strength, confidence, and consistency with smart coaching and real accountability.",
-    primaryCta: "Start your journey",
+      "Strength, conditioning, and engine work that link together inside one bigger plan. No guesswork – just clear next steps every week.",
+    primaryCta: "Start your free week",
     secondaryCta: "View programs",
+
     stats: [
-      { label: "Members", value: "1.2k+" },
-      { label: "Avg. sessions / week", value: "3.8" },
-      { label: "Client satisfaction", value: "97%" },
+      {
+        label: "Members training",
+        value: "120+",
+      },
+      {
+        label: "Sessions / week",
+        value: "40+",
+      },
+      {
+        label: "Avg. check-ins",
+        value: "3x",
+      },
+    ],
+
+    // --- HERO CAROUSEL SLIDES ---
+    // Put these images in: public/images/...
+    heroSlides: [
+      {
+        id: "strength-track",
+        label: "Strength • Conditioning",
+        caption: "Full-body strength and engine work in one place.",
+        imageUrl: "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/1753882556440-UF0KY1CQV1MXDLC1BDWO/Final.jpg?format=1500w",
+      },
+      {
+        id: "community-track",
+        label: "Community • Coaching",
+        caption: "Coaches and teammates who keep you moving.",
+        imageUrl: "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/7fb4e031-9e01-44d4-884f-c856912e0893/PSP_7041-Edit-Edit.jpg?format=1500w",
+  
+      },
+      {
+        id: "engine-track",
+        label: "Engine • Longevity",
+        caption: "Cardio blocks that build capacity without breaking you.",
+        imageUrl: "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/b1a354aa-ba54-4760-9086-67ab4ce9e0f5/30th+November.jpg?format=1500w",
+      },
     ],
     // New: BMI section image editable from dashboard
     bmiImageUrl:

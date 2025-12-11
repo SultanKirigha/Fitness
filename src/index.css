@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global body styles */
 body {
   @apply antialiased overflow-x-hidden;
+}
+/* Card backgrounds & borders in light mode */
+:root[data-theme="light"] .app-shell .bg-white\/5 {
+  background-color: #ffffff;        /* solid white card */
+}
+
+:root[data-theme="light"] .app-shell .border-white\/10 {
+  border-color: #e5e7eb;           /* subtle grey border */
+}
+
+/* Improve readability in light mode */
+:root[data-theme="light"] .app-shell .text-slate-200,
+:root[data-theme="light"] .app-shell .text-slate-300 {
+  color: #111827; /* very dark slate */
+}
+
+:root[data-theme="light"] .app-shell .text-slate-400 {
+  color: #1f2937; /* dark slate */
+}
+
+/* We already flip pure white text to dark */
+:root[data-theme="light"] .app-shell .text-white,
+:root[data-theme="light"] .app-shell .text-slate-50 {
+  color: #020617 !important;
 }

@@ -1,11 +1,67 @@
+import { useEffect, useState } from "react";
 import { useSiteData } from "../../context/SiteDataContext.jsx";
+
+const AUTO_PLAY_DELAY = 7000; // 7 seconds
 
 function Hero() {
   const {
     siteData: {
-      home: { heroTitle, heroSubtitle, primaryCta, secondaryCta, stats },
+      home: {
+        heroTitle,
+        heroSubtitle,
+        primaryCta,
+        secondaryCta,
+        stats,
+        heroSlides,
+      },
     },
   } = useSiteData();
+
+  // Fallback slides if none are in site data yet
+  const slides =
+    heroSlides && heroSlides.length
+      ? heroSlides
+      : [
+          {
+            id: "strength",
+            label: "Strength • Conditioning",
+            caption: "Full-body strength and engine work in one place.",
+            imageUrl: "/images/hero-strength.jpg", // replace with your asset
+          },
+          {
+            id: "community",
+            label: "Community • Coaching",
+            caption: "Coaches and teammates who keep you moving.",
+            imageUrl: "/images/hero-community.jpg",
+          },
+          {
+            id: "recovery",
+            label: "Recovery • Longevity",
+            caption: "Training that respects your joints and your season.",
+            imageUrl: "/images/hero-recovery.jpg",
+          },
+        ];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (slides.length <= 1) return;
+
+    const id = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % slides.length);
+    }, AUTO_PLAY_DELAY);
+
+    return () => clearInterval(id);
+  }, [slides.length]);
+
+  const goTo = (direction) => {
+    setActiveIndex((prev) => {
+      const next = prev + direction;
+      if (next < 0) return slides.length - 1;
+      if (next >= slides.length) return 0;
+      return next;
+    });
+  };
 
   return (
     <section className="py-10 md:py-16">
@@ -52,47 +108,78 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right side - visual card */}
-        <div className="relative">
-          <div className="relative aspect-[4/5] rounded-3xl bg-gradient-to-br from-brand/25 via-dark-soft to-dark border border-white/10 shadow-[0_0_90px_rgba(16,185,129,0.6)] overflow-hidden">
-            {/* Decorative rings */}
-            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full border border-brand/40" />
-            <div className="absolute -right-2 -top-4 h-24 w-24 rounded-full border border-brand/20" />
+        {/* Right side - image carousel */}
+        <div className="relative w-full max-w-md lg:max-w-lg mx-auto lg:mx-0">
+          <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 bg-[#020617] shadow-[0_0_90px_rgba(16,185,129,0.6)]">
+            {slides.map((slide, index) => (
+              <div
+                key={slide.id || index}
+                className={`absolute inset-0 transition-all duration-700 ease-out ${
+                  index === activeIndex
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-3 pointer-events-none"
+                }`}
+              >
+                <img
+                  src={slide.imageUrl}
+                  alt={slide.label}
+                  className="h-full w-full object-cover"
+                />
 
-            {/* Center content */}
-            <div className="absolute inset-0 flex flex-col justify-end">
-              <div className="p-4 md:p-5 space-y-3">
-                <p className="text-[11px] uppercase tracking-[0.18em] text-slate-200">
-                  Today at Safarishape
-                </p>
-                <p className="text-sm md:text-base font-medium text-slate-50">
-                  Strength and conditioning sessions are live. Clients are
-                  checking in and logging their sets.
-                </p>
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                <div className="grid grid-cols-2 gap-3 text-[11px] md:text-xs text-slate-200">
-                  <div className="rounded-xl bg-black/30 border border-white/10 px-3 py-2">
-                    <p className="text-slate-400">Active sessions</p>
-                    <p className="text-sm md:text-base font-semibold text-brand">
-                      18
-                    </p>
-                  </div>
-                  <div className="rounded-xl bg-black/30 border border-white/10 px-3 py-2">
-                    <p className="text-slate-400">Check ins today</p>
-                    <p className="text-sm md:text-base font-semibold text-brand">
-                      64
-                    </p>
-                  </div>
+                {/* Slide text */}
+                <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 space-y-2">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-brand">
+                    {slide.label}
+                  </p>
+                  <p className="text-sm md:text-base font-medium text-slate-50">
+                    {slide.caption}
+                  </p>
                 </div>
               </div>
-            </div>
+            ))}
+
+            {/* Carousel controls */}
+            {slides.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => goTo(-1)}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-slate-100 hover:bg-black/70 text-sm"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  onClick={() => goTo(1)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-slate-100 hover:bg-black/70 text-sm"
+                >
+                  ›
+                </button>
+              </>
+            )}
           </div>
 
-          {/* Floating mini card */}
-          <div className="absolute -bottom-6 -left-2 md:-left-6 rounded-2xl border border-white/10 bg-dark/90 backdrop-blur px-4 py-3 text-xs md:text-sm text-slate-200 shadow-lg shadow-black/50">
-            <p className="font-semibold text-brand">Next block starts</p>
-            <p>Monday 6:00 AM - Strength Foundations</p>
-          </div>
+          {/* Dots */}
+          {slides.length > 1 && (
+            <div className="mt-3 flex justify-center gap-2">
+              {slides.map((slide, index) => (
+                <button
+                  key={slide.id || index}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    index === activeIndex
+                      ? "w-6 bg-brand"
+                      : "w-2 bg-slate-500/60"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
