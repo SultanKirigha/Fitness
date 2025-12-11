@@ -24,7 +24,7 @@ function PricingPreview() {
         {pricing.map((plan) => (
           <article
             key={plan.id}
-            className={`flex flex-col rounded-3xl border bg-white/5 p-5 md:p-6 shadow-[0_0_40px_rgba(0,0,0,0.5)] ${
+            className={`flex flex-col rounded-3xl border bg-white/5 p-5 md:p-6 shadow-[0_0_40px_rgba(0,0,0,0.5)] Ksh{
               plan.isPopular ? "border-brand shadow-[0_0_60px_rgba(34,197,94,0.6)]" : "border-white/10"
             }`}
           >
@@ -37,7 +37,7 @@ function PricingPreview() {
               )}
               <h3 className="text-lg md:text-xl font-semibold">{plan.name}</h3>
               <p className="text-2xl md:text-3xl font-semibold">
-                ${plan.priceMonthly}
+                Ksh{plan.priceMonthly}
                 <span className="text-xs md:text-sm font-normal text-slate-300">
                   {" "}
                   / month

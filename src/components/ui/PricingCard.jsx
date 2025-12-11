@@ -23,7 +23,7 @@ function PricingCard({ plan }) {
       <div className="mt-5 space-y-4">
         <div className="flex items-baseline gap-1">
           <span className="text-2xl md:text-3xl font-semibold text-brand">
-            ${plan.priceMonthly}
+            Ksh{plan.priceMonthly}
           </span>
           <span className="text-xs text-slate-400">/ month</span>
         </div>

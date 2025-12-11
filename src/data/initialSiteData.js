@@ -81,7 +81,7 @@ export const initialSiteData = {
     {
       id: "basic",
       name: "Basic",
-      priceMonthly: 29,
+      priceMonthly: 3000,
       description: "Gym access, app check in, and community chat.",
       highlight: "Great starting point.",
       isPopular: false,
@@ -100,7 +100,7 @@ export const initialSiteData = {
     {
       id: "coaching",
       name: "Coaching",
-      priceMonthly: 79,
+      priceMonthly: 7500,
       description: "Personalized programming and weekly coach feedback.",
       highlight: "Most popular for real progress.",
       isPopular: true,
@@ -119,7 +119,7 @@ export const initialSiteData = {
     {
       id: "premium",
       name: "Premium",
-      priceMonthly: 129,
+      priceMonthly: 15000,
       description:
         "Fully custom plan, form reviews, and 1 to 1 calls with your coach.",
       highlight: "For high performers.",
