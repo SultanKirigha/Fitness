@@ -1,4 +1,6 @@
+// src/components/home/Hero.jsx
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useSiteData } from "../../context/SiteDataContext.jsx";
 
 const AUTO_PLAY_DELAY = 7000; // 7 seconds
@@ -17,7 +19,6 @@ function Hero() {
     },
   } = useSiteData();
 
-  // Fallback slides if none are in site data yet
   const slides =
     heroSlides && heroSlides.length
       ? heroSlides
@@ -26,7 +27,7 @@ function Hero() {
             id: "strength",
             label: "Strength • Conditioning",
             caption: "Full-body strength and engine work in one place.",
-            imageUrl: "/images/hero-strength.jpg", // replace with your asset
+            imageUrl: "/images/hero-strength.jpg",
           },
           {
             id: "community",
@@ -35,10 +36,10 @@ function Hero() {
             imageUrl: "/images/hero-community.jpg",
           },
           {
-            id: "recovery",
-            label: "Recovery • Longevity",
-            caption: "Training that respects your joints and your season.",
-            imageUrl: "/images/hero-recovery.jpg",
+            id: "engine",
+            label: "Engine • Longevity",
+            caption: "Cardio blocks that build capacity without breaking you.",
+            imageUrl: "/images/hero-engine.jpg",
           },
         ];
 
@@ -69,7 +70,7 @@ function Hero() {
         {/* Left side - text */}
         <div className="space-y-6">
           <p className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-brand">
-            Safarishape Fitness
+            Combatfit Outdoor Training
             <span className="h-[2px] w-10 rounded-full bg-brand/60" />
           </p>
 
@@ -82,12 +83,21 @@ function Hero() {
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <button className="px-5 md:px-6 py-2.5 md:py-3 rounded-full bg-brand text-dark font-medium text-sm md:text-base shadow-[0_0_40px_rgba(34,197,94,0.5)] hover:bg-brand-dark transition">
+            {/* Primary CTA -> Upcoming events section */}
+            <Link
+              to="/events#upcoming"
+              className="px-5 md:px-6 py-2.5 md:py-3 rounded-full bg-brand text-dark font-medium text-sm md:text-base shadow-[0_0_40px_rgba(34,197,94,0.5)] hover:bg-brand-dark transition"
+            >
               {primaryCta}
-            </button>
-            <button className="px-5 md:px-6 py-2.5 md:py-3 rounded-full border border-slate-500 text-sm md:text-base text-slate-100 hover:bg-white/5 transition">
+            </Link>
+
+            {/* Secondary CTA keeps current style */}
+            <Link
+              to="/programs"
+              className="px-5 md:px-6 py-2.5 md:py-3 rounded-full border border-slate-500 text-sm md:text-base text-slate-100 hover:bg-white/5 transition"
+            >
               {secondaryCta}
-            </button>
+            </Link>
           </div>
 
           {/* Stats */}
@@ -126,10 +136,8 @@ function Hero() {
                   className="h-full w-full object-cover"
                 />
 
-                {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                {/* Slide text */}
                 <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 space-y-2">
                   <p className="text-[11px] uppercase tracking-[0.18em] text-brand">
                     {slide.label}
@@ -141,7 +149,6 @@ function Hero() {
               </div>
             ))}
 
-            {/* Carousel controls */}
             {slides.length > 1 && (
               <>
                 <button
@@ -162,7 +169,6 @@ function Hero() {
             )}
           </div>
 
-          {/* Dots */}
           {slides.length > 1 && (
             <div className="mt-3 flex justify-center gap-2">
               {slides.map((slide, index) => (

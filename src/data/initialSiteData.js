@@ -1,47 +1,54 @@
 export const initialSiteData = {
-  home: {
-    heroTitle: "Coaching that respects your life and your season.",
-    heroSubtitle:
-      "Strength, conditioning, and engine work that link together inside one bigger plan. No guesswork – just clear next steps every week.",
-    primaryCta: "Start your free week",
-    secondaryCta: "View programs",
+  brand: {
+  name: "Combatfit",
+  tagline: "Outdoor training that feels like real life.",
+  location: "Nairobi, Kenya",
+},
 
-    stats: [
-      {
-        label: "Members training",
-        value: "120+",
-      },
-      {
-        label: "Sessions / week",
-        value: "40+",
-      },
-      {
-        label: "Avg. check-ins",
-        value: "3x",
-      },
-    ],
+  home: {
+  heroTitle: "Outdoor training that feels like a mission, not a chore.",
+  heroSubtitle:
+    "Combatfit blends strength, conditioning, and combat-inspired drills in the open air. No crowded machines – just clear sessions that build power, engine, and confidence.",
+  primaryCta: "Join the next outdoor session",
+  secondaryCta: "See our training blocks",
+
+  stats: [
+    {
+      label: "Outdoor athletes",
+      value: "120+",
+    },
+    {
+      label: "Sessions / week",
+      value: "15+",
+    },
+    {
+      label: "Average check-ins",
+      value: "3x",
+    },
+  ],
+
 
     // --- HERO CAROUSEL SLIDES ---
     // Put these images in: public/images/...
     heroSlides: [
       {
         id: "strength-track",
-        label: "Strength • Conditioning",
-        caption: "Full-body strength and engine work in one place.",
-        imageUrl: "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/1753882556440-UF0KY1CQV1MXDLC1BDWO/Final.jpg?format=1500w",
+        label: "Combat • Strength",
+        caption: "Pad work, bodyweight strength, and carries in the open air.",
+        imageUrl: "https://outdoorfitness.ca/wp-content/uploads/2022/11/IMG01398.jpg",
       },
       {
         id: "community-track",
-        label: "Community • Coaching",
-        caption: "Coaches and teammates who keep you moving.",
-        imageUrl: "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/7fb4e031-9e01-44d4-884f-c856912e0893/PSP_7041-Edit-Edit.jpg?format=1500w",
+        label: "Team • Community",
+        caption: "Small outdoor crews pushing through the same block together.",
+        imageUrl: "https://outdoorfitness.ca/wp-content/uploads/2023/03/IMG_1252.jpg",
   
       },
       {
         id: "engine-track",
-        label: "Engine • Longevity",
-        caption: "Cardio blocks that build capacity without breaking you.",
-        imageUrl: "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/b1a354aa-ba54-4760-9086-67ab4ce9e0f5/30th+November.jpg?format=1500w",
+        label: "Conditioning • Engine",
+        caption: "Sprints, hills, and circuits that build a real-world engine.",
+        imageUrl: "https://outdoorfitness.ca/wp-content/uploads/2023/11/IMG01934.jpg",
       },
     ],
     // New: BMI section image editable from dashboard
@@ -204,63 +211,87 @@ export const initialSiteData = {
   // =====================
   // Put these images in: public/images/events/...
   events: [
-    {
-      id: "karura-hike",
-      title: "Karura Forest Community Hike",
-      date: "2025-01-25",
-      time: "07:00 – 10:30",
-      type: "Hike",
-      location: "Karura Forest, Nairobi",
-      isOnline: false,
-      highlight: "Easy to moderate pace, all levels welcome.",
-      summary:
-        "Start your Saturday with a guided hike through Karura. We move, talk, and finish with a simple mobility flow in the clearing.",
-      registrationUrl: "#",
-      imageUrl: "https://friendsofkarura.org/wp-content/uploads/2025/12/Karura-Forest-Services-Restored.jpg",
-    },
-    {
-      id: "sunrise-trail",
-      title: "Sunrise Trail Run and Mobility",
-      date: "2025-02-08",
-      time: "06:00 – 08:30",
-      type: "Outdoor",
-      location: "Ngong Hills trail head",
-      isOnline: false,
-      highlight: "Short trail loops plus recovery work.",
-      summary:
-        "Gentle trail loops at your pace followed by coached stretching and breath work as the sun comes up.",
-      registrationUrl: "#",
-      imageUrl: "https://friendsofkarura.org/wp-content/uploads/2024/09/Running-team_Karura-Forest.jpg",
-    },
-    {
-      id: "park-bootcamp",
-      title: "Park Strength and Conditioning Session",
-      date: "2025-02-22",
-      time: "09:00 – 11:00",
-      type: "Bootcamp",
-      location: "Central Park, Nairobi",
-      isOnline: false,
-      highlight: "Bodyweight strength and circuits in the park.",
-      summary:
-        "A full body session built around bodyweight, bands, and partner drills. Bring water and a friend.",
-      registrationUrl: "#",
-      imageUrl: "https://www.broadmooroutfitters.com/wp-content/uploads/2022/07/stephen-leonardi-6E6oMx-69Ns-unsplash-1.jpg",
-    },
-    {
-      id: "online-info-night",
-      title: "Online Info Night: Training With Safarishape",
-      date: "2025-03-05",
-      time: "19:00 – 20:00",
-      type: "Online",
-      location: "Live on Zoom",
-      isOnline: true,
-      highlight: "Ask questions before you start.",
-      summary:
-        "A live online session where we walk through how blocks work, how we coach, and what to expect in your first month.",
-      registrationUrl: "#",
-      imageUrl: "https://www.broadmooroutfitters.com/wp-content/uploads/2022/07/annie-spratt-JSra0N9uP1s-unsplash-1536x1022.jpg",
-    },
-  ],
-
+  {
+    id: "karura-hike",
+    title: "Karura Forest Community Hike",
+    date: "2025-01-25",
+    time: "07:00 – 10:30",
+    type: "Hike",
+    location: "Karura Forest, Nairobi",
+    isOnline: false,
+    soldOut: true,
+    highlight: "Easy to moderate pace, all levels welcome.",
+    summary:
+      "Start your Saturday with a guided hike through Karura. We move, talk, and finish with a simple mobility flow in the clearing.",
+    registrationUrl: "#",
+    imageUrl:
+      "https://friendsofkarura.org/wp-content/uploads/2025/12/Karura-Forest-Services-Restored.jpg",
+  },
+  {
+    id: "sunrise-trail",
+    title: "Sunrise Trail Run and Mobility",
+    date: "2025-02-08",
+    time: "06:00 – 08:30",
+    type: "Outdoor",
+    location: "Ngong Hills trail head",
+    isOnline: false,
+    soldOut: false,
+    highlight: "Short trail loops plus recovery work.",
+    summary:
+      "Gentle trail loops at your pace followed by coached stretching and breath work as the sun comes up.",
+    registrationUrl: "#",
+    imageUrl:
+      "https://friendsofkarura.org/wp-content/uploads/2024/09/Running-team_Karura-Forest.jpg",
+  },
+  {
+    id: "park-bootcamp",
+    title: "Park Strength and Conditioning Session",
+    date: "2025-02-22",
+    time: "09:00 – 11:00",
+    type: "Bootcamp",
+    location: "Central Park, Nairobi",
+    isOnline: false,
+    soldOut: false,
+    highlight: "Bodyweight strength and circuits in the park.",
+    summary:
+      "A full body session built around bodyweight, bands, and partner drills. Bring water and a friend.",
+    registrationUrl: "#",
+    imageUrl:
+      "https://www.broadmooroutfitters.com/wp-content/uploads/2022/07/stephen-leonardi-6E6oMx-69Ns-unsplash-1.jpg",
+  },
+  {
+    id: "online-info-night",
+    title: "Online Info Night: Training With Combatfit",
+    date: "2025-03-05",
+    time: "19:00 – 20:00",
+    type: "Online",
+    location: "Live on Zoom",
+    isOnline: true,
+    soldOut: false,
+    highlight: "Ask questions before you start.",
+    summary:
+      "A live online session where we walk through how blocks work, how we coach, and what to expect in your first month.",
+    registrationUrl: "#",
+    imageUrl:
+      "https://www.broadmooroutfitters.com/wp-content/uploads/2022/07/annie-spratt-JSra0N9uP1s-unsplash-1536x1022.jpg",
+  },
+  // New January upcoming event (future date so it stays upcoming)
+  {
+    id: "new-year-sunrise-hike",
+    title: "New Year Sunrise Hike and Breathwork",
+    date: "2026-01-11",
+    time: "05:30 – 09:00",
+    type: "Hike",
+    location: "Ngong Hills ridge",
+    isOnline: false,
+    soldOut: false,
+    highlight: "Start your year with a sunrise, hike, and guided breathwork.",
+    summary:
+      "We hike to the ridge before sunrise, move at a conversational pace, and finish with guided breathwork and reflection to set your training tone for the year.",
+    registrationUrl: "#",
+    imageUrl:
+      "https://www.travelyukon.com/sites/default/files/2022-12/_dsc6424.jpg",
+  },
+]
 
 };
