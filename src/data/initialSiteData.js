@@ -1,3 +1,6 @@
+import bmiDefault from "../assets/full-shot-black-woman-training-outdoors.jpg";
+
+
 export const initialSiteData = {
   brand: {
   name: "Combatfit",
@@ -52,8 +55,7 @@ export const initialSiteData = {
       },
     ],
     // New: BMI section image editable from dashboard
-    bmiImageUrl:
-      "https://img.freepik.com/free-photo/side-view-woman-doing-sport-with-stats_23-2150040504.jpg?t=st=1765844800~exp=1765848400~hmac=7d50e8f79bbaac7dbbdc100a6ccdf778796bbc0028165774abd1cf48e36ccbd0&w=1480",
+    bmiImageUrl: bmiDefault,
   },
   programs: [
     {
