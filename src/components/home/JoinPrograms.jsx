@@ -18,7 +18,7 @@ function JoinPrograms() {
             <div className="p-4 md:p-6">
               <div className="relative w-full h-full rounded-2xl overflow-hidden bg-black/70">
                 <img
-                  src="https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/b581fcb1-1770-4ec4-aef3-d06214bababf/PSP_7839-Edit+%281%29.jpg?format=2500w"
+                  src="https://img.freepik.com/free-photo/full-shot-woman-working-out-with-trainer_23-2148948553.jpg?t=st=1765844623~exp=1765848223~hmac=e0ce479d7d5b3d64320168b99143f06861f1ffeacf8e6acb8ea5b63ca16b3a18&w=1480"
                   alt="Athlete training at Safarishape"
                   className="w-full h-full object-cover"
                 />

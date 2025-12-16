@@ -53,7 +53,7 @@ export const initialSiteData = {
     ],
     // New: BMI section image editable from dashboard
     bmiImageUrl:
-      "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/ccc1e2ed-d2b3-41c7-b91b-367c2987066b/PSP_7711-Edit+%282%29.jpg?format=2500w",
+      "https://img.freepik.com/free-photo/side-view-woman-doing-sport-with-stats_23-2150040504.jpg?t=st=1765844800~exp=1765848400~hmac=7d50e8f79bbaac7dbbdc100a6ccdf778796bbc0028165774abd1cf48e36ccbd0&w=1480",
   },
   programs: [
     {
