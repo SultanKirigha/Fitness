@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { useSiteData } from "../context/SiteDataContext.jsx";
 
+// Use Vite env variable instead of hard-coding
+const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
+
 function EventCard({ event, isPast, onBook }) {
   const isClosed = isPast || event.soldOut;
 
@@ -206,7 +209,6 @@ function Events() {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
-
   const todayStr = new Date().toISOString().slice(0, 10);
   const futureOrToday = sorted.filter((e) => e.date >= todayStr);
   const pastEvents = sorted.filter((e) => e.date < todayStr);
@@ -222,8 +224,11 @@ function Events() {
   const hasSoldOut = soldOutEvents.length > 0;
   const hasPast = pastEvents.length > 0;
 
-  const handleOpenForm = (event) => {
-    setActiveEventForForm(event);
+  const handleOpenForm = (eventFromCard) => {
+    const targetEvent = eventFromCard || featuredEvent;
+    if (!targetEvent) return;
+
+    setActiveEventForForm(targetEvent);
     setFormValues({ name: "", email: "", phone: "", note: "" });
     setFormSubmitted(false);
   };
@@ -233,17 +238,43 @@ function Events() {
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // Hook this to your backend or email service later.
-    console.log("Event booking:", {
-      eventId: activeEventForForm?.id,
-      eventTitle: activeEventForForm?.title,
-      ...formValues,
-    });
+    if (!activeEventForForm || !APPS_SCRIPT_URL) {
+      console.error("Missing activeEventForForm or APPS_SCRIPT_URL");
+      return;
+    }
 
-    setFormSubmitted(true);
+    const payload = {
+      eventId: activeEventForForm.id,
+      eventTitle: activeEventForForm.title,
+      eventDate: activeEventForForm.date,
+      eventTime: activeEventForForm.time,
+      eventLocation: activeEventForForm.location,
+      name: formValues.name,
+      email: formValues.email,
+      phone: formValues.phone,
+      note: formValues.note,
+    };
+
+    try {
+      console.log("Submitting booking to", APPS_SCRIPT_URL, payload);
+
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      setFormSubmitted(true);
+    } catch (err) {
+      console.error("Network error when calling Apps Script:", err);
+      alert("Could not submit booking. Check your connection and try again.");
+    }
   };
 
   const handleCloseForm = () => {
@@ -251,137 +282,143 @@ function Events() {
     setFormSubmitted(false);
   };
 
+  const showModal = Boolean(activeEventForForm);
+
   return (
-    <section className="py-10 md:py-16 space-y-10">
-      {/* Page header */}
-      <header className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.22em] text-brand">
-          Events
-        </p>
-        <h1 className="text-2xl md:text-3xl font-semibold">
-          Hikes, outdoor sessions, and community events.
-        </h1>
-        <p className="text-xs md:text-sm text-slate-300 max-w-2xl">
-          Combatfit is more than a single session. Join hikes, outdoor
-          bootcamps, and live events that keep training fun and connected to
-          real life.
-        </p>
-      </header>
-
-      {/* Upcoming events centerpiece */}
-      <section id="upcoming" className="space-y-6">
-        <div className="text-center space-y-3">
-          <p className="text-[11px] uppercase tracking-[0.26em] text-brand/90">
-            Next up
+    <>
+      <section className="py-10 md:py-16 space-y-10">
+        {/* Page header */}
+        <header className="space-y-3">
+          <p className="text-xs uppercase tracking-[0.22em] text-brand">
+            Events
           </p>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight">
-            Upcoming outdoor sessions?
-          </h2>
-          {hasUpcomingFeatured && (
-            <p className="text-xs md:text-sm text-slate-300 max-w-xl mx-auto">
-              The next Combatfit hikes and outdoor meetups you can join. Pick a
-              date, show up, and we handle the plan.
+          <h1 className="text-2xl md:3xl font-semibold">
+            Hikes, outdoor sessions, and community events.
+          </h1>
+          <p className="text-xs md:text-sm text-slate-300 max-w-2xl">
+            Combatfit is more than a single session. Join hikes, outdoor
+            bootcamps, and live events that keep training fun and connected to
+            real life.
+          </p>
+        </header>
+
+        {/* Upcoming events centerpiece */}
+        <section id="upcoming" className="space-y-6">
+          <div className="text-center space-y-3">
+            <p className="text-[11px] uppercase tracking-[0.26em] text-brand/90">
+              Next up
             </p>
-          )}
-        </div>
-
-        {!hasUpcomingFeatured ? (
-          <p className="text-sm text-slate-400 text-center">
-            There are no upcoming events yet. Check back soon or follow our
-            social channels for the next outdoor block.
-          </p>
-        ) : (
-          <div className="max-w-5xl mx-auto">
-            <FeaturedEventCard
-              event={featuredEvent}
-              isPast={false}
-              onBook={handleOpenForm}
-            />
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight">
+              Upcoming outdoor sessions?
+            </h2>
+            {hasUpcomingFeatured && (
+              <p className="text-xs md:text-sm text-slate-300 max-w-xl mx-auto">
+                The next Combatfit hikes and outdoor meetups you can join. Pick
+                a date, show up, and we handle the plan.
+              </p>
+            )}
           </div>
-        )}
 
-        {hasUpcomingOthers && (
-          <div className="space-y-3">
-            <p className="text-[11px] md:text-xs text-slate-400 text-center">
-              More outdoor sessions coming up this month.
+          {!hasUpcomingFeatured ? (
+            <p className="text-sm text-slate-400 text-center">
+              There are no upcoming events yet. Check back soon or follow our
+              social channels for the next outdoor block.
+            </p>
+          ) : (
+            <div className="max-w-5xl mx-auto">
+              <FeaturedEventCard
+                event={featuredEvent}
+                isPast={false}
+                onBook={handleOpenForm}
+              />
+            </div>
+          )}
+
+          {hasUpcomingOthers && (
+            <div className="space-y-3">
+              <p className="text-[11px] md:text-xs text-slate-400 text-center">
+                More outdoor sessions coming up this month.
+              </p>
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {upcomingEvents.map((event) => (
+                  <EventCard
+                    key={event.id}
+                    event={event}
+                    isPast={false}
+                    onBook={handleOpenForm}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* Sold out events */}
+        {hasSoldOut && (
+          <section className="space-y-4">
+            <h2 className="text-xl md:text-2xl font-semibold">
+              Sold out events
+            </h2>
+            <p className="text-[11px] md:text-xs text-slate-400">
+              These events are full, but we often repeat popular formats. Keep
+              an eye on the upcoming section.
             </p>
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {upcomingEvents.map((event) => (
-                <EventCard
-                  key={event.id}
-                  event={event}
-                  isPast={false}
-                  onBook={handleOpenForm}
-                />
+              {soldOutEvents.map((event) => (
+                <EventCard key={event.id} event={event} isPast={false} />
               ))}
             </div>
-          </div>
+          </section>
+        )}
+
+        {/* Past events */}
+        {hasPast && (
+          <section className="space-y-4">
+            <h2 className="text-xl md:text-2xl font-semibold">Past events</h2>
+            <p className="text-[11px] md:text-xs text-slate-400">
+              A few of the outdoor sessions and community days we have already
+              run. We recycle the best ones into new blocks.
+            </p>
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {pastEvents.map((event) => (
+                <EventCard key={event.id} event={event} isPast />
+              ))}
+            </div>
+          </section>
         )}
       </section>
 
-      {/* Sold out events */}
-      {hasSoldOut && (
-        <section className="space-y-4">
-          <h2 className="text-xl md:text-2xl font-semibold">
-            Sold out events
-          </h2>
-          <p className="text-[11px] md:text-xs text-slate-400">
-            These events are full, but we often repeat popular formats. Keep an
-            eye on the upcoming section.
-          </p>
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {soldOutEvents.map((event) => (
-              <EventCard key={event.id} event={event} isPast={false} />
-            ))}
-          </div>
-        </section>
-      )}
+      {/* Full-screen booking modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
+          <div className="w-full max-w-2xl h-[85vh] md:h-[80vh] flex flex-col rounded-3xl border border-white/10 bg-[#020617] p-5 md:p-7 shadow-[0_0_80px_rgba(0,0,0,0.9)] relative">
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={handleCloseForm}
+              className="absolute right-4 top-4 text-slate-400 hover:text-slate-200 text-base"
+            >
+              ✕
+            </button>
 
-      {/* Past events */}
-      {hasPast && (
-        <section className="space-y-4">
-          <h2 className="text-xl md:text-2xl font-semibold">Past events</h2>
-          <p className="text-[11px] md:text-xs text-slate-400">
-            A few of the outdoor sessions and community days we have already
-            run. We recycle the best ones into new blocks.
-          </p>
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {pastEvents.map((event) => (
-              <EventCard key={event.id} event={event} isPast />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Booking form */}
-      {activeEventForForm && (
-        <section className="space-y-4">
-          <div className="max-w-3xl mx-auto rounded-3xl border border-white/10 bg-white/5 p-5 md:p-6 shadow-[0_0_60px_rgba(0,0,0,0.7)]">
-            <div className="flex items-start justify-between gap-3 mb-4">
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.22em] text-brand">
-                  Reserve your spot
-                </p>
-                <h3 className="text-sm md:text-base font-semibold text-slate-50">
-                  {activeEventForForm.title}
-                </h3>
-                <p className="text-[11px] md:text-xs text-slate-300">
-                  {activeEventForForm.date} · {activeEventForForm.time} ·{" "}
-                  {activeEventForForm.location}
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={handleCloseForm}
-                className="text-[11px] md:text-xs text-slate-400 hover:text-slate-200"
-              >
-                Close
-              </button>
+            {/* Header */}
+            <div className="mb-4 space-y-1 pr-7">
+              <p className="text-[11px] uppercase tracking-[0.22em] text-brand">
+                Reserve your spot
+              </p>
+              <h3 className="text-base md:text-lg font-semibold text-slate-50">
+                {activeEventForForm?.title}
+              </h3>
+              <p className="text-[11px] md:text-xs text-slate-300">
+                {activeEventForForm?.date} · {activeEventForForm?.time} ·{" "}
+                {activeEventForForm?.location}
+              </p>
             </div>
 
+            {/* Scrollable form area */}
             <form
               onSubmit={handleFormSubmit}
-              className="space-y-4 text-xs md:text-sm"
+              className="flex-1 overflow-y-auto space-y-5 text-xs md:text-sm"
             >
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
@@ -447,22 +484,23 @@ function Events() {
                   >
                     Anything we should know?
                   </label>
-                  <input
+                  <textarea
                     id="note"
                     name="note"
-                    type="text"
                     value={formValues.note}
                     onChange={handleFormChange}
-                    className="w-full rounded-xl bg-dark-soft border border-white/10 px-3 py-2 text-sm text-white outline-none focus:border-brand"
+                    rows={3}
+                    className="w-full rounded-xl bg-dark-soft border border-white/10 px-3 py-2 text-sm text-white outline-none focus:border-brand resize-none"
                     placeholder="Injuries, pace, experience level..."
                   />
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+              {/* Footer inside modal */}
+              <div className="pt-3 border-t border-white/10 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center rounded-full px-6 py-2.5 bg-brand text-dark text-sm font-semibold hover:bg-brand-dark transition"
+                  className="inline-flex items-center justify-center rounded-full px-7 py-3 bg-brand text-dark text-sm md:text-base font-semibold hover:bg-brand-dark transition w-full md:w-auto"
                 >
                   Submit booking request
                 </button>
@@ -479,9 +517,9 @@ function Events() {
               )}
             </form>
           </div>
-        </section>
+        </div>
       )}
-    </section>
+    </>
   );
 }
 
