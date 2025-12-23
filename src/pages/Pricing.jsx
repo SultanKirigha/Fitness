@@ -51,7 +51,7 @@ function Pricing() {
                   {plan.name}
                 </h2>
                 <p className="text-2xl md:text-3xl font-semibold">
-                  ${plan.priceMonthly}
+                  Ksh {plan.priceMonthly}
                   <span className="text-xs md:text-sm font-normal text-slate-300">
                     {" "}
                     per month
@@ -113,7 +113,7 @@ function Pricing() {
             href="mailto:hello@safarishape.fit"
             className="text-brand hover:text-brand-dark"
           >
-            hello@safarishape.fit
+            hello@combactfitness.fit
           </a>
           .
         </p>

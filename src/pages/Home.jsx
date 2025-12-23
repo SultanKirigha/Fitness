@@ -1,23 +1,63 @@
+// src/pages/Home.jsx
+import { motion } from "framer-motion";
+
 import Hero from "../components/home/Hero.jsx";
 import ProgramsPreview from "../components/home/ProgramsPreview.jsx";
-import JoinPrograms from "../components/home/JoinPrograms.jsx";
 import TrainersPreview from "../components/home/TrainersPreview.jsx";
-import BmiCalculator from "../components/home/BmiCalculator.jsx";
-import PricingPreview from "../components/home/PricingPreview.jsx";
-import EventsPreview from "../components/home/EventsPreview.jsx";
+import BmiSection from "../components/home/BmiCalculator.jsx";
+import ShopPreview from "../../src/pages/Shop.jsx";
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0 },
+};
 
 function Home() {
   return (
-    <>
+    <main className="space-y-10 md:space-y-16">
+      {/* Hero gets its own animations inside Hero.jsx */}
       <Hero />
-      <ProgramsPreview />
-      <JoinPrograms />
-      <EventsPreview />
-      <TrainersPreview />
-      <BmiCalculator />
-      {/* PricingPreview, About section, etc. if you have them */}
-    </>
+
+      <motion.section
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <ProgramsPreview />
+      </motion.section>
+
+      <motion.section
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+      >
+        <TrainersPreview />
+      </motion.section>
+
+      <motion.section
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+      >
+        <BmiSection />
+      </motion.section>
+
+      <motion.section
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+      >
+        <ShopPreview />
+      </motion.section>
+    </main>
   );
 }
 

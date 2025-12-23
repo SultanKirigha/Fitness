@@ -1,140 +1,184 @@
 // src/components/layout/Footer.jsx
+import { NavLink } from "react-router-dom";
 import {
-  FiInstagram,
-  FiFacebook,
-  FiTwitter,
-  FiYoutube,
-  FiMusic,
-} from "react-icons/fi";
-import { useSiteData } from "../../context/SiteDataContext.jsx";
-import logoGreen from "../../assets/logo.svg";
+  Instagram,
+  Facebook,
+  Youtube,
+  Mail,
+  MapPin,
+  ArrowRight,
+} from "lucide-react";
+import combatLogo from "../../assets/logo.svg"; // adjust path if needed
+
+const mainLinks = [
+  { to: "/", label: "Home" },
+  { to: "/programs", label: "Programs" },
+  { to: "/trainers", label: "Trainers" },
+  { to: "/pricing", label: "Pricing" },
+  { to: "/events", label: "Events" },
+  { to: "/shop", label: "Shop" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
+];
+
+const programLinks = [
+  "Strength blocks",
+  "Outdoor conditioning",
+  "Hike prep",
+  "Mobility & recovery",
+];
 
 function Footer() {
-  const {
-    siteData: { footer },
-  } = useSiteData();
-
-  const { about, operations, address, social } = footer;
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-10 border-t border-white/10 bg-[#020617] text-slate-200">
-      <div className="mx-auto max-w-6xl px-4 py-8 md:py-10 space-y-8">
-        {/* Top grid */}
-        <div className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)]">
-          {/* Brand + about */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <img
-                src={logoGreen}
-                alt="Safarishape logo"
-                className="h-10 w-auto"
-              />
+    <footer className="border-t border-white/5 bg-dark-soft mt-10">
+      <div className="mx-auto max-w-6xl px-4 py-10 md:py-12 space-y-8">
+        {/* Top strip: brand + CTA */}
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-start gap-3">
+            <img
+              src={combatLogo}
+              alt="Combatfit logo"
+              className="h-9 w-auto md:h-10"
+            />
+            <div className="space-y-1">
+              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-slate-100">
+                Combatfit Outdoor
+              </p>
+              <p className="text-xs md:text-sm text-slate-300 max-w-sm">
+                Outdoor strength, conditioning, and community sessions across
+                Nairobi. Built to fit real life, not just a gym schedule.
+              </p>
+              <p className="flex items-center gap-2 text-[11px] text-slate-400">
+                <MapPin className="h-3.5 w-3.5" />
+                Nairobi · Karura · Ngong · city parks
+              </p>
             </div>
+          </div>
 
-            <p className="text-xs md:text-sm text-slate-300 max-w-md">
-              {about}
+          <div className="space-y-2 md:text-right">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-brand">
+              Next outdoor session
+            </p>
+            <p className="text-xs md:text-sm text-slate-300 max-w-xs md:ml-auto">
+              Check the upcoming events and save your spot for the next hike,
+              trail session, or outdoor block.
+            </p>
+            <NavLink
+              to="/events#upcoming"
+              className="inline-flex items-center gap-2 rounded-full bg-brand px-4 py-2 text-xs md:text-sm font-semibold text-dark hover:bg-brand-dark transition"
+            >
+              View upcoming events
+              <ArrowRight className="h-3.5 w-3.5" />
+            </NavLink>
+          </div>
+        </div>
+
+        {/* Middle: navigation columns */}
+        <div className="grid gap-8 pt-6 border-t border-white/5 md:grid-cols-[2fr_1.2fr_1.4fr]">
+          {/* Column 1: links */}
+          <div className="space-y-3">
+            <h3 className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+              Navigate
+            </h3>
+            <div className="grid grid-cols-2 gap-y-1.5 gap-x-6 text-[11px] md:text-xs">
+              {mainLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  className={({ isActive }) =>
+                    [
+                      "text-slate-300 hover:text-brand transition",
+                      isActive && "text-brand",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+
+          {/* Column 2: programs summary */}
+          <div className="space-y-3">
+            <h3 className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+              Programs
+            </h3>
+            <ul className="space-y-1.5 text-[11px] md:text-xs text-slate-300">
+              {programLinks.map((item) => (
+                <li key={item} className="flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-brand" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <NavLink
+              to="/programs"
+              className="inline-flex items-center gap-1 text-[11px] md:text-xs text-brand hover:text-brand/80 mt-2"
+            >
+              View all programs
+              <ArrowRight className="h-3 w-3" />
+            </NavLink>
+          </div>
+
+          {/* Column 3: contact + socials */}
+          <div className="space-y-3">
+            <h3 className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+              Stay connected
+            </h3>
+            <p className="text-[11px] md:text-xs text-slate-300">
+              Ask about blocks, outdoor sessions, or gear. We reply faster on
+              WhatsApp and Instagram.
             </p>
 
-            {/* Social icons */}
-            <div className="flex items-center gap-3 pt-2">
-              {social.instagram && (
-                <a
-                  href={social.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 hover:border-brand hover:text-brand transition"
-                  aria-label="Instagram"
-                >
-                  <FiInstagram className="h-4 w-4" />
-                </a>
-              )}
-              {social.facebook && (
-                <a
-                  href={social.facebook}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 hover:border-brand hover:text-brand transition"
-                  aria-label="Facebook"
-                >
-                  <FiFacebook className="h-4 w-4" />
-                </a>
-              )}
-              {social.twitter && (
-                <a
-                  href={social.twitter}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 hover:border-brand hover:text-brand transition"
-                  aria-label="Twitter / X"
-                >
-                  <FiTwitter className="h-4 w-4" />
-                </a>
-              )}
-              {social.youtube && (
-                <a
-                  href={social.youtube}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 hover:border-brand hover:text-brand transition"
-                  aria-label="YouTube"
-                >
-                  <FiYoutube className="h-4 w-4" />
-                </a>
-              )}
-              {social.tiktok && (
-                <a
-                  href={social.tiktok}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 hover:border-brand hover:text-brand transition"
-                  aria-label="TikTok"
-                >
-                  <FiMusic className="h-4 w-4" />
-                </a>
-              )}
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="mailto:sultankirigha@gmail.com"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] md:text-xs text-slate-100 hover:border-brand hover:bg-brand/10 transition"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                <span>Contact via email</span>
+              </a>
             </div>
-          </div>
 
-          {/* Operation hours */}
-          <div className="space-y-3 text-xs md:text-sm">
-            <h3 className="text-sm md:text-base font-semibold text-slate-50">
-              Operation hours
-            </h3>
-            <ul className="space-y-1 text-slate-300">
-              <li>{operations.weekday}</li>
-              <li>{operations.saturday}</li>
-              <li>{operations.sunday}</li>
-            </ul>
-          </div>
-
-          {/* Address */}
-          <div className="space-y-3 text-xs md:text-sm">
-            <h3 className="text-sm md:text-base font-semibold text-slate-50">
-              Address
-            </h3>
-            <div className="space-y-1 text-slate-300">
-              <p>{address.line1}</p>
-              <p>{address.line2}</p>
-              <p>Tel: {address.phone}</p>
-              <p>
-                Email:{" "}
-                <a
-                  href={`mailto:${address.email}`}
-                  className="text-brand hover:text-brand-dark"
-                >
-                  {address.email}
-                </a>
-              </p>
+            <div className="flex gap-3 pt-1">
+              <a
+                href="#"
+                aria-label="Combatfit Instagram"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-slate-200 hover:bg-brand hover:text-dark transition"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a
+                href="#"
+                aria-label="Combatfit Facebook"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-slate-200 hover:bg-brand hover:text-dark transition"
+              >
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a
+                href="#"
+                aria-label="Combatfit YouTube"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-slate-200 hover:bg-brand hover:text-dark transition"
+              >
+                <Youtube className="h-4 w-4" />
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom strip */}
-        <div className="border-t border-white/10 pt-4 text-[11px] md:text-xs text-slate-500 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-          <p>© {new Date().getFullYear()} Safarishape. All rights reserved.</p>
+        {/* Bottom bar */}
+        <div className="flex flex-col gap-2 border-t border-white/5 pt-4 text-[10px] md:text-[11px] text-slate-500 md:flex-row md:items-center md:justify-between">
           <p>
-            Built for people who want to lift, move, and live well in every
-            season.
+            © {year} Combatfit Outdoor. Built for Nairobi movement and real
+            life training.
+          </p>
+          <p className="text-slate-500">
+            Dashboard and booking tools for the team run on the internal
+            Safarishape system.
           </p>
         </div>
       </div>

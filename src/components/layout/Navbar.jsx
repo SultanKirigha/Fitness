@@ -1,103 +1,124 @@
+
+// src/components/layout/Navbar.jsx
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { NAV_LINKS } from "../../data/navigation";
-import { useTheme } from "../../context/ThemeContext.jsx";
-import logoGreen from "../../assets/logo.svg";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Menu, X, ShoppingBag } from "lucide-react";
+
+// Put your logo in public/images or src/assets and adjust this path
+// Example if you placed it in public/images:
+import combatLogo from "../../assets/logo.svg";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
 
-  const linkBase = "text-sm transition hover:text-brand";
+  const links = [
+    { to: "/", label: "Home" },
+    { to: "/programs", label: "Programs" },
+    { to: "/trainers", label: "Trainers" },
+    { to: "/pricing", label: "Pricing" },
+    { to: "/events", label: "Events" },
+    { to: "/shop", label: "Shop" }, // new link
+    { to: "/about", label: "About" },
+    { to: "/contact", label: "Contact" },
+  ];
+
+  const baseLinkClasses =
+    "text-xs uppercase tracking-[0.18em] transition px-1 py-0.5";
 
   return (
-    <header className="fixed top-0 inset-x-0 z-20 border-b border-white/10 bg-slate-50/80 dark:bg-dark/80 backdrop-blur">
-      <nav className="max-w-6xl mx-auto flex items-center justify-between px-4 md:px-8 lg:px-16 py-3">
+    <header className="sticky top-0 z-30 border-b border-white/5 bg-dark/80 backdrop-blur">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:py-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          
+        <button
+          type="button"
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2"
+        >
           <img
-            src={logoGreen}
-            alt="Safarishape Fit Wellness"
+            src={combatLogo}
+            alt="Combatfit logo"
             className="h-8 w-auto md:h-9"
           />
-        </Link>
+          <span className="hidden text-sm font-semibold tracking-[0.18em] text-slate-100 md:inline-block">
+            COMBATFIT
+          </span>
+        </button>
 
         {/* Desktop navigation */}
-        <div className="hidden md:flex items-center gap-6">
-          {NAV_LINKS.map((link) => (
+        <div className="hidden items-center gap-6 md:flex">
+          {links.map((link) => (
             <NavLink
-              key={link.path}
-              to={link.path}
+              key={link.to}
+              to={link.to}
               className={({ isActive }) =>
-                `${linkBase} ${
+                [
+                  baseLinkClasses,
                   isActive
                     ? "text-brand"
-                    : "text-slate-700 dark:text-slate-200"
-                }`
+                    : "text-slate-300 hover:text-white",
+                ].join(" ")
               }
             >
               {link.label}
             </NavLink>
           ))}
 
-          {/* Theme toggle (desktop) */}
+          {/* Small shop shortcut icon */}
           <button
-            onClick={toggleTheme}
-            className="ml-4 inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-white/30 bg-white/80 dark:bg-dark/60 text-slate-800 dark:text-slate-100 shadow-md shadow-black/30 hover:bg-slate-100/80 dark:hover:bg-white/10 transition"
+            type="button"
+            onClick={() => navigate("/shop")}
+            className="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-full border border-brand/40 bg-brand/10 text-brand hover:bg-brand hover:text-dark transition"
+            aria-label="Open shop"
           >
-            <span className="text-base">
-              {theme === "dark" ? "🌙" : "☀️"}
-            </span>
-            <span>{theme === "dark" ? "Dark mode" : "Light mode"}</span>
+            <ShoppingBag className="h-4 w-4" />
           </button>
         </div>
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-slate-300 dark:border-white/20 bg-white/80 dark:bg-dark/70"
-          onClick={() => setOpen((prev) => !prev)}
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-slate-100 md:hidden"
+          aria-label="Toggle navigation"
         >
-          <span className="sr-only">Toggle menu</span>
-          <div className="space-y-1">
-            <span className="block h-0.5 w-5 bg-slate-800 dark:bg-white" />
-            <span className="block h-0.5 w-5 bg-slate-800 dark:bg-white" />
-          </div>
+          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
       </nav>
 
       {/* Mobile menu panel */}
       {open && (
-        <div className="md:hidden bg-slate-50 dark:bg-dark border-t border-slate-200 dark:border-white/10">
-          <div className="max-w-6xl mx-auto px-4 py-3 space-y-2">
-            {NAV_LINKS.map((link) => (
+        <div className="border-t border-white/5 bg-dark-soft md:hidden">
+          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
+            {links.map((link) => (
               <NavLink
-                key={link.path}
-                to={link.path}
+                key={link.to}
+                to={link.to}
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
-                  `block py-1.5 text-sm ${
+                  [
+                    "rounded-lg px-2 py-2 text-xs uppercase tracking-[0.16em] transition",
                     isActive
-                      ? "text-brand"
-                      : "text-slate-800 dark:text-slate-200"
-                  }`
+                      ? "bg-brand/10 text-brand"
+                      : "text-slate-300 hover:bg-white/5",
+                  ].join(" ")
                 }
               >
                 {link.label}
               </NavLink>
             ))}
 
-            {/* Theme toggle (mobile) */}
+            {/* Mobile shop icon row */}
             <button
-              onClick={toggleTheme}
-              className="mt-2 inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-white/30 bg-white/80 dark:bg-dark/60 text-slate-800 dark:text-slate-100 shadow-md shadow-black/30 hover:bg-slate-100/80 dark:hover:bg-white/10 transition"
+              type="button"
+              onClick={() => {
+                navigate("/shop");
+                setOpen(false);
+              }}
+              className="mt-2 inline-flex items-center gap-2 rounded-full border border-brand/50 bg-brand/10 px-3 py-2 text-xs font-semibold text-brand"
             >
-              <span className="text-base">
-                {theme === "dark" ? "☀️" : "🌙"}
-              </span>
-              <span>
-                {theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              </span>
+              <ShoppingBag className="h-4 w-4" />
+              Open shop
             </button>
           </div>
         </div>

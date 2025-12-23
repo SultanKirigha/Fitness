@@ -1,4 +1,10 @@
 import bmiDefault from "../assets/full-shot-black-woman-training-outdoors.jpg";
+// src/data/initialSiteData.js (example path)
+
+// 👇 adjust these paths to match where your files actually are
+import strengthFoundationsImg from "../assets/strength-foundations.jpg";
+import engineOutdoorsImg from "../assets/engine-outdoors.jpg";
+import hikePrepImg from "../assets/hike-prep.jpg";
 
 
 export const initialSiteData = {
@@ -57,35 +63,42 @@ export const initialSiteData = {
     // New: BMI section image editable from dashboard
     bmiImageUrl: bmiDefault,
   },
-  programs: [
+   programs: [
     {
       id: "strength-foundations",
       name: "Strength Foundations",
-      level: "Beginner",
+      level: "Beginner to intermediate",
+      focus:
+        "Full body strength work with simple patterns so you can build confidence and consistency.",
+      duration: "6 weeks",
+      mode: "Outdoor and home friendly",
+      sessionsPerWeek: 3,
+      imageUrl: strengthFoundationsImg, // 👈 from import
+    },
+    {
+      id: "engine-outdoors",
+      name: "Engine Outdoors",
+      level: "All levels",
+      focus:
+        "Intervals, hills, and mixed conditioning sessions that build your engine without boring treadmill work.",
       duration: "8 weeks",
-      focus: "Full body strength and technique.",
-      mode: "Gym or home",
-      sessionsPerWeek: 3,
+      mode: "Trails and city parks",
+      sessionsPerWeek: 2,
+      imageUrl: engineOutdoorsImg, // 👈 from import
     },
     {
-      id: "lean-performance",
-      name: "Lean Performance",
+      id: "hike-prep",
+      name: "Hike Prep Block",
       level: "Intermediate",
-      duration: "12 weeks",
-      focus: "Conditioning, fat loss, and athleticism.",
-      mode: "Hybrid coaching",
-      sessionsPerWeek: 4,
-    },
-    {
-      id: "engine-builder",
-      name: "Engine Builder",
-      level: "Intermediate",
-      duration: "10 weeks",
-      focus: "Aerobic base and engine for sport or life.",
-      mode: "Online only",
+      focus:
+        "Leg strength, core work, and conditioning built to get you ready for longer hikes and trail days.",
+      duration: "4 weeks",
+      mode: "Gym plus outdoor sessions",
       sessionsPerWeek: 3,
+      imageUrl: hikePrepImg, // 👈 from import
     },
   ],
+
     pricing: [
     {
       id: "basic",
@@ -188,7 +201,7 @@ export const initialSiteData = {
   // =====================
   footer: {
     about:
-      "Safarishape is a coaching-first fitness space that blends strength, conditioning, and mobility so you can move, feel, and live better – not just for one season, but long term.",
+      "Combactfitness is a coaching-first fitness space that blends strength, conditioning, and mobility so you can move, feel, and live better – not just for one season, but long term.",
     operations: {
       weekday: "Monday – Friday · 5:30am – 10:00pm",
       saturday: "Saturday · 7:00am – 5:00pm",
@@ -198,7 +211,7 @@ export const initialSiteData = {
       line1: "City Park Drive, Valley View Office Park",
       line2: "Tower A, 1st Floor, Nairobi, Kenya",
       phone: "+254 700 000 000",
-      email: "hello@safarishape.fit",
+      email: "hello@combactfitness.fit",
     },
     social: {
       instagram: "https://instagram.com/",
