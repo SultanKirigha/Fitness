@@ -30,3 +30,14 @@ body {
 :root[data-theme="light"] .app-shell .text-slate-50 {
   color: #020617 !important;
 }
+
+/* Hide scrollbar for trainer strip (Chrome, Edge, Safari) */
+.trainer-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for trainer strip (Firefox / others) */
+.trainer-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;    /* Firefox */
+}
