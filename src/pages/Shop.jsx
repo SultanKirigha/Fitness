@@ -1,5 +1,9 @@
 // src/pages/Shop.jsx
 import { ShoppingBag, ArrowRight } from "lucide-react";
+import resistantsband from "../assets/resistanceband.avif";
+import speedrop from "../assets/speed-rop.jpg";
+import tee from "../assets/tee.avif";
+import cap from "../assets/cap.avif";
 
 const products = [
   {
@@ -10,6 +14,7 @@ const products = [
     price: "Ksh 2,400",
     badge: "Most popular",
     status: "In stock",
+    imageUrl: resistantsband,
   },
   {
     id: "rope",
@@ -19,6 +24,7 @@ const products = [
     price: "Ksh 1,200",
     badge: "Engine builder",
     status: "In stock",
+    imageUrl: speedrop,
   },
   {
     id: "tee",
@@ -28,6 +34,7 @@ const products = [
     price: "Ksh 2,000",
     badge: "Community gear",
     status: "Limited",
+    imageUrl: tee,
   },
   {
     id: "cap",
@@ -37,6 +44,7 @@ const products = [
     price: "Ksh 1,800",
     badge: "Outdoor",
     status: "Preorder",
+    imageUrl: cap,
   },
 ];
 
@@ -61,52 +69,64 @@ function Shop() {
 
       {/* Products grid */}
       <section className="space-y-4">
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {products.map((product) => (
             <article
               key={product.id}
-              className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 shadow-[0_18px_50px_rgba(0,0,0,0.7)]"
+              className="flex flex-col rounded-2xl border border-white/10 bg-white/5 overflow-hidden shadow-[0_18px_50px_rgba(0,0,0,0.7)] hover:-translate-y-1 hover:border-brand/70 transition-transform"
             >
-              <div className="mb-3 flex items-center justify-between gap-2">
-                <div className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-brand">
-                  <ShoppingBag className="h-3.5 w-3.5" />
-                  <span>{product.badge}</span>
+              {/* Image */}
+              <div className="relative aspect-[4/3] overflow-hidden">
+                {product.imageUrl ? (
+                  <img
+                    src={product.imageUrl}
+                    alt={product.name}
+                    className="h-full w-full object-cover transition-transform duration-500 ease-out hover:scale-105"
+                  />
+                ) : (
+                  <div className="h-full w-full bg-gradient-to-br from-brand/30 via-dark-soft to-dark flex items-center justify-center text-xs text-slate-100">
+                    Product image
+                  </div>
+                )}
+
+                {/* Badge pill */}
+                <div className="absolute left-4 top-4 inline-flex items-center rounded-full bg-black/60 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-brand border border-brand/40">
+                  {product.badge}
                 </div>
-                <span className="text-[11px] text-slate-300">
+
+                {/* Status pill */}
+                <div className="absolute right-4 top-4 rounded-full bg-black/60 px-3 py-1 text-[10px] text-slate-100">
                   {product.status}
-                </span>
+                </div>
               </div>
 
-              <h2 className="text-sm md:text-base font-semibold text-slate-50">
-                {product.name}
-              </h2>
+              {/* Content */}
+              <div className="flex flex-1 flex-col gap-2 px-4 py-4 md:px-5 md:py-5 text-xs md:text-sm">
+                <h2 className="text-sm md:text-base font-semibold text-slate-50">
+                  {product.name}
+                </h2>
 
-              <p className="mt-2 flex-1 text-xs md:text-sm text-slate-300">
-                {product.description}
-              </p>
+                <p className="mt-1 flex-1 text-xs md:text-sm text-slate-300">
+                  {product.description}
+                </p>
 
-              <div className="mt-4 flex items-center justify-between text-xs md:text-sm">
-                <span className="font-semibold text-slate-50">
-                  {product.price}
-                </span>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-1 rounded-full border border-brand/60 px-3 py-1.5 text-[11px] font-semibold text-brand hover:bg-brand hover:text-dark transition"
-                  // Later you can hook this to WhatsApp or a booking form
-                >
-                  Request item
-                  <ArrowRight className="h-3 w-3" />
-                </button>
+                <div className="mt-3 flex items-center justify-between text-xs md:text-sm">
+                  <span className="font-semibold text-slate-50">
+                    {product.price}
+                  </span>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1 rounded-full border border-brand/60 px-3 py-1.5 text-[11px] font-semibold text-brand hover:bg-brand hover:text-dark transition"
+                    // TODO: later hook to WhatsApp or a proper checkout flow
+                  >
+                    Request item
+                    <ArrowRight className="h-3 w-3" />
+                  </button>
+                </div>
               </div>
             </article>
           ))}
         </div>
-
-        <p className="text-[11px] md:text-xs text-slate-400">
-          Ordering is handled through the Combatfit team for now. Use the
-          &quot;Request item&quot; buttons or the contact page to confirm sizes,
-          colours, and delivery around Nairobi.
-        </p>
       </section>
     </main>
   );
