@@ -1,188 +1,237 @@
+// src/pages/About.jsx
+import {
+  Mountain,
+  Users,
+  HeartPulse,
+  Footprints,
+} from "lucide-react";
+import Group from "../assets/group.jpg"
+import Coach from "../assets/coach.jpg"
+import TrainingSession from "../assets/training-session.jpg"
+import Hike from "../assets/hike.jpg"
+import CoachDemo from "../assets/coach-demo.jpg"
 function About() {
   return (
-    <section className="py-10 md:py-16 space-y-12">
-      {/* Intro */}
-      <header className="space-y-3 max-w-3xl">
-        <p className="text-xs uppercase tracking-[0.2em] text-brand">
-          About Safarishape
-        </p>
-        <h1 className="text-2xl md:3xl lg:text-4xl font-semibold">
-          A training system built around real life, not just perfect days.
-        </h1>
-        <p className="text-xs md:text-sm text-slate-300">
-          Safarishape exists for people who want to be strong, mobile, and
-          consistent, even when work, family, and life are busy. No extremes,
-          just sustainable progress that fits the season you are in.
-        </p>
-      </header>
+    <main className="py-10 md:py-16 space-y-14">
+      {/* HERO SECTION */}
+      <section className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-center">
+        {/* Left – copy */}
+        <div className="space-y-4 md:space-y-6">
+          <p className="text-[11px] uppercase tracking-[0.26em] text-brand">
+            About Combatfit
+          </p>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight">
+            Outdoor training for real life, not just the gym.
+          </h1>
+          <p className="text-xs md:text-sm text-slate-300 max-w-xl">
+            Combatfit is an outdoor–first strength and conditioning crew.
+            We blend hikes, hill sprints, and simple strength work so you
+            can move better, feel stronger, and actually enjoy training.
+          </p>
+          <p className="text-xs md:text-sm text-slate-300 max-w-xl">
+            Sessions are run in small groups with coaches who actually know
+            your name, your goals, and your current level. No mirrors, no
+            chaos &mdash; just structured blocks that fit around busy life.
+          </p>
 
-      {/* Story + visual */}
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
-        {/* Story */}
-        <div className="space-y-6 text-sm md:text-base text-slate-200">
-          <div className="space-y-3">
-            <h2 className="text-lg md:text-xl font-semibold">
-              Built to remove friction from training
-            </h2>
-            <p className="text-slate-300">
-              Most programs pretend you have unlimited time and perfect energy
-              every week. Safarishape was designed for people who have meetings,
-              commutes, school runs, and real commitments, but still want to
-              feel athletic and capable.
-            </p>
-            <p className="text-slate-300">
-              Instead of random workouts, you get clear phases and structure.
-              Strength blocks, conditioning blocks, deload weeks, all mapped out
-              so you always know what matters today and what can wait.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <h2 className="text-lg md:text-xl font-semibold">
-              Data informed, coach led
-            </h2>
-            <p className="text-slate-300">
-              The platform combines simple data with real coaching. Your
-              dashboard controls the content people see on the site, and it can
-              also become the place you track their progress over time. Less
-              guesswork, more feedback, clearer decisions.
-            </p>
-            <p className="text-slate-300">
-              Whether you are training a handful of athletes or a full gym
-              community, Safarishape is meant to scale with you, not against
-              you.
-            </p>
-          </div>
-        </div>
-
-        {/* Visual + mini note, no overlap */}
-        <div className="space-y-4">
-          <div className="relative aspect-[4/5] rounded-3xl bg-gradient-to-br from-brand/25 via-dark-soft to-dark border border-white/10 shadow-[0_0_90px_rgba(16,185,129,0.6)] overflow-hidden">
-            {/* Decorative rings */}
-            <div className="absolute -left-10 -top-10 h-32 w-32 rounded-full border border-brand/40" />
-            <div className="absolute -left-2 -top-4 h-20 w-20 rounded-full border border-brand/20" />
-
-            <div className="absolute inset-0 flex flex-col justify-end">
-              <div className="p-4 md:p-5 space-y-3 text-xs md:text-sm">
-                <p className="text-[11px] uppercase tracking-[0.18em] text-slate-200">
-                  What we focus on
-                </p>
-                <div className="grid gap-3">
-                  <div className="rounded-xl bg-black/30 border border-white/10 px-3 py-2">
-                    <p className="text-slate-400">Strength</p>
-                    <p className="font-medium text-slate-50">
-                      Progressive blocks that respect your joints and schedule.
-                    </p>
-                  </div>
-                  <div className="rounded-xl bg-black/30 border border-white/10 px-3 py-2">
-                    <p className="text-slate-400">Conditioning</p>
-                    <p className="font-medium text-slate-50">
-                      Enough engine work to feel sharp, not wrecked.
-                    </p>
-                  </div>
-                  <div className="rounded-xl bg-black/30 border border-white/10 px-3 py-2">
-                    <p className="text-slate-400">Sustainability</p>
-                    <p className="font-medium text-slate-50">
-                      Training that still fits when life gets busy.
-                    </p>
-                  </div>
-                </div>
-              </div>
+          <div className="grid gap-4 md:grid-cols-3 text-[11px] md:text-xs">
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-3 py-3">
+              <p className="text-slate-400">Founded</p>
+              <p className="text-brand text-base md:text-lg font-semibold">
+                2024
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-3 py-3">
+              <p className="text-slate-400">Outdoor sessions</p>
+              <p className="text-brand text-base md:text-lg font-semibold">
+                150+ / year
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-3 py-3">
+              <p className="text-slate-400">Community</p>
+              <p className="text-brand text-base md:text-lg font-semibold">
+                Nairobi &amp; beyond
+              </p>
             </div>
           </div>
+        </div>
 
-          {/* Mini note now sits below, not overlapping */}
-          <div className="rounded-2xl border border-white/10 bg-dark/90 backdrop-blur px-4 py-3 text-xs md:text-sm text-slate-200 shadow-lg shadow-black/50">
-            <p className="font-semibold text-brand">Why the name Safarishape</p>
-            <p>
-              Safari means journey. Shape is how you move, feel, and live. The
-              goal is not just a moment, it is a long term journey.
-            </p>
+        {/* Right – large image card */}
+        <div className="relative">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-brand/20 via-dark-soft to-dark shadow-[0_0_90px_rgba(34,197,94,0.5)]">
+            <div className="relative aspect-[4/3] md:aspect-[5/4]">
+              <img
+                src={Group}
+                alt="Combatfit group hiking outdoors"
+                className="h-full w-full object-cover opacity-95"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent" />
+            </div>
+
+            <div className="absolute left-4 bottom-4 md:left-6 md:bottom-6 space-y-1 text-xs md:text-sm">
+              <p className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-brand">
+                <Mountain className="h-4 w-4" />
+                <span>Ngong, Karura &amp; city parks</span>
+              </p>
+              <p className="text-slate-50 font-medium">
+                Early mornings, fresh air, and people who actually show up.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Values */}
-      <div className="space-y-4">
-        <h2 className="text-lg md:text-xl font-semibold">
-          What we stand for
+      {/* PILLARS / WHAT WE CARE ABOUT */}
+      <section className="space-y-6">
+        <h2 className="text-xl md:text-2xl font-semibold">
+          What Combatfit is built on
         </h2>
-        <div className="grid gap-4 md:gap-6 md:grid-cols-3 text-xs md:text-sm">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 space-y-2">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-brand">
-              Clarity
+        <div className="grid gap-5 md:grid-cols-3">
+          <article className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 space-y-3">
+            <div className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand/15 text-brand mb-1">
+              <HeartPulse className="h-4 w-4" />
+            </div>
+            <h3 className="text-sm md:text-base font-semibold text-slate-50">
+              Strong, not wrecked
+            </h3>
+            <p className="text-xs md:text-sm text-slate-300">
+              Training should build you up, not leave you broken. We focus on
+              progressive strength and conditioning you can recover from and
+              repeat.
             </p>
-            <p className="font-semibold text-slate-50">
-              No mystery workouts, no confusing plans.
-            </p>
-            <p className="text-slate-300">
-              Every phase has a clear focus, so you always know why you are
-              doing what is on the page.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 space-y-2">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-brand">
-              Adaptability
-            </p>
-            <p className="font-semibold text-slate-50">
-              Training that bends, not breaks.
-            </p>
-            <p className="text-slate-300">
-              Sessions can flex around travel, work spikes, and low energy
-              days, without losing the bigger picture.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 space-y-2">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-brand">
-              People first
-            </p>
-            <p className="font-semibold text-slate-50">
-              Tools should support coaches, not replace them.
-            </p>
-            <p className="text-slate-300">
-              The platform is built to amplify good coaching, honest
-              conversations, and long term relationships.
-            </p>
-          </div>
-        </div>
-      </div>
+          </article>
 
-      {/* How it works */}
-      <div className="space-y-4">
-        <h2 className="text-lg md:text-xl font-semibold">
-          How Safarishape fits into your ecosystem
-        </h2>
-        <div className="grid gap-4 md:grid-cols-3 text-xs md:text-sm">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 space-y-2">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-brand">
-              1. Set up your site
+          <article className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 space-y-3">
+            <div className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand/15 text-brand mb-1">
+              <Users className="h-4 w-4" />
+            </div>
+            <h3 className="text-sm md:text-base font-semibold text-slate-50">
+              Community first
+            </h3>
+            <p className="text-xs md:text-sm text-slate-300">
+              We train in groups so you&apos;re supported on tough days and
+              celebrated on good ones. No egos, no one left behind.
             </p>
-            <p className="text-slate-300">
-              Use the dashboard to define your programs, pricing, team, and
-              story. The public pages update in real time.
+          </article>
+
+          <article className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 space-y-3">
+            <div className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand/15 text-brand mb-1">
+              <Footprints className="h-4 w-4" />
+            </div>
+            <h3 className="text-sm md:text-base font-semibold text-slate-50">
+              Outside as default
+            </h3>
+            <p className="text-xs md:text-sm text-slate-300">
+              Most sessions happen outside: trails, hills, and open spaces
+              around the city. Training should feel like life, not a treadmill.
             </p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 space-y-2">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-brand">
-              2. Connect clients
-            </p>
-            <p className="text-slate-300">
-              Send people to a clean site that clearly explains how you train
-              and what they can expect when they start.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5 space-y-2">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-brand">
-              3. Grow over time
-            </p>
-            <p className="text-slate-300">
-              As your systems mature, the same structure can plug into real
-              analytics, payment flows, and member areas.
-            </p>
+          </article>
+        </div>
+      </section>
+
+      {/* COACH / STORY + IMAGE STRIP */}
+      <section className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.1fr)] items-start">
+        {/* Story + coach image */}
+        <div className="space-y-4 md:space-y-5">
+          <h2 className="text-xl md:text-2xl font-semibold">
+            How Combatfit blocks work
+          </h2>
+          <p className="text-xs md:text-sm text-slate-300">
+            We train in blocks instead of random sessions. Each block has a
+            clear focus: building your base, pushing your engine, or preparing
+            you for a specific hike or event.
+          </p>
+          <p className="text-xs md:text-sm text-slate-300">
+            Sessions are colour–coded and posted in advance so you know what&apos;s
+            coming. You can train with us three times a week or drop into key
+            outdoor days when your schedule allows.
+          </p>
+
+          <div className="mt-3 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3">
+            <div className="relative h-14 w-14 overflow-hidden rounded-full border border-brand/70">
+              <img
+                src={Coach}
+                alt="Combatfit coach"
+                className="h-full w-full object-cover image-rendering-smooth fit-center image-contain"
+              />
+            </div>
+            <div className="text-xs md:text-sm">
+              <p className="font-semibold text-slate-50">Your coaches</p>
+              <p className="text-[11px] md:text-xs text-slate-300">
+                Certified strength coaches and outdoor leaders who actually
+                train the way they coach.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+
+        {/* Image collage */}
+        <div className="grid gap-4 grid-cols-2">
+          <div className="col-span-2 rounded-3xl overflow-hidden border border-white/10 bg-white/5">
+            <div className="relative aspect-[16/9]">
+              <img
+                src={TrainingSession}
+                alt="Outdoor training session"
+                className="h-full w-full object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent" />
+              <p className="absolute left-4 bottom-3 text-[11px] md:text-xs text-slate-100">
+                Early morning conditioning block in the park.
+              </p>
+            </div>
+          </div>
+          <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5">
+            <div className="relative aspect-[4/5]">
+              <img
+                src={Hike}
+                alt="Combatfit hike"
+                className="h-full w-full object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020617]/85 via-transparent to-transparent" />
+              <p className="absolute left-3 bottom-3 text-[11px] text-slate-100">
+                Community hikes and trail days every block.
+              </p>
+            </div>
+          </div>
+          <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5">
+            <div className="relative aspect-[4/5]">
+              <img
+                src={CoachDemo}
+                alt="Coach demoing movement"
+                className="h-full w-full object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020617]/85 via-transparent to-transparent" />
+              <p className="absolute left-3 bottom-3 text-[11px] text-slate-100">
+                Technique first, then intensity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="mt-4 rounded-3xl border border-brand/60 bg-gradient-to-r from-brand/15 via-dark-soft to-dark p-5 md:p-7 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="space-y-2">
+          <p className="text-[11px] uppercase tracking-[0.22em] text-brand">
+            Ready to see it in person?
+          </p>
+          <h3 className="text-sm md:text-base font-semibold text-slate-50">
+            Join the next outdoor session or hike.
+          </h3>
+          <p className="text-[11px] md:text-xs text-slate-300 max-w-xl">
+            Check the Events page for upcoming hikes, hill sessions, and
+            outdoor blocks. Pick a date, save your spot, and we&apos;ll handle the
+            rest.
+          </p>
+        </div>
+        <a
+          href="/events"
+          className="inline-flex items-center justify-center rounded-full bg-brand text-dark px-6 py-2.5 text-xs md:text-sm font-semibold hover:bg-brand-dark transition"
+        >
+          View upcoming events
+        </a>
+      </section>
+    </main>
   );
 }
 

@@ -14,12 +14,12 @@ function Navbar() {
 
   const links = [
     { to: "/", label: "Home" },
+    { to: "/about", label: "About" },
     { to: "/programs", label: "Programs" },
     { to: "/trainers", label: "Trainers" },
     { to: "/pricing", label: "Pricing" },
     { to: "/events", label: "Events" },
     { to: "/shop", label: "Shop" }, // new link
-    { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
   ];
 
