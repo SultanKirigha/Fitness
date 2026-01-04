@@ -1,7 +1,8 @@
 // src/pages/Contact.jsx
 import { useState } from "react";
 
-const CONTACT_FORM_ACTION = import.meta.env.VITE_CONTACT_FORM_URL;
+const CONTACT_FORM_URL = import.meta.env.VITE_CONTACT_FORM_URL;
+
 
 function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -75,7 +76,7 @@ function Contact() {
           </h2>
 
           <form
-            action={CONTACT_FORM_ACTION}
+            action={CONTACT_FORM_URL}
             method="POST"
             target="contactFormFrame"
             onSubmit={handleSubmit}
