@@ -1,5 +1,5 @@
 // src/pages/Trainers.jsx
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useSiteData } from "../context/SiteDataContext.jsx";
 import TrainerCard from "../components/trainers/TrainerCard.jsx";
 import {
@@ -11,6 +11,7 @@ import {
   MapPin,
   MessageCircle,
   Clock,
+  ChevronDown,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -20,6 +21,7 @@ function Trainers() {
   } = useSiteData();
 
   const scrollRef = useRef(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
   if (!trainers || trainers.length === 0) {
     return (
@@ -48,6 +50,38 @@ function Trainers() {
     });
   };
 
+  const faqItems = [
+    {
+      question: "Do I need to be “fit enough” before I join a Combatfit session?",
+      answer:
+        "No. Sessions are built with options. Coaches scale your pace, distance, and movement choices so you can start from where you are now. The only thing you need is the ability to walk comfortably and a willingness to listen to your body.",
+    },
+    {
+      question: "What type of people usually train with Combatfit?",
+      answer:
+        "Teachers, software engineers, parents, creatives, founders – people with real lives and full days. Most are not full-time athletes. They want to feel stronger, move better outdoors, and have a plan that doesn’t break their joints or their calendar.",
+    },
+    {
+      question: "How much attention will I get in a group session?",
+      answer:
+        "We keep groups intentionally small so a coach can actually see your reps. You’ll get corrections on your posture, breathing, and how to adjust movements if something doesn’t feel right. If you need extra help, we can recommend a hybrid or 1:1 block.",
+    },
+    {
+      question: "What happens if I miss a session in my block?",
+      answer:
+        "Life happens. Let your coach know and we’ll help you plug a simple alternative into your week – at home, in a small park, or on your next available morning. We care more about your long-term consistency than a perfect attendance score.",
+    },
+    {
+      question: "Can I talk to a coach before I commit to a full block?",
+      answer:
+        "Yes. Use the Contact page to send a short note about your schedule, any injuries, and your main goal. One of the coaches will reply with a simple starting point and suggest the block or outdoor sessions that make the most sense for you.",
+    },
+  ];
+
+  const handleToggleFaq = (index) => {
+    setOpenFaqIndex((prev) => (prev === index ? -1 : index));
+  };
+
   return (
     <main className="py-10 md:py-16 pb-20">
       <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 space-y-12">
@@ -63,8 +97,8 @@ function Trainers() {
           <p className="text-xs md:text-sm text-slate-300">
             Combatfit is built on real people, not random programs. Each coach
             brings a different background, but they all care about the same
-            thing: better movement, joint friendly strength, and a training
-            plan that fits your season of life.
+            thing: better movement, joint friendly strength, and a training plan
+            that fits your season of life.
           </p>
         </header>
 
@@ -79,7 +113,7 @@ function Trainers() {
             </h2>
             <p className="text-xs md:text-sm text-slate-300">
               Coaches build sessions that link together week to week. You do not
-              have to decide what to do when you get to the hill or park. You
+              have to decide what to do when you get to the hill or park – you
               just show up and follow the plan.
             </p>
           </div>
@@ -261,40 +295,40 @@ function Trainers() {
           </div>
         </section>
 
-        {/* FAQ mini section */}
+        {/* FAQ interactive accordion */}
         <section className="space-y-4">
           <h2 className="text-lg md:text-xl font-semibold">
-            Coaching FAQ in 3 quick answers
+            Coaching FAQ in 3–5 quick answers
           </h2>
-          <div className="space-y-3 text-xs md:text-sm text-slate-300">
-            <div>
-              <p className="font-semibold text-slate-100">
-                Do I need to be “fit enough” to join?
-              </p>
-              <p>
-                No. We scale sessions by pace, distance, and movement choices.
-                Your coach will give you a version that matches where you are
-                and where you want to go.
-              </p>
-            </div>
-            <div>
-              <p className="font-semibold text-slate-100">
-                Can I talk to a coach before I sign up?
-              </p>
-              <p>
-                Yes. Use the Contact page to reach out and we can suggest the
-                right block or event based on your current season and schedule.
-              </p>
-            </div>
-            <div>
-              <p className="font-semibold text-slate-100">
-                What if I miss a session?
-              </p>
-              <p>
-                Life happens. Let your coach know and we help you catch the main
-                movements or plug a home friendly alternative into your week.
-              </p>
-            </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 divide-y divide-white/10">
+            {faqItems.map((item, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <div key={item.question}>
+                  <button
+                    type="button"
+                    onClick={() => handleToggleFaq(index)}
+                    className="w-full flex items-center justify-between gap-3 px-4 md:px-5 py-3 md:py-3.5 text-left hover:bg-white/5 transition"
+                  >
+                    <span className="text-xs md:text-sm font-medium text-slate-50">
+                      {item.question}
+                    </span>
+                    <span className="shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/40 border border-white/10">
+                      <ChevronDown
+                        className={`h-4 w-4 text-slate-300 transition-transform ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div className="px-4 md:px-5 pb-3 md:pb-4 text-[11px] md:text-sm text-slate-300">
+                      {item.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </section>
 
