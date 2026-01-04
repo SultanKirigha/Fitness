@@ -221,6 +221,97 @@ export const initialSiteData = {
       tiktok: "https://tiktok.com/",
     },
   },
+  // ... your existing data (home, programs, trainers, pricing, events, contact, etc)
+
+  shop: {
+    heroTitle: "Combatfit gear for the outdoor season.",
+    heroSubtitle:
+      "Pieces that work on hills, in parks, and on your way to work. Request what you need and we’ll confirm sizing, availability, and payment by email or WhatsApp.",
+
+    // The items that will show in Shop.jsx
+    items: [
+      {
+        id: "cf-tee-black",
+        name: "Combatfit Black Training Tee",
+        tag: "Apparel",
+        priceKsh: 2500,
+        priceNote: "Unisex fit · performance fabric",
+        badge: "New",
+        description:
+          "Lightweight, quick-dry training tee with the Combatfit mark. Built for outdoor sessions, hill sprints, and everyday wear.",
+        features: [
+          "Breathable, quick-dry fabric",
+          "Unisex athletic cut",
+          "Screen-printed Combatfit logo",
+          "Works for trails, park sessions, and gym days",
+        ],
+        estimatedLeadTime: "Typical lead time: 5–7 days in Nairobi.",
+        imageUrl:
+          "https://cdn.ssactivewear.com/Images/Color/35709_f_fl.jpg",
+      },
+
+      {
+        id: "cf-hoodie-trail",
+        name: "Combatfit Trail Hoodie",
+        tag: "Layering",
+        priceKsh: 4500,
+        priceNote: "Perfect for early morning starts",
+        badge: "Limited",
+        description:
+          "Mid-weight hoodie for pre-session warm up and cool downs. Soft inside, structured enough for trail mornings and city evenings.",
+        features: [
+          "Soft interior, structured exterior",
+          "Room for a base layer underneath",
+          "Subtle front Combatfit logo",
+          "Great for Ngong, Karura, and commute days",
+        ],
+        estimatedLeadTime: "Typical lead time: 7–10 days.",
+        imageUrl:
+          "https://fortiseyewear.co.uk/wp-content/uploads/2025/06/833A4131.jpg",
+      },
+
+      {
+        id: "cf-bands-set",
+        name: "Combatfit Resistance Band Set",
+        tag: "Equipment",
+        priceKsh: 3200,
+        priceNote: "Set of 5 bands + pouch",
+        badge: "Coach pick",
+        description:
+          "Colour-coded resistance bands for strength work at home, in the park, or while travelling. Used in our outdoor blocks.",
+        features: [
+          "5 different resistance levels",
+          "Comes with a small carry pouch",
+          "Matches strength and mobility sessions in the app",
+          "Good for warm ups, glute work, and finishers",
+        ],
+        estimatedLeadTime: "Typical lead time: 3–5 days.",
+        imageUrl:
+          "https://s.alicdn.com/@sc04/kf/Haef3923a22054fd7810a9b9eeab2ac1ai.jpg_300x300.jpg",
+      },
+
+      {
+        id: "cf-bottle",
+        name: "Combatfit Hydration Bottle 1L",
+        tag: "Accessories",
+        priceKsh: 1800,
+        priceNote: "Leak-resistant lid",
+        badge: "Everyday",
+        description:
+          "1 litre bottle to carry to sessions, hikes, and work. Simple, durable, and easy to clean.",
+        features: [
+          "Approx. 1 litre capacity",
+          "Durable BPA-free plastic",
+          "Wide opening for ice and easy cleaning",
+          "Minimal Combatfit branding on the side",
+        ],
+        estimatedLeadTime: "Typical lead time: 3–5 days.",
+        imageUrl:
+          "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/87/2093913/1.jpg?1598",
+      },
+    ],
+  },
+
    // =====================
   // EVENTS
   // =====================
@@ -307,6 +398,7 @@ export const initialSiteData = {
     imageUrl:
       "https://www.travelyukon.com/sites/default/files/2022-12/_dsc6424.jpg",
   },
+  
 ]
 
 };
