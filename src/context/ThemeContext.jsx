@@ -1,37 +1,33 @@
-import { createContext, useContext, useEffect, useState } from "react";
+// src/context/ThemeContext.jsx
+import { createContext, useContext, useEffect } from "react";
 
-const ThemeContext = createContext();
+const ThemeContext = createContext({
+  theme: "dark",
+  // Kept for compatibility – does nothing now
+  toggleTheme: () => {},
+});
 
+/**
+ * ThemeProvider now forces the whole app into dark mode.
+ * No light option, no toggling.
+ */
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === "undefined") return "dark";
-
-    const stored = window.localStorage.getItem("theme");
-    if (stored === "light" || stored === "dark") return stored;
-
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    return prefersDark ? "dark" : "light";
-  });
-
   useEffect(() => {
     const root = document.documentElement;
 
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
+    // Always stay in dark mode
+    root.classList.add("dark");
+    root.setAttribute("data-theme", "dark");
 
-    window.localStorage.setItem("theme", theme);
-  }, [theme]);
+    // Ensure body background is dark as a fallback
+    document.body.classList.add("bg-[#020617]", "text-slate-50");
+  }, []);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-
-  const value = { theme, toggleTheme };
-
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={{ theme: "dark", toggleTheme: () => {} }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 }
 
 export function useTheme() {

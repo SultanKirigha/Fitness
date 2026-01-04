@@ -1,125 +1,118 @@
-
 // src/components/layout/Navbar.jsx
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
-// Put your logo in public/images or src/assets and adjust this path
-// Example if you placed it in public/images:
-import combatLogo from "../../assets/logo.svg";
+// ✅ Update this import path to match where you saved the logo
+import combatfitLogo from "../../assets/logo.svg";
+
+const navItems = [
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About" },
+  { to: "/programs", label: "Programs" },
+  { to: "/trainers", label: "Trainers" },
+  { to: "/events", label: "Events" },
+  { to: "/shop", label: "Shop" },
+  { to: "/pricing", label: "Pricing" },
+  { to: "/contact", label: "Contact" },
+];
 
 function Navbar() {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
-  const links = [
-    { to: "/", label: "Home" },
-    { to: "/about", label: "About" },
-    { to: "/programs", label: "Programs" },
-    { to: "/trainers", label: "Trainers" },
-    { to: "/pricing", label: "Pricing" },
-    { to: "/events", label: "Events" },
-    { to: "/shop", label: "Shop" }, // new link
-    { to: "/contact", label: "Contact" },
-  ];
+  // Always scroll to top on route change and close mobile menu
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setMenuOpen(false);
+  }, [location.pathname]);
 
-  const baseLinkClasses =
-    "text-xs uppercase tracking-[0.18em] transition px-1 py-0.5";
+  const linkBase =
+    "text-xs md:text-sm font-medium tracking-wide transition-colors";
+  const linkActive = "text-brand";
+  const linkIdle = "text-slate-300 hover:text-slate-100";
 
   return (
-    <header className="sticky top-0 z-30 border-b border-white/5 bg-dark/80 backdrop-blur">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:py-4">
-        {/* Logo */}
-        <button
-          type="button"
-          onClick={() => navigate("/")}
-          className="flex items-center gap-2"
+    <header className="sticky top-0 z-30 border-b border-white/5 bg-[#020617]/80 backdrop-blur">
+      <nav className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 h-14 md:h-16 flex items-center justify-between gap-4">
+        {/* Logo + brand name */}
+        <Link
+          to="/"
+          className="flex items-center gap-2 shrink-0 hover:opacity-90 transition"
         >
           <img
-            src={combatLogo}
+            src={combatfitLogo}
             alt="Combatfit logo"
-            className="h-8 w-auto md:h-9"
+            className="h-7 w-auto md:h-8"
           />
-          <span className="hidden text-sm font-semibold tracking-[0.18em] text-slate-100 md:inline-block">
-            COMBATFIT
-          </span>
-        </button>
+        </Link>
 
-        {/* Desktop navigation */}
-        <div className="hidden items-center gap-6 md:flex">
-          {links.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              className={({ isActive }) =>
-                [
-                  baseLinkClasses,
-                  isActive
-                    ? "text-brand"
-                    : "text-slate-300 hover:text-white",
-                ].join(" ")
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-6">
+          <ul className="flex items-center gap-5">
+            {navItems.map((item) => (
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    [
+                      linkBase,
+                      isActive ? linkActive : linkIdle,
+                    ].join(" ")
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
 
-          {/* Small shop shortcut icon */}
-          <button
-            type="button"
-            onClick={() => navigate("/shop")}
-            className="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-full border border-brand/40 bg-brand/10 text-brand hover:bg-brand hover:text-dark transition"
-            aria-label="Open shop"
+          {/* Dashboard / CTA */}
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center justify-center rounded-full px-4 py-1.5 text-xs md:text-sm font-semibold bg-brand text-dark hover:bg-brand-dark transition shadow-[0_0_25px_rgba(34,197,94,0.55)]"
           >
-            <ShoppingBag className="h-4 w-4" />
-          </button>
+            Dashboard
+          </Link>
         </div>
 
         {/* Mobile menu button */}
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-slate-100 md:hidden"
-          aria-label="Toggle navigation"
+          className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/40 text-slate-100"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label="Toggle navigation menu"
         >
-          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </nav>
 
       {/* Mobile menu panel */}
-      {open && (
-        <div className="border-t border-white/5 bg-dark-soft md:hidden">
-          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
-            {links.map((link) => (
+      {menuOpen && (
+        <div className="md:hidden border-t border-white/10 bg-[#020617]/95 backdrop-blur-sm">
+          <div className="max-w-6xl mx-auto px-4 py-3 space-y-2">
+            {navItems.map((item) => (
               <NavLink
-                key={link.to}
-                to={link.to}
-                onClick={() => setOpen(false)}
+                key={item.to}
+                to={item.to}
                 className={({ isActive }) =>
                   [
-                    "rounded-lg px-2 py-2 text-xs uppercase tracking-[0.16em] transition",
-                    isActive
-                      ? "bg-brand/10 text-brand"
-                      : "text-slate-300 hover:bg-white/5",
+                    "block py-2 text-sm",
+                    linkBase,
+                    isActive ? linkActive : linkIdle,
                   ].join(" ")
                 }
               >
-                {link.label}
+                {item.label}
               </NavLink>
             ))}
 
-            {/* Mobile shop icon row */}
-            <button
-              type="button"
-              onClick={() => {
-                navigate("/shop");
-                setOpen(false);
-              }}
-              className="mt-2 inline-flex items-center gap-2 rounded-full border border-brand/50 bg-brand/10 px-3 py-2 text-xs font-semibold text-brand"
+            <Link
+              to="/dashboard"
+              className="mt-2 inline-flex w-full items-center justify-center rounded-full px-4 py-2 text-sm font-semibold bg-brand text-dark hover:bg-brand-dark transition"
             >
-              <ShoppingBag className="h-4 w-4" />
-              Open shop
-            </button>
+              Dashboard
+            </Link>
           </div>
         </div>
       )}

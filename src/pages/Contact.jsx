@@ -1,199 +1,87 @@
 // src/pages/Contact.jsx
 import { useState } from "react";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Instagram,
-  Facebook,
-  MessageCircle,
-  Clock,
-} from "lucide-react";
+
+const CONTACT_FORM_ACTION = import.meta.env.VITE_CONTACT_FORM_URL;
 
 function Contact() {
-  const [formValues, setFormValues] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    topic: "training",
-    message: "",
-  });
-
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // For now we just show a success message.
-    // Later you can plug this into the same Google Apps Script or another backend.
+  const handleSubmit = () => {
     setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 6000);
   };
 
   return (
-    <main className="py-10 md:py-16 space-y-10">
-      {/* Hero / intro */}
-      <section className="space-y-4 md:space-y-5 max-w-3xl">
-        <p className="text-[11px] uppercase tracking-[0.26em] text-brand">
+    <section className="py-10 md:py-16">
+      {/* Page header */}
+      <header className="space-y-3 max-w-3xl mb-8">
+        <p className="text-xs uppercase tracking-[0.22em] text-brand">
           Contact
         </p>
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight">
-          Talk to the Combatfit team.
+        <h1 className="text-2xl md:text-3xl font-semibold">
+          Talk to the Combatfit crew.
         </h1>
         <p className="text-xs md:text-sm text-slate-300">
-          Have a question about outdoor sessions, events, or joining the next
-          block? Reach out and we&apos;ll get back to you within 24 hours on
-          weekdays. For urgent changes on the day of a session, use WhatsApp.
+          Ask about outdoor sessions, private coaching, or bringing Combatfit
+          to your community. Fill in the form and we’ll get back to you by
+          email or WhatsApp.
         </p>
-      </section>
+      </header>
 
-      {/* Main content: info + form */}
-      <section className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-start">
-        {/* LEFT: contact info */}
-        <div className="space-y-6">
-          {/* Card: direct contacts */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 space-y-5">
-            <h2 className="text-sm md:text-base font-semibold text-slate-50">
-              Direct contact
+      <div className="grid gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.3fr)] items-start">
+        {/* Left side: contact info */}
+        <aside className="space-y-6">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_40px_rgba(0,0,0,0.6)]">
+            <h2 className="text-sm font-semibold text-slate-100 mb-3">
+              How to reach us
             </h2>
-
-            <div className="space-y-3 text-xs md:text-sm text-slate-300">
-              <div className="flex items-start gap-3">
-                <div className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand/15 text-brand">
-                  <Mail className="h-4 w-4" />
-                </div>
-                <div>
-                  <p className="font-medium text-slate-50">Email</p>
-                  <a
-                    href="mailto:info@combatfit.outdoor"
-                    className="text-brand hover:underline"
-                  >
-                    info@combatfit.outdoor
-                  </a>
-                  <p className="text-[11px] text-slate-400">
-                    Best for questions about blocks, pricing, and events.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand/15 text-brand">
-                  <Phone className="h-4 w-4" />
-                </div>
-                <div>
-                  <p className="font-medium text-slate-50">Phone / WhatsApp</p>
-                  <p className="text-slate-200">+254 102 958 797</p>
-                  <p className="text-[11px] text-slate-400">
-                    Drop a message for day-of session questions or directions.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <ul className="space-y-3 text-xs md:text-sm text-slate-300">
+              <li>
+                <span className="block text-[11px] uppercase tracking-[0.18em] text-slate-400">
+                  Email
+                </span>
+                <span>hello@combatfit.co.ke</span>
+              </li>
+              <li>
+                <span className="block text-[11px] uppercase tracking-[0.18em] text-slate-400">
+                  WhatsApp
+                </span>
+                <span>+254 7xx xxx xxx</span>
+              </li>
+              <li>
+                <span className="block text-[11px] uppercase tracking-[0.18em] text-slate-400">
+                  Training zones
+                </span>
+                <span>Karura Forest, Ngong Hills, Central Park &amp; more.</span>
+              </li>
+            </ul>
           </div>
 
-          {/* Card: locations */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 space-y-4">
-            <h2 className="text-sm md:text-base font-semibold text-slate-50">
-              Where we train
-            </h2>
-            <div className="space-y-3 text-xs md:text-sm text-slate-300">
-              <div className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-brand mt-0.5" />
-                <div>
-                  <p className="font-medium text-slate-50">Ngong Hills</p>
-                  <p className="text-slate-300">
-                    Sunrise hill sessions, longer weekend hikes, and engine
-                    blocks.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-brand mt-0.5" />
-                <div>
-                  <p className="font-medium text-slate-50">Karura Forest</p>
-                  <p className="text-slate-300">
-                    Community hikes, trail loops, and mixed conditioning days.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-brand mt-0.5" />
-                <div>
-                  <p className="font-medium text-slate-50">
-                    City parks &amp; open spaces
-                  </p>
-                  <p className="text-slate-300">
-                    Evening bootcamps and strength circuits closer to town.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 flex items-center gap-2 text-[11px] md:text-xs text-slate-400">
-              <Clock className="h-3 w-3" />
-              <span>
-                Typical training windows: early mornings 5:30&ndash;8:30 and
-                selected weekend blocks.
-              </span>
-            </div>
-          </div>
-
-          {/* Socials */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 space-y-4">
-            <h2 className="text-sm md:text-base font-semibold text-slate-50">
-              Social &amp; updates
-            </h2>
-            <p className="text-xs md:text-sm text-slate-300">
-              We share upcoming events, session photos, and block announcements
-              on social.
+          <div className="rounded-2xl border border-brand/30 bg-brand/5 p-4 text-xs md:text-sm text-slate-200">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-brand mb-1">
+              Response time
             </p>
-            <div className="flex flex-wrap gap-3 text-xs md:text-sm">
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1.5 hover:border-brand/70 hover:text-brand transition"
-              >
-                <Instagram className="h-4 w-4" />
-                Instagram
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1.5 hover:border-brand/70 hover:text-brand transition"
-              >
-                <Facebook className="h-4 w-4" />
-                Facebook
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1.5 hover:border-brand/70 hover:text-brand transition"
-              >
-                <MessageCircle className="h-4 w-4" />
-                WhatsApp community
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* RIGHT: contact form */}
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 md:p-7">
-          <div className="mb-4 space-y-1">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-brand">
-              Send a message
-            </p>
-            <p className="text-xs md:text-sm text-slate-300">
-              Share a bit about what you need and we&apos;ll reply with next
-              steps &mdash; usually an invite to a specific block or outdoor
-              session.
+            <p>
+              We usually reply within one working day. For last–minute changes
+              to an outdoor session, WhatsApp is fastest.
             </p>
           </div>
+        </aside>
+
+        {/* Right side: contact form */}
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-5 md:p-6 shadow-[0_18px_40px_rgba(0,0,0,0.6)]">
+          <h2 className="text-sm md:text-base font-semibold text-slate-50 mb-4">
+            Send a message
+          </h2>
 
           <form
+            action={CONTACT_FORM_ACTION}
+            method="POST"
+            target="contactFormFrame"
             onSubmit={handleSubmit}
             className="space-y-4 text-xs md:text-sm"
           >
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label
                   htmlFor="name"
@@ -206,12 +94,11 @@ function Contact() {
                   name="name"
                   type="text"
                   required
-                  value={formValues.name}
-                  onChange={handleChange}
-                  className="w-full rounded-xl bg-[#020617]/70 border border-white/10 px-3 py-2 text-sm text-slate-50 outline-none focus:border-brand"
+                  className="w-full rounded-xl bg-dark-soft border border-white/10 px-3 py-2 text-sm text-white outline-none focus:border-brand"
                   placeholder="Your name"
                 />
               </div>
+
               <div className="space-y-1.5">
                 <label
                   htmlFor="email"
@@ -224,55 +111,26 @@ function Contact() {
                   name="email"
                   type="email"
                   required
-                  value={formValues.email}
-                  onChange={handleChange}
-                  className="w-full rounded-xl bg-[#020617]/70 border border-white/10 px-3 py-2 text-sm text-slate-50 outline-none focus:border-brand"
+                  className="w-full rounded-xl bg-dark-soft border border-white/10 px-3 py-2 text-sm text-white outline-none focus:border-brand"
                   placeholder="you@example.com"
                 />
               </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="phone"
-                  className="block text-[11px] md:text-xs text-slate-200"
-                >
-                  Phone / WhatsApp
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="text"
-                  value={formValues.phone}
-                  onChange={handleChange}
-                  className="w-full rounded-xl bg-[#020617]/70 border border-white/10 px-3 py-2 text-sm text-slate-50 outline-none focus:border-brand"
-                  placeholder="+254 102 958 797"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="topic"
-                  className="block text-[11px] md:text-xs text-slate-200"
-                >
-                  What are you asking about?
-                </label>
-                <select
-                  id="topic"
-                  name="topic"
-                  value={formValues.topic}
-                  onChange={handleChange}
-                  className="w-full rounded-xl bg-[#020617]/70 border border-white/10 px-3 py-2 text-sm text-slate-50 outline-none focus:border-brand"
-                >
-                  <option value="training">Joining training block</option>
-                  <option value="events">Outdoor events / hikes</option>
-                  <option value="pricing">Pricing / payments</option>
-                  <option value="corporate">
-                    Corporate / team sessions
-                  </option>
-                  <option value="other">Something else</option>
-                </select>
-              </div>
+            <div className="space-y-1.5">
+              <label
+                htmlFor="subject"
+                className="block text-[11px] md:text-xs text-slate-200"
+              >
+                Subject
+              </label>
+              <input
+                id="subject"
+                name="subject"
+                type="text"
+                className="w-full rounded-xl bg-dark-soft border border-white/10 px-3 py-2 text-sm text-white outline-none focus:border-brand"
+                placeholder="Outdoor training, private coaching, events..."
+              />
             </div>
 
             <div className="space-y-1.5">
@@ -285,37 +143,42 @@ function Contact() {
               <textarea
                 id="message"
                 name="message"
-                rows={4}
                 required
-                value={formValues.message}
-                onChange={handleChange}
-                className="w-full rounded-xl bg-[#020617]/70 border border-white/10 px-3 py-2 text-sm text-slate-50 outline-none focus:border-brand resize-none"
-                placeholder="Share your goals, schedule, or any questions you have…"
+                rows={5}
+                className="w-full rounded-xl bg-dark-soft border border-white/10 px-3 py-2 text-sm text-white outline-none focus:border-brand resize-none"
+                placeholder="Tell us what you’re looking for, your schedule, and any details we should know."
               />
             </div>
 
-            <div className="pt-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+            <div className="pt-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <button
                 type="submit"
-                className="inline-flex items-center justify-center rounded-full bg-brand text-dark px-6 py-2.5 text-sm font-semibold hover:bg-brand-dark transition w-full md:w-auto"
+                className="inline-flex items-center justify-center rounded-full px-7 py-2.5 bg-brand text-dark text-sm md:text-base font-semibold hover:bg-brand-dark transition w-full md:w-auto shadow-[0_0_30px_rgba(34,197,94,0.6)]"
               >
                 Send message
               </button>
               <p className="text-[11px] md:text-xs text-slate-400">
-                We reply by email, and if needed, we&apos;ll move the
-                conversation to WhatsApp.
+                We’ll reply by email, and can move to WhatsApp if needed.
               </p>
             </div>
 
             {submitted && (
               <p className="text-[11px] md:text-xs text-brand mt-1">
-                Message received. The Combatfit team will get back to you soon.
+                Message sent. We’ve received your details and will get back to
+                you soon.
               </p>
             )}
           </form>
+
+          {/* Hidden iframe to absorb the form submission so the page doesn't reload */}
+          <iframe
+            name="contactFormFrame"
+            title="Combatfit contact form"
+            className="hidden"
+          />
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }
 

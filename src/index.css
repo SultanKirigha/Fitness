@@ -8,11 +8,11 @@ body {
 }
 /* Card backgrounds & borders in light mode */
 :root[data-theme="light"] .app-shell .bg-white\/5 {
-  background-color: #ffffff;        /* solid white card */
+  background-color: #070707;        /* solid white card */
 }
 
 :root[data-theme="light"] .app-shell .border-white\/10 {
-  border-color: #e5e7eb;           /* subtle grey border */
+  border-color: #020917;           /* subtle grey border */
 }
 
 /* Improve readability in light mode */
