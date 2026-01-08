@@ -4,7 +4,9 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 // ✅ Update this import path to match where you saved the logo
-import combatfitLogo from "../../assets/logo.svg";
+const CLOUD = import.meta.env.VITE_CLOUDINARY_BASE;
+
+const logoUrl = `${CLOUD}/combatfit/logos/logo_trqhzr.svg`;
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -41,7 +43,7 @@ function Navbar() {
           className="flex items-center gap-2 shrink-0 hover:opacity-90 transition"
         >
           <img
-            src={combatfitLogo}
+            src={logoUrl}
             alt="Combatfit logo"
             className="h-7 w-auto md:h-8"
           />

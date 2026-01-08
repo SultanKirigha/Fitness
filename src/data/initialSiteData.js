@@ -1,10 +1,11 @@
-import bmiDefault from "../assets/full-shot-black-woman-training-outdoors.jpg";
+
 // src/data/initialSiteData.js (example path)
 
-// 👇 adjust these paths to match where your files actually are
-import strengthFoundationsImg from "../assets/strength-foundations.jpg";
-import engineOutdoorsImg from "../assets/engine-outdoors.jpg";
-import hikePrepImg from "../assets/hike-prep.jpg";
+
+const CLOUD = import.meta.env.VITE_CLOUDINARY_BASE;
+
+// Helper to build image URLs from Cloudinary
+const img = (path) => `${CLOUD}/${path}`;
 
 
 export const initialSiteData = {
@@ -41,27 +42,27 @@ export const initialSiteData = {
     // Put these images in: public/images/...
     heroSlides: [
       {
-        id: "strength-track",
-        label: "Combat • Strength",
-        caption: "Pad work, bodyweight strength, and carries in the open air.",
-        imageUrl: "https://outdoorfitness.ca/wp-content/uploads/2022/11/IMG01398.jpg",
+      id: "strength",
+      label: "Strength • Conditioning",
+      caption: "Full-body strength and engine work in one place.",
+      imageUrl: img("combatfit/hero/IMG01398_de4nmh.jpg"),
       },
       {
         id: "community-track",
         label: "Team • Community",
         caption: "Small outdoor crews pushing through the same block together.",
-        imageUrl: "https://outdoorfitness.ca/wp-content/uploads/2023/03/IMG_1252.jpg",
+        imageUrl: img("combatfit/hero/IMG_1252_tb59en.jpg"),
   
       },
       {
         id: "engine-track",
         label: "Conditioning • Engine",
         caption: "Sprints, hills, and circuits that build a real-world engine.",
-        imageUrl: "https://outdoorfitness.ca/wp-content/uploads/2023/11/IMG01934.jpg",
+        imageUrl: img("combatfit/hero/IMG01934_dfwdwb.jpg")
       },
     ],
     // New: BMI section image editable from dashboard
-    bmiImageUrl: bmiDefault,
+    bmiImageUrl: img("combatfit/bmi/side-view-smiley-woman-stretching_eiom56.jpg"),
   },
    programs: [
     {
@@ -73,7 +74,7 @@ export const initialSiteData = {
       duration: "6 weeks",
       mode: "Outdoor and home friendly",
       sessionsPerWeek: 3,
-      imageUrl: strengthFoundationsImg, // 👈 from import
+      imageUrl: img("combatfit/programs/strength-foundations_x7ld2p.jpg"),
     },
     {
       id: "engine-outdoors",
@@ -84,7 +85,7 @@ export const initialSiteData = {
       duration: "8 weeks",
       mode: "Trails and city parks",
       sessionsPerWeek: 2,
-      imageUrl: engineOutdoorsImg, // 👈 from import
+      imageUrl: img("combatfit/programs/engine-outdoors_g5iwxy.jpg"),
     },
     {
       id: "hike-prep",
@@ -95,7 +96,7 @@ export const initialSiteData = {
       duration: "4 weeks",
       mode: "Gym plus outdoor sessions",
       sessionsPerWeek: 3,
-      imageUrl: hikePrepImg, // 👈 from import
+      imageUrl: img("/combatfit/programs/360_F_570490961_dyPoZUNIOGnDQ8rd3ooOO2f2HrSLohLj_a5my6o.jpg"),
     },
   ],
 
@@ -169,8 +170,7 @@ export const initialSiteData = {
       yearsExperience: 7,
       credentials: "CSCS, Precision Nutrition L1",
       location: "Nairobi and online",
-      photoUrl:
-        "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/f1afaab5-510a-4e37-8d62-79f28c246052/Faith+Wanjiku+.jpg",
+      photoUrl: img("combatfit/trainers/Faith_Wanjiku_pizonk.jpg"),
     },
     {
       id: "leo-conditioning",
@@ -180,8 +180,7 @@ export const initialSiteData = {
       yearsExperience: 5,
       credentials: "CrossFit L2, Endurance specialist",
       location: "Hybrid, remote friendly",
-      photoUrl:
-        "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/35779562-31e0-43d9-8edb-efaed18000f2/Davis+Baguma.jpg",
+      photoUrl: img("combatfit/trainers/Davis_Baguma_nawpce.webp"),
     },
     {
       id: "zara-mobility",
@@ -191,8 +190,7 @@ export const initialSiteData = {
       yearsExperience: 6,
       credentials: "Physio BSc, FRCms",
       location: "In person and online check ins",
-      photoUrl:
-        "https://images.squarespace-cdn.com/content/v1/607c8d29bab4b20ba4778fa4/53e83c30-86fd-4962-85c3-7be7d8b4b554/Dennis+Paddy.jpg",
+      photoUrl: img("combatfit/trainers/Dennis_Paddy_s6kp1f.webp"),
     },
     
   ],
@@ -246,8 +244,7 @@ export const initialSiteData = {
           "Works for trails, park sessions, and gym days",
         ],
         estimatedLeadTime: "Typical lead time: 5–7 days in Nairobi.",
-        imageUrl:
-          "https://cdn.ssactivewear.com/Images/Color/35709_f_fl.jpg",
+        imageUrl: img("combatfit/shop/35709_f_fl_gg5mg8.jpg"),
       },
 
       {
@@ -266,8 +263,7 @@ export const initialSiteData = {
           "Great for Ngong, Karura, and commute days",
         ],
         estimatedLeadTime: "Typical lead time: 7–10 days.",
-        imageUrl:
-          "https://fortiseyewear.co.uk/wp-content/uploads/2025/06/833A4131.jpg",
+        imageUrl: img("combatfit/shop/833A4131_vv827u.jpg"),
       },
 
       {
@@ -286,8 +282,7 @@ export const initialSiteData = {
           "Good for warm ups, glute work, and finishers",
         ],
         estimatedLeadTime: "Typical lead time: 3–5 days.",
-        imageUrl:
-          "https://s.alicdn.com/@sc04/kf/Haef3923a22054fd7810a9b9eeab2ac1ai.jpg_300x300.jpg",
+        imageUrl: img("combatfit/shop/Haef3923a22054fd7810a9b9eeab2ac1ai.jpg_300x300_idvlu5.jpg"),
       },
 
       {
@@ -306,8 +301,7 @@ export const initialSiteData = {
           "Minimal Combatfit branding on the side",
         ],
         estimatedLeadTime: "Typical lead time: 3–5 days.",
-        imageUrl:
-          "https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/87/2093913/1.jpg?1598",
+        imageUrl: img("combatfit/shop/1_j4jzah.jpg"),
       },
     ],
   },
@@ -330,8 +324,7 @@ export const initialSiteData = {
     summary:
       "Start your Saturday with a guided hike through Karura. We move, talk, and finish with a simple mobility flow in the clearing.",
     registrationUrl: "#",
-    imageUrl:
-      "https://friendsofkarura.org/wp-content/uploads/2025/12/Karura-Forest-Services-Restored.jpg",
+    imageUrl: img("combatfit/events/Karura-Forest-Services-Restored_op6iji.jpg"),
   },
   {
     id: "sunrise-trail",
@@ -346,8 +339,7 @@ export const initialSiteData = {
     summary:
       "Gentle trail loops at your pace followed by coached stretching and breath work as the sun comes up.",
     registrationUrl: "#",
-    imageUrl:
-      "https://friendsofkarura.org/wp-content/uploads/2024/09/Running-team_Karura-Forest.jpg",
+    imageUrl: img("combatfit/events/Running-team_Karura-Forest_ip9jk4.jpg"),
   },
   {
     id: "park-bootcamp",
@@ -362,8 +354,7 @@ export const initialSiteData = {
     summary:
       "A full body session built around bodyweight, bands, and partner drills. Bring water and a friend.",
     registrationUrl: "#",
-    imageUrl:
-      "https://www.broadmooroutfitters.com/wp-content/uploads/2022/07/stephen-leonardi-6E6oMx-69Ns-unsplash-1.jpg",
+    imageUrl: img("combatfit/events/stephen-leonardi-6E6oMx-69Ns-unsplash-1_wrcz9e.jpg"),
   },
   {
     id: "online-info-night",
@@ -378,8 +369,7 @@ export const initialSiteData = {
     summary:
       "A live online session where we walk through how blocks work, how we coach, and what to expect in your first month.",
     registrationUrl: "#",
-    imageUrl:
-      "https://www.broadmooroutfitters.com/wp-content/uploads/2022/07/annie-spratt-JSra0N9uP1s-unsplash-1536x1022.jpg",
+    imageUrl: img("combatfit/events/full-shot-man-recording-himself_cexdpu.jpg"),
   },
   // New January upcoming event (future date so it stays upcoming)
   {
@@ -395,8 +385,7 @@ export const initialSiteData = {
     summary:
       "We hike to the ridge before sunrise, move at a conversational pace, and finish with guided breathwork and reflection to set your training tone for the year.",
     registrationUrl: "#",
-    imageUrl:
-      "https://www.travelyukon.com/sites/default/files/2022-12/_dsc6424.jpg",
+    imageUrl: img("combatfit/events/_dsc6424_jeetc0.jpg"),
   },
   
 ]

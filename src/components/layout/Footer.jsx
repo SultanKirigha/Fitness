@@ -8,7 +8,9 @@ import {
   MapPin,
   ArrowRight,
 } from "lucide-react";
-import combatLogo from "../../assets/logo.svg"; // adjust path if needed
+const CLOUD = import.meta.env.VITE_CLOUDINARY_BASE;
+
+const logoUrl = `${CLOUD}/combatfit/logos/logo_trqhzr.svg`; // adjust path if needed
 
 const mainLinks = [
   { to: "/", label: "Home" },
@@ -38,7 +40,7 @@ function Footer() {
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="flex items-start gap-3">
             <img
-              src={combatLogo}
+              src={logoUrl}
               alt="Combatfit logo"
               className="h-9 w-auto md:h-10"
             />
