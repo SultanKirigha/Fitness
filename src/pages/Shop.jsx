@@ -1,14 +1,7 @@
 // src/pages/Shop.jsx
 import { useState } from "react";
 import { useSiteData } from "../context/SiteDataContext.jsx";
-import {
-  Tag,
-  ShoppingBag,
-  Shirt,
-  Package,
-  X,
-  Sparkles,
-} from "lucide-react";
+import { Tag, ShoppingBag, Shirt, Package, X, Sparkles } from "lucide-react";
 
 const SHOP_REQUEST_URL = import.meta.env.VITE_SHOP_REQUEST_URL;
 
@@ -192,10 +185,10 @@ function Shop() {
                     <button
                       type="button"
                       onClick={() => handleOpenRequest(product)}
-                      className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 bg-brand text-dark text-xs md:text-sm font-semibold hover:bg-brand-dark transition w-full sm:w-auto shadow-[0_0_25px_rgba(34,197,94,0.6)]"
+                      className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 bg-brand text-dark text-xs md:text-sm font-semibold leading-none whitespace-nowrap hover:bg-brand-dark transition w-full sm:w-auto shadow-[0_0_25px_rgba(34,197,94,0.6)]"
                     >
-                      <Shirt className="h-4 w-4" />
-                      Ask for item
+                      <Shirt className="h-4 w-4 flex-shrink-0" />
+                      <span>Ask for item</span>
                     </button>
 
                     {product.estimatedLeadTime && (
@@ -267,13 +260,11 @@ function Shop() {
                 <input
                   type="hidden"
                   name="productId"
-                  value={activeProduct.id || activeProduct.name || ""}
-                />
+                  value={activeProduct.id || activeProduct.name || ""} />
                 <input
                   type="hidden"
                   name="productName"
-                  value={activeProduct.name || ""}
-                />
+                  value={activeProduct.name || ""} />
                 <input
                   type="hidden"
                   name="productPrice"
@@ -281,13 +272,11 @@ function Shop() {
                     activeProduct.priceKsh
                       ? `Ksh ${activeProduct.priceKsh}`
                       : ""
-                  }
-                />
+                  } />
                 <input
                   type="hidden"
                   name="productTag"
-                  value={activeProduct.tag || ""}
-                />
+                  value={activeProduct.tag || ""} />
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
