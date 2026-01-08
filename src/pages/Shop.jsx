@@ -195,7 +195,7 @@ function Shop() {
                       className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 bg-brand text-dark text-xs md:text-sm font-semibold hover:bg-brand-dark transition w-full sm:w-auto shadow-[0_0_25px_rgba(34,197,94,0.6)]"
                     >
                       <Shirt className="h-4 w-4" />
-                      Request this item
+                      Ask for item
                     </button>
 
                     {product.estimatedLeadTime && (
