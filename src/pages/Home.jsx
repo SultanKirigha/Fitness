@@ -6,6 +6,8 @@ import ProgramsPreview from "../components/home/ProgramsPreview.jsx";
 import TrainersPreview from "../components/home/TrainersPreview.jsx";
 import BmiSection from "../components/home/BmiCalculator.jsx";
 import ShopPreview from "../../src/pages/Shop.jsx";
+import OutdoorTrainingVideos from "../components/home/OutdoorTrainingVideos.jsx";
+
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -17,6 +19,9 @@ function Home() {
     <main className="space-y-10 md:space-y-16">
       {/* Hero gets its own animations inside Hero.jsx */}
       <Hero />
+
+      {/* 🔽 New video carousel directly under the copy */}
+      <OutdoorTrainingVideos />
 
       <motion.section
         variants={fadeInUp}
