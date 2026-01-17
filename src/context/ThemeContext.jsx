@@ -1,35 +1,49 @@
 // src/context/ThemeContext.jsx
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-const ThemeContext = createContext({
-  theme: "dark",
-  // Kept for compatibility – does nothing now
-  toggleTheme: () => {},
-});
+const ThemeContext = createContext(null);
 
-/**
- * ThemeProvider now forces the whole app into dark mode.
- * No light option, no toggling.
- */
 export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("dark");
+
+  // Read saved theme or system preference on first load
   useEffect(() => {
-    const root = document.documentElement;
-
-    // Always stay in dark mode
-    root.classList.add("dark");
-    root.setAttribute("data-theme", "dark");
-
-    // Ensure body background is dark as a fallback
-    document.body.classList.add("bg-[#020617]", "text-slate-50");
+    try {
+      const stored = window.localStorage.getItem("combatfit-theme");
+      if (stored === "light" || stored === "dark") {
+        setTheme(stored);
+      } else {
+        const prefersDark = window.matchMedia?.(
+          "(prefers-color-scheme: dark)"
+        )?.matches;
+        setTheme(prefersDark ? "dark" : "light");
+      }
+    } catch {
+      setTheme("dark");
+    }
   }, []);
 
+  // Apply theme class / data attribute and persist
+  useEffect(() => {
+    if (!theme) return;
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem("combatfit-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+
+  const value = { theme, toggleTheme };
+
   return (
-    <ThemeContext.Provider value={{ theme: "dark", toggleTheme: () => {} }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }
 
 export function useTheme() {
-  return useContext(ThemeContext);
+  const ctx = useContext(ThemeContext);
+  if (!ctx) {
+      throw new Error("useTheme must be used within a ThemeProvider");
+  }
+  return ctx;
 }

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSiteData } from "../../context/SiteDataContext.jsx";
+import ImageOverlay from "../common/ImageOverlay.jsx";
 
 const AUTO_PLAY_DELAY = 7000; // 7 seconds
 
@@ -135,6 +136,8 @@ function Hero() {
                   alt={slide.label}
                   className="h-full w-full object-cover"
                 />
+                {/* ✅ Strong scrim so text is readable */}
+                  <ImageOverlay position="bottom" strength="strong" />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 

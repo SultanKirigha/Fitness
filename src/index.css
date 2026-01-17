@@ -2,33 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global body styles */
 body {
+  @apply bg-dark text-white antialiased;
   @apply antialiased overflow-x-hidden;
 }
-/* Card backgrounds & borders in light mode */
-:root[data-theme="light"] .app-shell .bg-white\/5 {
-  background-color: #070707;        /* solid white card */
+
+
+/* -----------------------------
+   LIGHT MODE FIXES (IMPORTANT)
+   We target the REAL wrapper:
+   - Layout uses .app-root
+   - ThemeContext sets :root[data-theme="light"]
+-------------------------------- */
+
+/* Page background + base text */
+:root[data-theme="light"] .app-root {
+  background-color: #f8fafc; /* mild white */
+  color: #0f172a; /* slate-900 */
 }
 
-:root[data-theme="light"] .app-shell .border-white\/10 {
-  border-color: #020917;           /* subtle grey border */
+/* Navbar shell in light mode */
+:root[data-theme="light"] .navbar-shell {
+  background-color: rgba(255, 255, 255, 0.92);
+  border-color: rgba(148, 163, 184, 0.35);
 }
 
-/* Improve readability in light mode */
-:root[data-theme="light"] .app-shell .text-slate-200,
-:root[data-theme="light"] .app-shell .text-slate-300 {
-  color: #111827; /* very dark slate */
+/* Make all the “dark cards” become light */
+:root[data-theme="light"] .app-root .bg-white\/5,
+:root[data-theme="light"] .app-root .bg-black\/30,
+:root[data-theme="light"] .app-root .bg-black\/40,
+:root[data-theme="light"] .app-root .bg-black\/50,
+:root[data-theme="light"] .app-root .bg-black\/60,
+:root[data-theme="light"] .app-root .bg-black\/70,
+:root[data-theme="light"] .app-root .bg-black\/75,
+:root[data-theme="light"] .app-root .bg-black\/80,
+:root[data-theme="light"] .app-root .bg-dark,
+:root[data-theme="light"] .app-root .bg-dark\/90,
+:root[data-theme="light"] .app-root .bg-dark-soft,
+:root[data-theme="light"] .app-root .bg-\[\#020617\],
+:root[data-theme="light"] .app-root .bg-\[\#020617\]\/60,
+:root[data-theme="light"] .app-root .bg-\[\#020617\]\/80,
+:root[data-theme="light"] .app-root .bg-\[\#020617\]\/90 {
+  background-color: #ffffff !important;
 }
 
-:root[data-theme="light"] .app-shell .text-slate-400 {
-  color: #1f2937; /* dark slate */
+/* Borders: turn white borders into subtle slate borders */
+:root[data-theme="light"] .app-root .border-white\/5,
+:root[data-theme="light"] .app-root .border-white\/10,
+:root[data-theme="light"] .app-root .border-white\/15,
+:root[data-theme="light"] .app-root .border-white\/20 {
+  border-color: rgba(148, 163, 184, 0.45) !important;
 }
 
-/* We already flip pure white text to dark */
-:root[data-theme="light"] .app-shell .text-white,
-:root[data-theme="light"] .app-shell .text-slate-50 {
-  color: #020617 !important;
+/* Text readability: flip common slate text utilities to dark */
+:root[data-theme="light"] .app-root .text-white,
+:root[data-theme="light"] .app-root .text-slate-50,
+:root[data-theme="light"] .app-root .text-slate-100,
+:root[data-theme="light"] .app-root .text-slate-200,
+:root[data-theme="light"] .app-root .text-slate-300 {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] .app-root .text-slate-400,
+:root[data-theme="light"] .app-root .text-slate-500 {
+  color: #334155 !important;
+}
+
+/* Shadows: reduce heavy dark shadows on light background */
+:root[data-theme="light"] .app-root .shadow-black\/40,
+:root[data-theme="light"] .app-root .shadow-black\/50,
+:root[data-theme="light"] .app-root .shadow-black\/60,
+:root[data-theme="light"] .app-root .shadow-black\/70,
+:root[data-theme="light"] .app-root .shadow-black\/80 {
+  --tw-shadow-color: rgba(15, 23, 42, 0.15) !important;
+}
+
+/* Keep brand readable on light */
+:root[data-theme="light"] .app-root .text-brand {
+  color: #16a34a !important;
 }
 
 /* Hide scrollbar for trainer strip (Chrome, Edge, Safari) */
@@ -38,6 +89,86 @@ body {
 
 /* Hide scrollbar for trainer strip (Firefox / others) */
 .trainer-scroll {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;    /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+
+/* Helper for readable text on images */
+.image-text {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+/* -------------------------------------------------------
+   BMI Light-mode overrides (keep component dark-coded)
+   ------------------------------------------------------- */
+
+/* The whole BMI shell */
+:root[data-theme="light"] .bmi-shell {
+  background: linear-gradient(to right, #f8fafc, #ffffff, #f8fafc) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 0 60px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Right column base */
+:root[data-theme="light"] .bmi-categories {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-left-color: #e2e8f0 !important;
+}
+
+/* Text overrides inside BMI */
+:root[data-theme="light"] .bmi-shell .text-white,
+:root[data-theme="light"] .bmi-shell .text-slate-50,
+:root[data-theme="light"] .bmi-shell .text-slate-100 {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] .bmi-shell .text-slate-200,
+:root[data-theme="light"] .bmi-shell .text-slate-300 {
+  color: #334155 !important;
+}
+
+:root[data-theme="light"] .bmi-shell .text-slate-400 {
+  color: #475569 !important;
+}
+
+/* Inputs (they are hard-coded dark, so flip them) */
+:root[data-theme="light"] .bmi-shell input,
+:root[data-theme="light"] .bmi-shell textarea,
+:root[data-theme="light"] .bmi-shell select {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* "bg-dark-soft" used in the BMI form fields */
+:root[data-theme="light"] .bmi-shell .bg-dark-soft {
+  background-color: #ffffff !important;
+}
+
+/* Borders that are hard-coded white-ish */
+:root[data-theme="light"] .bmi-shell .border-white\/10,
+:root[data-theme="light"] .bmi-shell .border-white\/15 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Sub-cards (bg-black/30) inside results */
+:root[data-theme="light"] .bmi-shell .bg-black\/30 {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Category divider lines */
+:root[data-theme="light"] .bmi-shell .divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e2e8f0 !important;
+}
+
+/* Hide scrollbar for trainer strip (Chrome, Edge, Safari) */
+.trainer-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for trainer strip (Firefox / others) */
+.trainer-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
