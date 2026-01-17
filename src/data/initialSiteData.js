@@ -176,7 +176,7 @@ export const initialSiteData = {
       id: "leo-conditioning",
       name: "Leo Madu",
       role: "Conditioning Coach",
-      focus: "Engine work, conditioning blocks, sport prep.",
+      focus: "Engine work, conditioning blocks, sport prep, and HIIT sessions.",
       yearsExperience: 5,
       credentials: "CrossFit L2, Endurance specialist",
       location: "Hybrid, remote friendly",

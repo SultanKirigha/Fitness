@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSiteData } from "../../context/SiteDataContext.jsx";
 import ImageOverlay from "../common/ImageOverlay.jsx";
 
-const AUTO_PLAY_DELAY = 7000; // 7 seconds
+const AUTO_PLAY_DELAY = 7000;
 
 function Hero() {
   const {
@@ -48,11 +48,9 @@ function Hero() {
 
   useEffect(() => {
     if (slides.length <= 1) return;
-
     const id = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % slides.length);
     }, AUTO_PLAY_DELAY);
-
     return () => clearInterval(id);
   }, [slides.length]);
 
@@ -68,7 +66,7 @@ function Hero() {
   return (
     <section className="py-10 md:py-16">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-center">
-        {/* Left side - text */}
+        {/* Left */}
         <div className="space-y-6">
           <p className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-brand">
             Combatfit Outdoor Training
@@ -84,7 +82,6 @@ function Hero() {
           </p>
 
           <div className="flex flex-wrap gap-3">
-            {/* Primary CTA -> Upcoming events section */}
             <Link
               to="/events#upcoming"
               className="px-5 md:px-6 py-2.5 md:py-3 rounded-full bg-brand text-dark font-medium text-sm md:text-base shadow-[0_0_40px_rgba(34,197,94,0.5)] hover:bg-brand-dark transition"
@@ -92,7 +89,6 @@ function Hero() {
               {primaryCta}
             </Link>
 
-            {/* Secondary CTA keeps current style */}
             <Link
               to="/programs"
               className="px-5 md:px-6 py-2.5 md:py-3 rounded-full border border-slate-500 text-sm md:text-base text-slate-100 hover:bg-white/5 transition"
@@ -101,7 +97,6 @@ function Hero() {
             </Link>
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-3 gap-4 pt-4 max-w-md">
             {stats.map((item) => (
               <div
@@ -119,9 +114,9 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right side - image carousel */}
+        {/* Right - carousel */}
         <div className="relative w-full max-w-md lg:max-w-lg mx-auto lg:mx-0">
-          <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 bg-[#020617] shadow-[0_0_90px_rgba(16,185,129,0.6)]">
+          <div className="hero-media relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 bg-[#020617] shadow-[0_0_90px_rgba(16,185,129,0.6)]">
             {slides.map((slide, index) => (
               <div
                 key={slide.id || index}
@@ -136,16 +131,18 @@ function Hero() {
                   alt={slide.label}
                   className="h-full w-full object-cover"
                 />
-                {/* ✅ Strong scrim so text is readable */}
-                  <ImageOverlay position="bottom" strength="strong" />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                {/* keep your overlay component (dark mode ok) */}
+                <ImageOverlay position="bottom" strength="strong" />
+
+                {/* IMPORTANT: this scrim stays dark even in light mode */}
+                <div className="hero-scrim pointer-events-none absolute inset-x-0 bottom-0 h-[55%]" />
 
                 <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 space-y-2">
-                  <p className="text-[11px] uppercase tracking-[0.18em] text-brand">
+                  <p className="inline-flex caption-pill text-[11px] uppercase tracking-[0.18em] text-brand">
                     {slide.label}
                   </p>
-                  <p className="text-sm md:text-base font-medium text-slate-50">
+                  <p className="caption-text text-sm md:text-base font-semibold text-white">
                     {slide.caption}
                   </p>
                 </div>
@@ -157,14 +154,14 @@ function Hero() {
                 <button
                   type="button"
                   onClick={() => goTo(-1)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-slate-100 hover:bg-black/70 text-sm"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 text-lg"
                 >
                   ‹
                 </button>
                 <button
                   type="button"
                   onClick={() => goTo(1)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-slate-100 hover:bg-black/70 text-sm"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 text-lg"
                 >
                   ›
                 </button>
@@ -180,9 +177,7 @@ function Hero() {
                   type="button"
                   onClick={() => setActiveIndex(index)}
                   className={`h-1.5 rounded-full transition-all ${
-                    index === activeIndex
-                      ? "w-6 bg-brand"
-                      : "w-2 bg-slate-500/60"
+                    index === activeIndex ? "w-6 bg-brand" : "w-2 bg-slate-500/60"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />

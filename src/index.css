@@ -2,120 +2,167 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------------------------------
+   BASE (default = dark)
+   IMPORTANT: do NOT force bg/text only on body
+   or light mode will never fully win.
+---------------------------------------- */
 body {
-  @apply bg-dark text-white antialiased;
   @apply antialiased overflow-x-hidden;
 }
 
+/* If you want the whole site to be dark by default,
+   apply the background to the root wrapper instead of body.
+   (We still include a fallback for apps missing wrapper classes.) */
+:root:not([data-theme="light"]) body {
+  background-color: #020617; /* dark */
+  color: #ffffff;
+}
 
-/* -----------------------------
-   LIGHT MODE FIXES (IMPORTANT)
-   We target the REAL wrapper:
-   - Layout uses .app-root
-   - ThemeContext sets :root[data-theme="light"]
--------------------------------- */
+/* ---------------------------------------
+   LIGHT MODE FIXES (CSS only)
+   Target BOTH: body + wrappers, so it works even if
+   app-root/nav-shell classes are missing.
+---------------------------------------- */
 
 /* Page background + base text */
-:root[data-theme="light"] .app-root {
+:root[data-theme="light"] body,
+:root[data-theme="light"] .app-root,
+:root[data-theme="light"] .app-shell {
   background-color: #f8fafc; /* mild white */
   color: #0f172a; /* slate-900 */
 }
 
-/* Navbar shell in light mode */
+/* Navbar shell (if you use this class) */
 :root[data-theme="light"] .navbar-shell {
-  background-color: rgba(255, 255, 255, 0.92);
-  border-color: rgba(148, 163, 184, 0.35);
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(148, 163, 184, 0.35) !important;
 }
 
-/* Make all the “dark cards” become light */
-:root[data-theme="light"] .app-root .bg-white\/5,
-:root[data-theme="light"] .app-root .bg-black\/30,
-:root[data-theme="light"] .app-root .bg-black\/40,
-:root[data-theme="light"] .app-root .bg-black\/50,
-:root[data-theme="light"] .app-root .bg-black\/60,
-:root[data-theme="light"] .app-root .bg-black\/70,
-:root[data-theme="light"] .app-root .bg-black\/75,
-:root[data-theme="light"] .app-root .bg-black\/80,
-:root[data-theme="light"] .app-root .bg-dark,
-:root[data-theme="light"] .app-root .bg-dark\/90,
-:root[data-theme="light"] .app-root .bg-dark-soft,
-:root[data-theme="light"] .app-root .bg-\[\#020617\],
-:root[data-theme="light"] .app-root .bg-\[\#020617\]\/60,
-:root[data-theme="light"] .app-root .bg-\[\#020617\]\/80,
-:root[data-theme="light"] .app-root .bg-\[\#020617\]\/90 {
+/* ---------------------------------------
+   CARDS / PANELS: convert common dark utilities to light
+---------------------------------------- */
+:root[data-theme="light"] .bg-white\/5,
+:root[data-theme="light"] .bg-black\/30,
+:root[data-theme="light"] .bg-black\/40,
+:root[data-theme="light"] .bg-black\/50,
+:root[data-theme="light"] .bg-black\/60,
+:root[data-theme="light"] .bg-black\/70,
+:root[data-theme="light"] .bg-black\/75,
+:root[data-theme="light"] .bg-black\/80,
+:root[data-theme="light"] .bg-dark,
+:root[data-theme="light"] .bg-dark\/90,
+:root[data-theme="light"] .bg-dark-soft,
+:root[data-theme="light"] .bg-\[\#020617\],
+:root[data-theme="light"] .bg-\[\#26272b\],
+:root[data-theme="light"] .bg-\[\#020617\]\/60,
+:root[data-theme="light"] .bg-\[\#020617\]\/70,
+:root[data-theme="light"] .bg-\[\#020617\]\/80,
+:root[data-theme="light"] .bg-\[\#020617\]\/90 {
   background-color: #ffffff !important;
 }
 
-/* Borders: turn white borders into subtle slate borders */
-:root[data-theme="light"] .app-root .border-white\/5,
-:root[data-theme="light"] .app-root .border-white\/10,
-:root[data-theme="light"] .app-root .border-white\/15,
-:root[data-theme="light"] .app-root .border-white\/20 {
+/* Borders: flip white borders to slate */
+:root[data-theme="light"] .border-white\/5,
+:root[data-theme="light"] .border-white\/10,
+:root[data-theme="light"] .border-white\/15,
+:root[data-theme="light"] .border-white\/20 {
   border-color: rgba(148, 163, 184, 0.45) !important;
 }
 
-/* Text readability: flip common slate text utilities to dark */
-:root[data-theme="light"] .app-root .text-white,
-:root[data-theme="light"] .app-root .text-slate-50,
-:root[data-theme="light"] .app-root .text-slate-100,
-:root[data-theme="light"] .app-root .text-slate-200,
-:root[data-theme="light"] .app-root .text-slate-300 {
+/* ---------------------------------------
+   TEXT: flip common slate/white utilities to readable dark
+---------------------------------------- */
+:root[data-theme="light"] .text-white,
+:root[data-theme="light"] .text-slate-50,
+:root[data-theme="light"] .text-slate-100,
+:root[data-theme="light"] .text-slate-200,
+:root[data-theme="light"] .text-slate-300 {
   color: #0f172a !important;
 }
 
-:root[data-theme="light"] .app-root .text-slate-400,
-:root[data-theme="light"] .app-root .text-slate-500 {
+:root[data-theme="light"] .text-slate-400,
+:root[data-theme="light"] .text-slate-500 {
   color: #334155 !important;
 }
 
-/* Shadows: reduce heavy dark shadows on light background */
-:root[data-theme="light"] .app-root .shadow-black\/40,
-:root[data-theme="light"] .app-root .shadow-black\/50,
-:root[data-theme="light"] .app-root .shadow-black\/60,
-:root[data-theme="light"] .app-root .shadow-black\/70,
-:root[data-theme="light"] .app-root .shadow-black\/80 {
-  --tw-shadow-color: rgba(15, 23, 42, 0.15) !important;
+:root[data-theme="light"] .text-slate-600,
+:root[data-theme="light"] .text-slate-700 {
+  color: #475569 !important;
 }
 
-/* Keep brand readable on light */
-:root[data-theme="light"] .app-root .text-brand {
+/* Brand in light mode */
+:root[data-theme="light"] .text-brand {
   color: #16a34a !important;
 }
 
-/* Hide scrollbar for trainer strip (Chrome, Edge, Safari) */
-.trainer-scroll::-webkit-scrollbar {
-  display: none;
+/* ---------------------------------------
+   INPUTS: turn dark inputs into light
+---------------------------------------- */
+:root[data-theme="light"] input,
+:root[data-theme="light"] textarea,
+:root[data-theme="light"] select {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(148, 163, 184, 0.55) !important;
 }
 
-/* Hide scrollbar for trainer strip (Firefox / others) */
-.trainer-scroll {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder {
+  color: #64748b !important;
 }
 
-/* Helper for readable text on images */
+/* ---------------------------------------
+   SHADOWS: reduce heavy black shadows
+---------------------------------------- */
+:root[data-theme="light"] .shadow-black\/40,
+:root[data-theme="light"] .shadow-black\/50,
+:root[data-theme="light"] .shadow-black\/60,
+:root[data-theme="light"] .shadow-black\/70,
+:root[data-theme="light"] .shadow-black\/80 {
+  --tw-shadow-color: rgba(15, 23, 42, 0.15) !important;
+}
+
+/* ---------------------------------------
+   IMAGE TEXT READABILITY
+   Fix captions on hero slides, coach cards, etc.
+---------------------------------------- */
+
+/* Your helper */
 .image-text {
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
-/* -------------------------------------------------------
-   BMI Light-mode overrides (keep component dark-coded)
-   ------------------------------------------------------- */
+/* In LIGHT mode, dark text over image needs a LIGHT scrim behind it.
+   This targets common overlays used in your components. */
+:root[data-theme="light"] .bg-gradient-to-t.from-black\/80,
+:root[data-theme="light"] .bg-gradient-to-t.from-black\/70,
+:root[data-theme="light"] .bg-gradient-to-t.from-black\/60,
+:root[data-theme="light"] .bg-gradient-to-t.from-black\/50,
 
-/* The whole BMI shell */
+
+/* If ImageOverlay uses a class we can hook into */
+:root[data-theme="light"] .image-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(18, 18, 18, 0.1)
+  ) !important;
+}
+
+/* ---------------------------------------
+   BMI OVERRIDES (your existing ones kept)
+---------------------------------------- */
 :root[data-theme="light"] .bmi-shell {
   background: linear-gradient(to right, #f8fafc, #ffffff, #f8fafc) !important;
   border-color: #e2e8f0 !important;
   box-shadow: 0 0 60px rgba(15, 23, 42, 0.08) !important;
 }
 
-/* Right column base */
 :root[data-theme="light"] .bmi-categories {
   background: rgba(255, 255, 255, 0.85) !important;
   border-left-color: #e2e8f0 !important;
 }
 
-/* Text overrides inside BMI */
 :root[data-theme="light"] .bmi-shell .text-white,
 :root[data-theme="light"] .bmi-shell .text-slate-50,
 :root[data-theme="light"] .bmi-shell .text-slate-100 {
@@ -131,7 +178,6 @@ body {
   color: #475569 !important;
 }
 
-/* Inputs (they are hard-coded dark, so flip them) */
 :root[data-theme="light"] .bmi-shell input,
 :root[data-theme="light"] .bmi-shell textarea,
 :root[data-theme="light"] .bmi-shell select {
@@ -140,35 +186,67 @@ body {
   border-color: #e2e8f0 !important;
 }
 
-/* "bg-dark-soft" used in the BMI form fields */
 :root[data-theme="light"] .bmi-shell .bg-dark-soft {
   background-color: #ffffff !important;
 }
 
-/* Borders that are hard-coded white-ish */
 :root[data-theme="light"] .bmi-shell .border-white\/10,
 :root[data-theme="light"] .bmi-shell .border-white\/15 {
   border-color: #e2e8f0 !important;
 }
 
-/* Sub-cards (bg-black/30) inside results */
 :root[data-theme="light"] .bmi-shell .bg-black\/30 {
   background-color: rgba(15, 23, 42, 0.05) !important;
 }
 
-/* Category divider lines */
 :root[data-theme="light"] .bmi-shell .divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
   border-color: #e2e8f0 !important;
 }
 
-/* Hide scrollbar for trainer strip (Chrome, Edge, Safari) */
+/* ---------------------------------------
+   HIDE TRAINER STRIP SCROLLBAR
+---------------------------------------- */
 .trainer-scroll::-webkit-scrollbar {
   display: none;
 }
-
-/* Hide scrollbar for trainer strip (Firefox / others) */
 .trainer-scroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+/* HERO: keep image clear in BOTH modes */
+.hero-media .hero-scrim {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.82),
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.0)
+  );
+}
 
+/* Make caption pop (works in both modes) */
+.hero-media .caption-pill {
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.hero-media .caption-text {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}
+
+/* In LIGHT mode, do NOT wash out hero image overlays */
+:root[data-theme="light"] .hero-media .hero-scrim {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78),
+    rgba(0, 0, 0, 0.30),
+    rgba(0, 0, 0, 0.0)
+  ) !important;
+}
+
+/* In LIGHT mode, keep caption text white on image */
+:root[data-theme="light"] .hero-media .caption-text {
+  color: #ffffff !important;
+}
