@@ -15,16 +15,15 @@ function ThemeToggle() {
         transition-all duration-300 ease-out
         ${
           isLight
-            ? "bg-orange-400 shadow-[0_0_20px_rgba(251,146,60,0.6)]"
+            ? "bg-yellow-400 shadow-[0_0_18px_rgba(250,204,21,0.65)]"
             : "bg-white/10 hover:bg-white/20"
         }
       `}
     >
-      {/* Icon */}
       {isLight ? (
-        <Sun className="h-5 w-5 text-white transition-transform duration-300 rotate-0" />
+        <Sun className="h-5 w-5 text-yellow-950" />
       ) : (
-        <Moon className="h-5 w-5 text-slate-200 transition-transform duration-300 rotate-0" />
+        <Moon className="h-5 w-5 text-slate-200" />
       )}
     </button>
   );

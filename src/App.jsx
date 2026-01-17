@@ -13,6 +13,8 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Events from "./pages/Events.jsx";
 import Shop from "./pages/Shop.jsx";
 
+import "./index.css";
+
 function App() {
   return (
     <Layout>
