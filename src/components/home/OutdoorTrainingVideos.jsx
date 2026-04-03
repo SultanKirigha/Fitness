@@ -13,7 +13,7 @@ function OutdoorTrainingVideos() {
 
   // ✅ Background/poster image – the outdoor shot you shared earlier
   const backgroundImage =
-    "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1767886033/combatfit/events/_dsc6424_jeetc0.jpg";
+    "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1774371555/IMG_3278_c69ckw.jpg";
 
   const handlePlayVideo = () => {
     if (videoRef.current) {

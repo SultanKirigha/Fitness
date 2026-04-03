@@ -2,13 +2,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Trash2, Minus, Plus, ShoppingBag } from "lucide-react";
-import {
-  getCart,
-  setCart,
-  updateCartQty,
-  removeFromCart,
-  clearCart,
-} from "../utils/cart.js";
+import { getCart, updateCartQty, removeFromCart, clearCart } from "../utils/cart.js";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5050";
 
 function CartItemRow({ item, onMinus, onPlus, onRemove }) {
   const unit = Number(item.priceKsh || 0);
@@ -55,7 +51,6 @@ function CartItemRow({ item, onMinus, onPlus, onRemove }) {
           </div>
 
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-            {/* Qty controls */}
             <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-3 py-2">
               <button
                 type="button"
@@ -80,7 +75,6 @@ function CartItemRow({ item, onMinus, onPlus, onRemove }) {
               </button>
             </div>
 
-            {/* Line total */}
             <div className="text-right">
               <p className="text-xs text-slate-400">Subtotal</p>
               <p className="text-sm md:text-base font-semibold text-slate-50">
@@ -96,10 +90,12 @@ function CartItemRow({ item, onMinus, onPlus, onRemove }) {
 
 export default function Cart() {
   const navigate = useNavigate();
-
   const [items, setItems] = useState(() => getCart().items);
 
-  // Keep page in sync with updates from other components
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
   useEffect(() => {
     const sync = () => setItems(getCart().items);
     window.addEventListener("cart:updated", sync);
@@ -116,11 +112,8 @@ export default function Cart() {
       0
     );
     const count = items.reduce((sum, it) => sum + Number(it.qty || 0), 0);
-
-    // For now: no shipping/tax calculation
     const shipping = 0;
     const total = subtotal + shipping;
-
     return { subtotal, shipping, total, count };
   }, [items]);
 
@@ -146,14 +139,54 @@ export default function Cart() {
     setItems([]);
   };
 
-  // Optional: if you want a single "checkout" flow later
-  const handleCheckout = () => {
-    alert("Next step: Checkout (we’ll connect this to Paystack)");
+  const handleCheckout = async () => {
+    setErrorMsg("");
+
+    if (!items.length) return;
+
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !trimmedEmail.includes("@")) {
+      setErrorMsg("Please enter a valid email address to continue.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      // Send items at top-level so server can attach them to Paystack metadata
+      const payload = {
+        email: trimmedEmail,
+        amountKsh: summary.total,
+        items: items.map((it) => ({
+          id: it.id,
+          name: it.name,
+          priceKsh: it.priceKsh,
+          qty: it.qty,
+        })),
+      };
+
+      const resp = await fetch(`${API_BASE_URL}/api/paystack/initialize`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await resp.json();
+
+      if (!resp.ok || !data?.ok || !data?.authorization_url) {
+        throw new Error(data?.message || "Failed to start checkout.");
+      }
+
+      window.location.href = data.authorization_url;
+    } catch (err) {
+      setErrorMsg(err?.message || "Checkout failed. Try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <section className="py-10 md:py-16">
-      {/* Top bar */}
       <div className="flex items-center justify-between gap-4">
         <button
           type="button"
@@ -176,19 +209,16 @@ export default function Cart() {
       </div>
 
       <div className="mt-6 grid gap-8 lg:grid-cols-12">
-        {/* Items */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="flex items-end justify-between">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-semibold text-slate-50">
-                Your cart
-              </h1>
-              <p className="mt-1 text-sm text-slate-300">
-                {summary.count > 0
-                  ? `${summary.count} item${summary.count === 1 ? "" : "s"}`
-                  : "No items yet"}
-              </p>
-            </div>
+          <div>
+            <h1 className="text-2xl md:text-3xl font-semibold text-slate-50">
+              Your cart
+            </h1>
+            <p className="mt-1 text-sm text-slate-300">
+              {summary.count > 0
+                ? `${summary.count} item${summary.count === 1 ? "" : "s"}`
+                : "No items yet"}
+            </p>
           </div>
 
           {items.length === 0 ? (
@@ -220,10 +250,9 @@ export default function Cart() {
           )}
         </div>
 
-        {/* Summary */}
         <div className="lg:col-span-5">
-          <div className="rounded-3xl border border-white/10 bg-[#020617] p-6 shadow-[0_18px_45px_rgba(0,0,0,0.55)] sticky top-20">
-            <h2 className="text-lg font-semibold text-slate-50">Order summary</h2>
+          <div className="rounded-3xl border border-white/10 bg-[#020617] p-6 sticky top-20">
+            <h2 className="text-lg font-semibold text-slate-50">Checkout</h2>
 
             <div className="mt-4 space-y-3 text-sm">
               <div className="flex items-center justify-between text-slate-300">
@@ -235,11 +264,7 @@ export default function Cart() {
 
               <div className="flex items-center justify-between text-slate-300">
                 <span>Shipping</span>
-                <span className="text-slate-100">
-                  {summary.shipping === 0
-                    ? "Calculated later"
-                    : `Ksh ${summary.shipping.toLocaleString()}`}
-                </span>
+                <span className="text-slate-100">Calculated later</span>
               </div>
 
               <div className="border-t border-white/10 pt-3 flex items-center justify-between">
@@ -250,22 +275,36 @@ export default function Cart() {
               </div>
             </div>
 
+            <div className="mt-5 space-y-2">
+              <label className="block text-[11px] uppercase tracking-wider text-slate-300">
+                Email for receipt
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="w-full rounded-xl bg-dark-soft border border-white/10 px-3 py-2 text-sm text-white outline-none focus:border-brand"
+              />
+              {errorMsg && <p className="text-xs text-red-300">{errorMsg}</p>}
+            </div>
+
             <button
               type="button"
               onClick={handleCheckout}
-              disabled={items.length === 0}
+              disabled={items.length === 0 || loading}
               className={[
                 "mt-5 w-full inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition",
-                items.length === 0
+                items.length === 0 || loading
                   ? "bg-white/10 text-slate-500 cursor-not-allowed"
                   : "bg-slate-100 text-slate-900 hover:bg-white",
               ].join(" ")}
             >
-              Checkout
+              {loading ? "Starting checkout..." : "Pay with Paystack"}
             </button>
 
             <p className="mt-3 text-[11px] text-slate-500">
-              Checkout will connect to Paystack next. We’ll also ask for delivery details.
+              You’ll be redirected to Paystack to complete payment.
             </p>
           </div>
         </div>

@@ -20,7 +20,7 @@ function ProgramCard({ program }) {
           <img
             src={imageUrl}
             alt={name}
-            className="h-full w-full object-cover transition-transform duration-500 ease-out hover:scale-105"
+            className="h-full w-full object-cover object-top transition-transform duration-500 ease-out hover:scale-105"
           />
         ) : (
           <div className="h-full w-full bg-gradient-to-br from-brand/30 via-dark-soft to-dark flex items-center justify-center text-xs text-slate-100">

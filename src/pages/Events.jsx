@@ -5,6 +5,14 @@ import { useSiteData } from "../context/SiteDataContext.jsx";
 // Use Vite env variable instead of hard-coding
 const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
 
+function getLocalTodayString() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 function EventCard({ event, isPast, onBook }) {
   const isClosed = isPast || event.soldOut;
 
@@ -42,9 +50,13 @@ function EventCard({ event, isPast, onBook }) {
         )}
 
         {/* Date badge (bottom-right) */}
-        <div className="absolute right-4 bottom-4 rounded-xl bg-black/70 px-3 py-2 text-[11px] text-slate-100 text-right">
-          <p className="font-semibold">{event.date}</p>
-          <p className="text-[10px] text-slate-300">{event.time}</p>
+        <div className="absolute right-4 bottom-4 rounded-2xl bg-black/80 px-4 py-3 text-right shadow-[0_0_25px_rgba(220,38,38,0.35)] border border-red-500/30">
+          <p className="text-lg md:text-xl font-extrabold tracking-tight text-red-500 leading-none">
+            {event.date}
+          </p>
+          <p className="text-[10px] md:text-[11px] text-slate-300 mt-1">
+            {event.time}
+          </p>
         </div>
       </div>
 
@@ -136,9 +148,13 @@ function FeaturedEventCard({ event, isPast, onBook }) {
             </div>
           )}
 
-          <div className="absolute right-4 bottom-4 rounded-xl bg-black/75 px-3 py-2 text-[11px] text-slate-100 text-right">
-            <p className="font-semibold">{event.date}</p>
-            <p className="text-[10px] text-slate-300">{event.time}</p>
+          <div className="absolute right-4 bottom-4 rounded-2xl bg-black/85 px-5 py-4 text-right shadow-[0_0_30px_rgba(220,38,38,0.4)] border border-red-500/30">
+            <p className="text-xl md:text-2xl font-extrabold tracking-tight text-red-500 leading-none">
+              {event.date}
+            </p>
+            <p className="text-[11px] md:text-xs text-slate-300 mt-1">
+              {event.time}
+            </p>
           </div>
         </div>
 
@@ -209,7 +225,10 @@ function Events() {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
-  const todayStr = new Date().toISOString().slice(0, 10);
+
+  // Use local calendar date, not UTC, so current/upcoming events stay in the correct section
+  const todayStr = getLocalTodayString();
+
   const futureOrToday = sorted.filter((e) => e.date >= todayStr);
   const pastEvents = sorted.filter((e) => e.date < todayStr);
 

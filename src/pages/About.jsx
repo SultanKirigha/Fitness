@@ -66,7 +66,7 @@ function About() {
           <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-brand/20 via-dark-soft to-dark shadow-[0_0_90px_rgba(34,197,94,0.5)]">
             <div className="relative aspect-[4/3] md:aspect-[5/4]">
               <img
-                src={img("combatfit/about/family-going-adventure-together_lzyarp.jpg")}
+                src="https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774373213/IMG_0003_zhiaqv.jpg"
                 alt="Combatfit group hiking outdoors"
                 className="h-full w-full object-cover opacity-95"
               />
@@ -151,23 +151,6 @@ function About() {
             coming. You can train with us three times a week or drop into key
             outdoor days when your schedule allows.
           </p>
-
-          <div className="mt-3 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3">
-            <div className="relative h-14 w-14 overflow-hidden rounded-full border border-brand/70">
-              <img
-                src={img("combatfit/about/coach_uoaxxz.jpg")}
-                alt="Combatfit coach"
-                className="h-full w-full object-cover image-rendering-smooth fit-center image-contain"
-              />
-            </div>
-            <div className="text-xs md:text-sm">
-              <p className="font-semibold text-slate-50">Your coaches</p>
-              <p className="text-[11px] md:text-xs text-slate-300">
-                Certified strength coaches and outdoor leaders who actually
-                train the way they coach.
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Image collage */}
@@ -175,7 +158,7 @@ function About() {
           <div className="col-span-2 rounded-3xl overflow-hidden border border-white/10 bg-white/5">
             <div className="relative aspect-[16/9]">
               <img
-                src={img("combatfit/about/training-session_hnyicw.jpg")}
+                src= "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371554/IMG_3253_th5wcs.jpg"
                 alt="Outdoor training session"
                 className="h-full w-full object-cover"
               />
@@ -188,7 +171,7 @@ function About() {
           <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5">
             <div className="relative aspect-[4/5]">
               <img
-                src={img("combatfit/about/hike_ls0q1u.jpg")}
+                src= "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371531/IMG_3208_skzrsm.jpg"
                 alt="Combatfit hike"
                 className="h-full w-full object-cover"
               />
@@ -201,7 +184,7 @@ function About() {
           <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5">
             <div className="relative aspect-[4/5]">
               <img
-                src={img("combatfit/about/medium-shot-fit-people-together_ay0kej.jpg")}
+                src="https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371531/IMG_3244_bntdkn.jpg"
                 alt="Coach demoing movement"
                 className="h-full w-full object-cover"
               />

@@ -45,24 +45,24 @@ export const initialSiteData = {
       id: "strength",
       label: "Strength • Conditioning",
       caption: "Full-body strength and engine work in one place.",
-      imageUrl: img("combatfit/hero/IMG01398_de4nmh.jpg"),
+      imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371543/IMG_3171_x8k3lk.jpg",
       },
       {
         id: "community-track",
         label: "Team • Community",
         caption: "Small outdoor crews pushing through the same block together.",
-        imageUrl: img("combatfit/hero/IMG_1252_tb59en.jpg"),
+        imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371532/IMG_3342_pb4y9n.jpg",
   
       },
       {
         id: "engine-track",
         label: "Conditioning • Engine",
         caption: "Sprints, hills, and circuits that build a real-world engine.",
-        imageUrl: img("combatfit/hero/IMG01934_dfwdwb.jpg")
+        imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371545/IMG_3205_zkwdnx.jpg"
       },
     ],
     // New: BMI section image editable from dashboard
-    bmiImageUrl: img("combatfit/bmi/side-view-smiley-woman-stretching_eiom56.jpg"),
+    bmiImageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371543/IMG_3156_sqgtzn.jpg",
   },
    programs: [
     {
@@ -74,7 +74,7 @@ export const initialSiteData = {
       duration: "6 weeks",
       mode: "Outdoor and home friendly",
       sessionsPerWeek: 3,
-      imageUrl: img("combatfit/programs/strength-foundations_x7ld2p.jpg"),
+      imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371533/IMG_3115_ivpqbi.jpg",
     },
     {
       id: "engine-outdoors",
@@ -85,7 +85,7 @@ export const initialSiteData = {
       duration: "8 weeks",
       mode: "Trails and city parks",
       sessionsPerWeek: 2,
-      imageUrl: img("combatfit/programs/engine-outdoors_g5iwxy.jpg"),
+      imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371531/IMG_3244_bntdkn.jpg",
     },
     {
       id: "hike-prep",
@@ -96,7 +96,7 @@ export const initialSiteData = {
       duration: "4 weeks",
       mode: "Gym plus outdoor sessions",
       sessionsPerWeek: 3,
-      imageUrl: img("/combatfit/programs/360_F_570490961_dyPoZUNIOGnDQ8rd3ooOO2f2HrSLohLj_a5my6o.jpg"),
+      imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371543/IMG_3164_zjco6c.jpg",
     },
   ],
 
@@ -164,33 +164,23 @@ export const initialSiteData = {
   trainers: [
     {
       id: "amina-strength",
-      name: "Amina Okello",
+      name: "Coach Clive",
       role: "Head Strength Coach",
       focus: "Barbell strength, beginner technique, and injury aware coaching.",
       yearsExperience: 7,
       credentials: "CSCS, Precision Nutrition L1",
       location: "Nairobi and online",
-      photoUrl: img("combatfit/trainers/Faith_Wanjiku_pizonk.jpg"),
+      photoUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774372425/ChatGPT_Image_Mar_15_2026_02_04_28_PM_krhkmt.png",
     },
     {
       id: "leo-conditioning",
-      name: "Leo Madu",
+      name: "Coach Felix",
       role: "Conditioning Coach",
       focus: "Engine work, conditioning blocks, sport prep, and HIIT sessions.",
       yearsExperience: 5,
       credentials: "CrossFit L2, Endurance specialist",
       location: "Hybrid, remote friendly",
-      photoUrl: img("combatfit/trainers/Davis_Baguma_nawpce.webp"),
-    },
-    {
-      id: "zara-mobility",
-      name: "Zara Njoroge",
-      role: "Mobility and Rehab",
-      focus: "Mobility, movement quality, and post rehab training.",
-      yearsExperience: 6,
-      credentials: "Physio BSc, FRCms",
-      location: "In person and online check ins",
-      photoUrl: img("combatfit/trainers/Dennis_Paddy_s6kp1f.webp"),
+      photoUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774372425/ChatGPT_Image_Mar_15_2026_02_12_40_PM_k3afvs.png",
     },
     
   ],
@@ -230,9 +220,9 @@ export const initialSiteData = {
     items: [
       {
         id: "cf-tee-black",
-        name: "Combatfit Black Training Tee",
+        name: "Compression Full Logo shirts",
         tag: "Apparel",
-        priceKsh: 2500,
+        priceKsh: 1000,
         priceNote: "Unisex fit · performance fabric",
         badge: "New",
         description:
@@ -244,14 +234,43 @@ export const initialSiteData = {
           "Works for trails, park sessions, and gym days",
         ],
         estimatedLeadTime: "Typical lead time: 5–7 days in Nairobi.",
-        imageUrl: img("combatfit/shop/35709_f_fl_gg5mg8.jpg"),
+        imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203467/WhatsApp_Image_2026-04-03_at_10.51.28_jbgqnh.jpg",
+
+        images: [
+          "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203467/WhatsApp_Image_2026-04-03_at_10.51.28_jbgqnh.jpg",
+
+        ],
       },
 
       {
-        id: "cf-hoodie-trail",
-        name: "Combatfit Trail Hoodie",
+        id: "cf-tee-icon-black",
+        name: "Compression Icon shirts",
+        tag: "Apparel",
+        priceKsh: 1000,
+        priceNote: "Unisex fit · performance fabric",
+        badge: "New",
+        description:
+          "Lightweight, quick-dry training tee with the Combatfit mark. Built for outdoor sessions, hill sprints, and everyday wear.",
+        features: [
+          "Breathable, quick-dry fabric",
+          "Unisex athletic cut",
+          "Screen-printed Combatfit logo",
+          "Works for trails, park sessions, and gym days",
+        ],
+        estimatedLeadTime: "Typical lead time: 5–7 days in Nairobi.",
+        imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203467/WhatsApp_Image_2026-04-03_at_10.51.31_wa6kob.jpg",
+
+        images: [
+          "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203467/WhatsApp_Image_2026-04-03_at_10.51.31_wa6kob.jpg",
+          
+        ],
+      },
+
+      {
+        id: "cf-black-icon-hoodie-trail",
+        name: "Combatfit Icon Hoodie",
         tag: "Layering",
-        priceKsh: 4500,
+        priceKsh: 3000,
         priceNote: "Perfect for early morning starts",
         badge: "Limited",
         description:
@@ -263,45 +282,45 @@ export const initialSiteData = {
           "Great for Ngong, Karura, and commute days",
         ],
         estimatedLeadTime: "Typical lead time: 7–10 days.",
-        imageUrl: img("combatfit/shop/833A4131_vv827u.jpg"),
+
+        // cover image for shop card
+        imageUrl:
+          "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203467/WhatsApp_Image_2026-04-03_at_10.51.32_vhwmpq.jpg",
+
+        // multiple product images
+        images: [
+          "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203467/WhatsApp_Image_2026-04-03_at_10.51.32_vhwmpq.jpg",
+          "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203466/WhatsApp_Image_2026-04-03_at_10.51.39_vpkl1v.jpg",
+          "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203466/WhatsApp_Image_2026-04-03_at_10.51.42_wypznu.jpg",
+        ],
       },
 
       {
-        id: "cf-bands-set",
-        name: "Combatfit Resistance Band Set",
-        tag: "Equipment",
-        priceKsh: 3200,
-        priceNote: "Set of 5 bands + pouch",
-        badge: "Coach pick",
+        id: "cf-white-full-logo-hoodie-trail",
+        name: "Combatfit Full Logo Hoodie",
+        tag: "Layering",
+        priceKsh: 3000,
+        priceNote: "Perfect for early morning starts",
+        badge: "Limited",
         description:
-          "Colour-coded resistance bands for strength work at home, in the park, or while travelling. Used in our outdoor blocks.",
+          "Mid-weight hoodie for pre-session warm up and cool downs. Soft inside, structured enough for trail mornings and city evenings.",
         features: [
-          "5 different resistance levels",
-          "Comes with a small carry pouch",
-          "Matches strength and mobility sessions in the app",
-          "Good for warm ups, glute work, and finishers",
+          "Soft interior, structured exterior",
+          "Room for a base layer underneath",
+          "Subtle front Combatfit logo",
+          "Great for Ngong, Karura, and commute days",
         ],
-        estimatedLeadTime: "Typical lead time: 3–5 days.",
-        imageUrl: img("combatfit/shop/Haef3923a22054fd7810a9b9eeab2ac1ai.jpg_300x300_idvlu5.jpg"),
-      },
+        estimatedLeadTime: "Typical lead time: 7–10 days.",
 
-      {
-        id: "cf-bottle",
-        name: "Combatfit Hydration Bottle 1L",
-        tag: "Accessories",
-        priceKsh: 1800,
-        priceNote: "Leak-resistant lid",
-        badge: "Everyday",
-        description:
-          "1 litre bottle to carry to sessions, hikes, and work. Simple, durable, and easy to clean.",
-        features: [
-          "Approx. 1 litre capacity",
-          "Durable BPA-free plastic",
-          "Wide opening for ice and easy cleaning",
-          "Minimal Combatfit branding on the side",
+        // cover image for shop card
+        imageUrl:
+          "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203467/WhatsApp_Image_2026-04-03_at_10.51.34_vhvf96.jpg",
+
+        // multiple product images
+        images: [
+          "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203467/WhatsApp_Image_2026-04-03_at_10.51.34_vhvf96.jpg",
+          "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203466/WhatsApp_Image_2026-04-03_at_10.51.42_wypznu.jpg",
         ],
-        estimatedLeadTime: "Typical lead time: 3–5 days.",
-        imageUrl: img("combatfit/shop/1_j4jzah.jpg"),
       },
     ],
   },
@@ -311,6 +330,21 @@ export const initialSiteData = {
   // =====================
   // Put these images in: public/images/events/...
   events: [
+    {
+    id: "bootcamp",
+    title: "Karura Forest ( Bootcamp) joint with Ibrafitness",
+    date: "2026-04-18",
+    time: "07:00 – 10:30",
+    type: "Bootcamp",
+    location: "Karura Forest, Nairobi",
+    isOnline: false,
+    soldOut: false,
+    highlight: "Easy to moderate pace, all levels welcome.",
+    summary:
+      "Let’s stay consistent and grow stronger together! 🔥confirm your spot",
+    registrationUrl: "#",
+    imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775204262/IMG_0771_yifeia.jpg",
+  },
   {
     id: "karura-hike",
     title: "Karura Forest Community Hike",
@@ -324,7 +358,7 @@ export const initialSiteData = {
     summary:
       "Start your Saturday with a guided hike through Karura. We move, talk, and finish with a simple mobility flow in the clearing.",
     registrationUrl: "#",
-    imageUrl: img("combatfit/events/Karura-Forest-Services-Restored_op6iji.jpg"),
+    imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774373213/IMG_0003_zhiaqv.jpg",
   },
   {
     id: "sunrise-trail",

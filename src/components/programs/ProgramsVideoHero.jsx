@@ -13,7 +13,7 @@ function ProgramsVideoHero({ programs = [] }) {
 
   // ✅ A strong outdoor frame as the poster image
   const backgroundImage =
-    "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1767886033/combatfit/events/_dsc6424_jeetc0.jpg";
+    "https://res.cloudinary.com/dqgxq1mp2/image/upload/v1774371555/IMG_3278_c69ckw.jpg";
 
   const handlePlayVideo = () => {
     if (videoRef.current) {

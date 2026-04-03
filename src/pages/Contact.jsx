@@ -3,7 +3,6 @@ import { useState } from "react";
 
 const CONTACT_FORM_URL = import.meta.env.VITE_CONTACT_FORM_URL;
 
-
 function Contact() {
   const [submitted, setSubmitted] = useState(false);
 
@@ -14,7 +13,6 @@ function Contact() {
 
   return (
     <section className="py-10 md:py-16">
-      {/* Page header */}
       <header className="space-y-3 max-w-3xl mb-8">
         <p className="text-xs uppercase tracking-[0.22em] text-brand">
           Contact
@@ -30,7 +28,6 @@ function Contact() {
       </header>
 
       <div className="grid gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.3fr)] items-start">
-        {/* Left side: contact info */}
         <aside className="space-y-6">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_18px_40px_rgba(0,0,0,0.6)]">
             <h2 className="text-sm font-semibold text-slate-100 mb-3">
@@ -41,13 +38,13 @@ function Contact() {
                 <span className="block text-[11px] uppercase tracking-[0.18em] text-slate-400">
                   Email
                 </span>
-                <span>hello@combatfit.co.ke</span>
+                <span>info@combatfit.io</span>
               </li>
               <li>
                 <span className="block text-[11px] uppercase tracking-[0.18em] text-slate-400">
                   WhatsApp
                 </span>
-                <span>+254 7xx xxx xxx</span>
+                <span>+254 729 240 290</span>
               </li>
               <li>
                 <span className="block text-[11px] uppercase tracking-[0.18em] text-slate-400">
@@ -63,13 +60,12 @@ function Contact() {
               Response time
             </p>
             <p>
-              We usually reply within one working day. For last–minute changes
+              We usually reply within one working day. For last-minute changes
               to an outdoor session, WhatsApp is fastest.
             </p>
           </div>
         </aside>
 
-        {/* Right side: contact form */}
         <div className="rounded-2xl border border-white/10 bg-white/5 p-5 md:p-6 shadow-[0_18px_40px_rgba(0,0,0,0.6)]">
           <h2 className="text-sm md:text-base font-semibold text-slate-50 mb-4">
             Send a message
@@ -171,7 +167,6 @@ function Contact() {
             )}
           </form>
 
-          {/* Hidden iframe to absorb the form submission so the page doesn't reload */}
           <iframe
             name="contactFormFrame"
             title="Combatfit contact form"

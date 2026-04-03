@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 import { CalendarDays, MapPin, X, ArrowRight } from "lucide-react";
 import { useSiteData } from "../../context/SiteDataContext.jsx";
 
+function getLocalTodayString() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 function UpcomingEventPopup() {
   const {
     siteData: { events },
@@ -18,7 +26,7 @@ function UpcomingEventPopup() {
       return;
     }
 
-    const todayStr = new Date().toISOString().slice(0, 10);
+    const todayStr = getLocalTodayString();
 
     // Sort by date and find first upcoming that is not sold out
     const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
@@ -43,11 +51,8 @@ function UpcomingEventPopup() {
   const handleClose = () => setIsOpen(false);
 
   return (
-    // Full screen overlay with blur and dark backdrop
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
-      {/* Centered modal card */}
       <div className="relative w-full max-w-lg rounded-3xl border border-white/10 bg-[#020617] shadow-[0_0_100px_rgba(0,0,0,0.9)] overflow-hidden">
-        {/* Close icon button */}
         <button
           type="button"
           onClick={handleClose}
@@ -57,7 +62,6 @@ function UpcomingEventPopup() {
           <X className="h-4 w-4" />
         </button>
 
-        {/* Header */}
         <div className="px-5 pt-5 pb-3 border-b border-white/10">
           <p className="text-[11px] uppercase tracking-[0.24em] text-brand">
             Upcoming outdoor session
@@ -67,9 +71,7 @@ function UpcomingEventPopup() {
           </h2>
         </div>
 
-        {/* Body */}
         <div className="px-5 py-4 space-y-4 text-xs md:text-sm text-slate-200">
-          {/* Date & location */}
           <div className="flex flex-wrap items-center gap-3 text-[11px] md:text-xs text-slate-300">
             <span className="inline-flex items-center gap-1.5">
               <CalendarDays className="h-3.5 w-3.5 text-brand" />
@@ -83,7 +85,6 @@ function UpcomingEventPopup() {
             </span>
           </div>
 
-          {/* Image */}
           {nextEvent.imageUrl && (
             <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-dark-soft aspect-[4/3]">
               <img
@@ -91,15 +92,25 @@ function UpcomingEventPopup() {
                 alt={nextEvent.title}
                 className="h-full w-full object-cover object-center"
               />
+
               {nextEvent.type && (
                 <div className="absolute left-3 top-3 inline-flex items-center rounded-full bg-black/60 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-brand border border-brand/40">
                   {nextEvent.type}
                 </div>
               )}
+
+              {/* Date badge made to pop */}
+              <div className="absolute right-3 bottom-3 rounded-2xl bg-black/85 px-4 py-3 text-right shadow-[0_0_25px_rgba(220,38,38,0.35)] border border-red-500/30">
+                <p className="text-lg md:text-xl font-extrabold tracking-tight text-red-500 leading-none">
+                  {nextEvent.date}
+                </p>
+                <p className="text-[10px] md:text-[11px] text-slate-300 mt-1">
+                  {nextEvent.time}
+                </p>
+              </div>
             </div>
           )}
 
-          {/* Summary */}
           <div className="space-y-2">
             {nextEvent.highlight && (
               <p className="text-[11px] md:text-xs text-brand">
@@ -118,7 +129,6 @@ function UpcomingEventPopup() {
           </div>
         </div>
 
-        {/* Footer: primary CTA + red decline */}
         <div className="px-5 pb-5 pt-3 border-t border-white/10 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <Link
             to="/events#upcoming"
