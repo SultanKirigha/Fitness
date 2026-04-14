@@ -3,11 +3,11 @@ import { NavLink } from "react-router-dom";
 import {
   Instagram,
   Facebook,
-  Youtube,
   Mail,
   MapPin,
   ArrowRight,
 } from "lucide-react";
+import { FaTiktok } from "react-icons/fa";
 const CLOUD = import.meta.env.VITE_CLOUDINARY_BASE;
 
 const logoUrl = `${CLOUD}/combatfit/logos/logo_trqhzr.svg`; // adjust path if needed
@@ -138,7 +138,7 @@ function Footer() {
 
             <div className="flex flex-wrap items-center gap-3">
               <a
-                href="mailto:sultankirigha@gmail.com"
+                href="dale.clive20@gmail.com"
                 className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] md:text-xs text-slate-100 hover:border-brand hover:bg-brand/10 transition"
               >
                 <Mail className="h-3.5 w-3.5" />
@@ -148,25 +148,25 @@ function Footer() {
 
             <div className="flex gap-3 pt-1">
               <a
-                href="#"
+                href="https://www.instagram.com/comb_atfitness/"
                 aria-label="Combatfit Instagram"
                 className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-slate-200 hover:bg-brand hover:text-dark transition"
               >
                 <Instagram className="h-4 w-4" />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/phelix.mwasafi"
                 aria-label="Combatfit Facebook"
                 className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-slate-200 hover:bg-brand hover:text-dark transition"
               >
                 <Facebook className="h-4 w-4" />
               </a>
               <a
-                href="#"
+                href="https://www.tiktok.com/@combatfitkenya"
                 aria-label="Combatfit YouTube"
                 className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-slate-200 hover:bg-brand hover:text-dark transition"
               >
-                <Youtube className="h-4 w-4" />
+                <FaTiktok className="h-4 w-4" />
               </a>
             </div>
           </div>

@@ -2,6 +2,7 @@
 import { useSiteData } from "../context/SiteDataContext.jsx";
 import ProgramsSchedule from "../components/programs/ProgramsSchedule.jsx";
 import ProgramsVideoHero from "../components/programs/ProgramsVideoHero.jsx";
+import TikTokCommunitySection from "../components/social/TikTokComunitySection.jsx";
 
 function Programs() {
   const {
@@ -67,6 +68,11 @@ function Programs() {
 
       {/* Weekly schedule section */}
       <ProgramsSchedule />
+
+      <TikTokCommunitySection
+          title="See what the crew is doing on TikTok"
+          subtitle="Fresh training clips, outdoor sessions, and community moments from Combatfit Kenya."
+        />
     </section>
   );
 }

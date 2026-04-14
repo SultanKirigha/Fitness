@@ -8,6 +8,8 @@ import BmiSection from "../components/home/BmiCalculator.jsx";
 import ShopPreview from "../../src/pages/Shop.jsx";
 import OutdoorTrainingVideos from "../components/home/OutdoorTrainingVideos.jsx";
 
+import TikTokPostsSection from "../components/social/TikTokPostsSection.jsx";
+
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -19,6 +21,11 @@ function Home() {
     <main className="space-y-10 md:space-y-16">
       {/* Hero gets its own animations inside Hero.jsx */}
       <Hero />
+
+      <TikTokPostsSection
+          title="See what the crew is doing on TikTok"
+          subtitle="Fresh training clips, outdoor sessions, and community moments from Combatfit Kenya."
+        />
 
       {/* 🔽 New video carousel directly under the copy */}
       <OutdoorTrainingVideos />
@@ -61,6 +68,7 @@ function Home() {
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
       >
         <ShopPreview />
+        
       </motion.section>
     </main>
   );

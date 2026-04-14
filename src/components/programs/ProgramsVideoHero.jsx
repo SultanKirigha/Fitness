@@ -9,7 +9,7 @@ function ProgramsVideoHero({ programs = [] }) {
 
   // ✅ Your Cloudinary video (coaching workouts)
   const videoUrl =
-    "https://res.cloudinary.com/dqgxq1mp2/video/upload/293079_large_kwthfd.mp4";
+    "https://res.cloudinary.com/dqgxq1mp2/video/upload/q_auto/f_auto/v1775209336/WhatsApp_Video_2026-02-14_at_17.04.22_1_fgavd4.mp4";
 
   // ✅ A strong outdoor frame as the poster image
   const backgroundImage =

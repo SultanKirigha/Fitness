@@ -1,14 +1,51 @@
-// src/pages/Contact.jsx
 import { useState } from "react";
 
-const CONTACT_FORM_URL = import.meta.env.VITE_CONTACT_FORM_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://combatfit-backend.onrender.com";
 
 function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = () => {
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 6000);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setSending(true);
+    setSubmitted(false);
+    setErrorMsg("");
+
+    const form = e.currentTarget;
+
+    const payload = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      subject: form.subject.value.trim(),
+      message: form.message.value.trim(),
+    };
+
+    try {
+      const resp = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await resp.json();
+
+      if (!resp.ok || !data?.ok) {
+        throw new Error(data?.message || "Failed to send message.");
+      }
+
+      setSubmitted(true);
+      form.reset();
+      setTimeout(() => setSubmitted(false), 6000);
+    } catch (err) {
+      setErrorMsg(err?.message || "Something went wrong. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -38,7 +75,7 @@ function Contact() {
                 <span className="block text-[11px] uppercase tracking-[0.18em] text-slate-400">
                   Email
                 </span>
-                <span>info@combatfit.io</span>
+                <span>dale.clive20@gmail.com</span>
               </li>
               <li>
                 <span className="block text-[11px] uppercase tracking-[0.18em] text-slate-400">
@@ -71,13 +108,7 @@ function Contact() {
             Send a message
           </h2>
 
-          <form
-            action={CONTACT_FORM_URL}
-            method="POST"
-            target="contactFormFrame"
-            onSubmit={handleSubmit}
-            className="space-y-4 text-xs md:text-sm"
-          >
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs md:text-sm">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label
@@ -150,10 +181,17 @@ function Contact() {
             <div className="pt-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <button
                 type="submit"
-                className="inline-flex items-center justify-center rounded-full px-7 py-2.5 bg-brand text-dark text-sm md:text-base font-semibold hover:bg-brand-dark transition w-full md:w-auto shadow-[0_0_30px_rgba(34,197,94,0.6)]"
+                disabled={sending}
+                className={[
+                  "inline-flex items-center justify-center rounded-full px-7 py-2.5 text-sm md:text-base font-semibold transition w-full md:w-auto shadow-[0_0_30px_rgba(34,197,94,0.6)]",
+                  sending
+                    ? "bg-white/10 text-slate-400 cursor-not-allowed"
+                    : "bg-brand text-dark hover:bg-brand-dark",
+                ].join(" ")}
               >
-                Send message
+                {sending ? "Sending..." : "Send message"}
               </button>
+
               <p className="text-[11px] md:text-xs text-slate-400">
                 We’ll reply by email, and can move to WhatsApp if needed.
               </p>
@@ -165,13 +203,13 @@ function Contact() {
                 you soon.
               </p>
             )}
-          </form>
 
-          <iframe
-            name="contactFormFrame"
-            title="Combatfit contact form"
-            className="hidden"
-          />
+            {errorMsg && (
+              <p className="text-[11px] md:text-xs text-red-400 mt-1">
+                {errorMsg}
+              </p>
+            )}
+          </form>
         </div>
       </div>
     </section>

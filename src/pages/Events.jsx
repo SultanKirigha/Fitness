@@ -1,9 +1,8 @@
-// src/pages/Events.jsx
 import { useState } from "react";
 import { useSiteData } from "../context/SiteDataContext.jsx";
+import TikTokPostsSection from "../components/social/TikTokPostsSection.jsx";
 
-// Use Vite env variable instead of hard-coding
-const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5050";
 
 function getLocalTodayString() {
   const now = new Date();
@@ -24,7 +23,6 @@ function EventCard({ event, isPast, onBook }) {
 
   return (
     <article className="flex flex-col rounded-3xl border border-white/10 bg-white/5 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)] hover:-translate-y-1 hover:border-brand/70 transition-transform">
-      {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={event.imageUrl}
@@ -32,12 +30,10 @@ function EventCard({ event, isPast, onBook }) {
           className="h-full w-full object-cover transition-transform duration-500 ease-out hover:scale-105"
         />
 
-        {/* Type pill (top-left) */}
         <div className="absolute left-4 top-4 inline-flex items-center rounded-full bg-black/60 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-brand border border-brand/40">
           {event.type}
         </div>
 
-        {/* Status badge (top-right) */}
         {isPast && (
           <div className="absolute right-4 top-4 inline-flex items-center rounded-full bg-slate-800/90 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-slate-100 shadow-[0_0_20px_rgba(15,23,42,0.7)]">
             Event ended
@@ -49,7 +45,6 @@ function EventCard({ event, isPast, onBook }) {
           </div>
         )}
 
-        {/* Date badge (bottom-right) */}
         <div className="absolute right-4 bottom-4 rounded-2xl bg-black/80 px-4 py-3 text-right shadow-[0_0_25px_rgba(220,38,38,0.35)] border border-red-500/30">
           <p className="text-lg md:text-xl font-extrabold tracking-tight text-red-500 leading-none">
             {event.date}
@@ -60,7 +55,6 @@ function EventCard({ event, isPast, onBook }) {
         </div>
       </div>
 
-      {/* Content */}
       <div className="flex flex-1 flex-col gap-3 px-4 py-4 md:px-5 md:py-5 text-xs md:text-sm">
         <div className="space-y-1">
           <h2 className="text-sm md:text-base font-semibold text-slate-50">
@@ -112,7 +106,6 @@ function EventCard({ event, isPast, onBook }) {
   );
 }
 
-/** Standalone featured card for the next upcoming event */
 function FeaturedEventCard({ event, isPast, onBook }) {
   const isClosed = isPast || event.soldOut;
 
@@ -125,7 +118,6 @@ function FeaturedEventCard({ event, isPast, onBook }) {
   return (
     <article className="rounded-3xl border border-brand/60 bg-gradient-to-br from-brand/15 via-white/5 to-dark-soft shadow-[0_0_80px_rgba(34,197,94,0.5)] overflow-hidden">
       <div className="grid gap-0 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-        {/* Image side */}
         <div className="relative h-56 md:h-auto overflow-hidden">
           <img
             src={event.imageUrl}
@@ -158,7 +150,6 @@ function FeaturedEventCard({ event, isPast, onBook }) {
           </div>
         </div>
 
-        {/* Content side */}
         <div className="flex flex-col gap-3 px-4 py-4 md:px-6 md:py-6 text-xs md:text-sm">
           <p className="text-[11px] uppercase tracking-[0.24em] text-brand">
             Next outdoor meetup
@@ -206,6 +197,7 @@ function FeaturedEventCard({ event, isPast, onBook }) {
           </div>
         </div>
       </div>
+      
     </article>
   );
 }
@@ -223,10 +215,10 @@ function Events() {
     note: "",
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
-
-  // Use local calendar date, not UTC, so current/upcoming events stay in the correct section
   const todayStr = getLocalTodayString();
 
   const futureOrToday = sorted.filter((e) => e.date >= todayStr);
@@ -250,6 +242,7 @@ function Events() {
     setActiveEventForForm(targetEvent);
     setFormValues({ name: "", email: "", phone: "", note: "" });
     setFormSubmitted(false);
+    setErrorMsg("");
   };
 
   const handleFormChange = (e) => {
@@ -260,10 +253,14 @@ function Events() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    if (!activeEventForForm || !APPS_SCRIPT_URL) {
-      console.error("Missing activeEventForForm or APPS_SCRIPT_URL");
+    if (!activeEventForForm) {
+      setErrorMsg("No active event selected.");
       return;
     }
+
+    setSubmitting(true);
+    setFormSubmitted(false);
+    setErrorMsg("");
 
     const payload = {
       eventId: activeEventForForm.id,
@@ -278,27 +275,34 @@ function Events() {
     };
 
     try {
-      console.log("Submitting booking to", APPS_SCRIPT_URL, payload);
-
-      await fetch(APPS_SCRIPT_URL, {
+      const resp = await fetch(`${API_BASE_URL}/api/booking`, {
         method: "POST",
-        mode: "no-cors",
         headers: {
-          "Content-Type": "text/plain;charset=utf-8",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       });
 
+      const data = await resp.json();
+
+      if (!resp.ok || !data?.ok) {
+        throw new Error(data?.message || "Failed to submit booking.");
+      }
+
       setFormSubmitted(true);
+      setFormValues({ name: "", email: "", phone: "", note: "" });
     } catch (err) {
-      console.error("Network error when calling Apps Script:", err);
-      alert("Could not submit booking. Check your connection and try again.");
+      console.error("Booking submission failed:", err);
+      setErrorMsg(err?.message || "Could not submit booking.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   const handleCloseForm = () => {
     setActiveEventForForm(null);
     setFormSubmitted(false);
+    setErrorMsg("");
   };
 
   const showModal = Boolean(activeEventForForm);
@@ -306,7 +310,6 @@ function Events() {
   return (
     <>
       <section className="py-10 md:py-16 space-y-10">
-        {/* Page header */}
         <header className="space-y-3">
           <p className="text-xs uppercase tracking-[0.22em] text-brand">
             Events
@@ -321,7 +324,6 @@ function Events() {
           </p>
         </header>
 
-        {/* Upcoming events centerpiece */}
         <section id="upcoming" className="space-y-6">
           <div className="text-center space-y-3">
             <p className="text-[11px] uppercase tracking-[0.26em] text-brand/90">
@@ -372,7 +374,6 @@ function Events() {
           )}
         </section>
 
-        {/* Sold out events */}
         {hasSoldOut && (
           <section className="space-y-4">
             <h2 className="text-xl md:text-2xl font-semibold">
@@ -390,7 +391,6 @@ function Events() {
           </section>
         )}
 
-        {/* Past events */}
         {hasPast && (
           <section className="space-y-4">
             <h2 className="text-xl md:text-2xl font-semibold">Past events</h2>
@@ -405,13 +405,16 @@ function Events() {
             </div>
           </section>
         )}
+
+        <TikTokPostsSection
+          title="Recent event moments on TikTok"
+          subtitle="Watch highlights from hikes, bootcamps, and outdoor sessions."
+        />
       </section>
 
-      {/* Full-screen booking modal */}
       {showModal && (
         <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
           <div className="w-full max-w-2xl h-[85vh] md:h-[80vh] flex flex-col rounded-3xl border border-white/10 bg-[#020617] p-5 md:p-7 shadow-[0_0_80px_rgba(0,0,0,0.9)] relative">
-            {/* Close button */}
             <button
               type="button"
               onClick={handleCloseForm}
@@ -420,7 +423,6 @@ function Events() {
               ✕
             </button>
 
-            {/* Header */}
             <div className="mb-4 space-y-1 pr-7">
               <p className="text-[11px] uppercase tracking-[0.22em] text-brand">
                 Reserve your spot
@@ -434,7 +436,8 @@ function Events() {
               </p>
             </div>
 
-            {/* Scrollable form area */}
+              
+
             <form
               onSubmit={handleFormSubmit}
               className="flex-1 overflow-y-auto space-y-5 text-xs md:text-sm"
@@ -515,13 +518,20 @@ function Events() {
                 </div>
               </div>
 
-              {/* Footer inside modal */}
+              
+
               <div className="pt-3 border-t border-white/10 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center rounded-full px-7 py-3 bg-brand text-dark text-sm md:text-base font-semibold hover:bg-brand-dark transition w-full md:w-auto"
+                  disabled={submitting}
+                  className={[
+                    "inline-flex items-center justify-center rounded-full px-7 py-3 text-sm md:text-base font-semibold transition w-full md:w-auto",
+                    submitting
+                      ? "bg-white/10 text-slate-400 cursor-not-allowed"
+                      : "bg-brand text-dark hover:bg-brand-dark",
+                  ].join(" ")}
                 >
-                  Submit booking request
+                  {submitting ? "Submitting..." : "Submit booking request"}
                 </button>
                 <p className="text-[11px] md:text-xs text-slate-400">
                   We will confirm your spot by email or WhatsApp.
@@ -534,8 +544,15 @@ function Events() {
                   spot.
                 </p>
               )}
+
+              {errorMsg && (
+                <p className="text-[11px] md:text-xs text-red-400 mt-1">
+                  {errorMsg}
+                </p>
+              )}
             </form>
           </div>
+        
         </div>
       )}
     </>

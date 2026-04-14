@@ -220,7 +220,7 @@ export const initialSiteData = {
     items: [
       {
         id: "cf-tee-black",
-        name: "Compression Full Logo shirts",
+        name: "T-shirt Full Logo shirts",
         tag: "Apparel",
         priceKsh: 1000,
         priceNote: "Unisex fit · performance fabric",
@@ -244,7 +244,7 @@ export const initialSiteData = {
 
       {
         id: "cf-tee-icon-black",
-        name: "Compression Icon shirts",
+        name: "T-shirt Icon shirts",
         tag: "Apparel",
         priceKsh: 1000,
         priceNote: "Unisex fit · performance fabric",
@@ -262,6 +262,30 @@ export const initialSiteData = {
 
         images: [
           "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775203467/WhatsApp_Image_2026-04-03_at_10.51.31_wa6kob.jpg",
+          
+        ],
+      },
+
+      {
+        id: "cf-compressor-icon-black",
+        name: "Compressor shirts",
+        tag: "Apparel",
+        priceKsh: 1500,
+        priceNote: "Unisex fit · performance fabric",
+        badge: "New",
+        description:
+          "Lightweight, quick-dry training tee with the Combatfit mark. Built for outdoor sessions, hill sprints, and everyday wear.",
+        features: [
+          "Breathable, quick-dry fabric",
+          "Unisex athletic cut",
+          "Screen-printed Combatfit logo",
+          "Works for trails, park sessions, and gym days",
+        ],
+        estimatedLeadTime: "Typical lead time: 5–7 days in Nairobi.",
+        imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775208825/WhatsApp_Image_2026-04-03_at_10.52.43_drluqm.jpg",
+
+        images: [
+          "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775208825/WhatsApp_Image_2026-04-03_at_10.52.43_drluqm.jpg",
           
         ],
       },
