@@ -367,7 +367,7 @@ export const initialSiteData = {
     summary:
       "Let’s stay consistent and grow stronger together! 🔥confirm your spot",
     registrationUrl: "#",
-    imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1775204262/IMG_0771_yifeia.jpg",
+    imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1776286383/IMG-20250823-WA0025_1.jpg_kdd77z.jpg",
   },
   {
     id: "karura-hike",
