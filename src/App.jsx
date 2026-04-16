@@ -15,6 +15,7 @@ import Events from "./pages/Events.jsx";
 import Shop from "./pages/Shop.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import Cart from "./pages/Cart.jsx";
+import Corporate from "./pages/Corporate.jsx";
 
 import "./index.css";
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/programs" element={<Programs />} />
         <Route path="/trainers" element={<Trainers />} />
+        <Route path="/corporate" element={<Corporate />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/events" element={<Events />} />
         <Route path="/shop" element={<Shop />} />
