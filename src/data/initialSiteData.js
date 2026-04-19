@@ -354,6 +354,21 @@ export const initialSiteData = {
   // =====================
   // Put these images in: public/images/events/...
   events: [
+      {
+    id: "bootcamp",
+    title: "Jaffery (Team Challenge)",
+    date: "2026-04-25",
+    time: "07:00 – 10:30",
+    type: "Bootcamp",
+    location: "Karura Forest, Nairobi",
+    isOnline: false,
+    soldOut: false,
+    highlight: "Easy to moderate pace, all levels welcome.",
+    summary:
+      "Let’s stay consistent and grow stronger together! 🔥confirm your spot",
+    registrationUrl: "#",
+    imageUrl: "https://res.cloudinary.com/dqgxq1mp2/image/upload/q_auto/f_auto/v1774371562/IMG_3404_bzvsbk.jpg",
+  },
     {
     id: "bootcamp",
     title: "Karura Forest ( Bootcamp) joint with Ibrafitness",
