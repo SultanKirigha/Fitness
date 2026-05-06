@@ -1,26 +1,29 @@
 // src/components/layout/Footer.jsx
 import { NavLink } from "react-router-dom";
-import {
-  Instagram,
-  Facebook,
-  Mail,
-  MapPin,
-  ArrowRight,
-} from "lucide-react";
+import { Instagram, Facebook, Mail, MapPin, ArrowRight } from "lucide-react";
 import { FaTiktok } from "react-icons/fa";
+
 const CLOUD = import.meta.env.VITE_CLOUDINARY_BASE;
 
-const logoUrl = `${CLOUD}/combatfit/logos/logo_trqhzr.svg`; // adjust path if needed
+const logoUrl = CLOUD ? `${CLOUD}/combatfit/logos/logo_trqhzr.svg` : null;
 
-const mainLinks = [
-  { to: "/", label: "Home" },
-  { to: "/programs", label: "Programs" },
-  { to: "/trainers", label: "Trainers" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/events", label: "Events" },
-  { to: "/shop", label: "Shop" },
+const exploreLinks = [
   { to: "/about", label: "About" },
+  { to: "/trainers", label: "Trainers" },
+  { to: "/corporate", label: "Corporate" },
   { to: "/contact", label: "Contact" },
+];
+
+const actionLinks = [
+  { to: "/programs", label: "Programs" },
+  { to: "/events", label: "Events" },
+  { to: "/pricing", label: "Become a Member" },
+  { to: "/shop", label: "Shop" },
+];
+
+const supportLinks = [
+  { to: "/cart", label: "Cart" },
+  { to: "/dashboard", label: "Dashboard" },
 ];
 
 const programLinks = [
@@ -36,14 +39,18 @@ function Footer() {
   return (
     <footer className="border-t border-white/5 bg-dark-soft mt-10">
       <div className="mx-auto max-w-6xl px-4 py-10 md:py-12 space-y-8">
-        {/* Top strip: brand + CTA */}
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="flex items-start gap-3">
-            <img
-              src={logoUrl}
-              alt="Combatfit logo"
-              className="h-9 w-auto md:h-10"
-            />
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt="Combatfit logo"
+                className="h-9 w-auto md:h-10"
+              />
+            ) : (
+              <p className="text-brand font-bold">Combatfit</p>
+            )}
+
             <div className="space-y-1">
               <p className="text-xs font-semibold tracking-[0.18em] uppercase text-slate-100">
                 Combatfit Outdoor
@@ -64,8 +71,8 @@ function Footer() {
               Next outdoor session
             </p>
             <p className="text-xs md:text-sm text-slate-300 max-w-xs md:ml-auto">
-              Check the upcoming events and save your spot for the next hike,
-              trail session, or outdoor block.
+              Check upcoming events and save your spot for the next hike, trail
+              session, or outdoor block.
             </p>
             <NavLink
               to="/events#upcoming"
@@ -77,21 +84,19 @@ function Footer() {
           </div>
         </div>
 
-        {/* Middle: navigation columns */}
-        <div className="grid gap-8 pt-6 border-t border-white/5 md:grid-cols-[2fr_1.2fr_1.4fr]">
-          {/* Column 1: links */}
+        <div className="grid gap-8 pt-6 border-t border-white/5 md:grid-cols-[1fr_1fr_1fr_1.2fr]">
           <div className="space-y-3">
             <h3 className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
-              Navigate
+              Primary actions
             </h3>
-            <div className="grid grid-cols-2 gap-y-1.5 gap-x-6 text-[11px] md:text-xs">
-              {mainLinks.map((link) => (
+            <div className="space-y-1.5 text-[11px] md:text-xs">
+              {actionLinks.map((link) => (
                 <NavLink
                   key={link.to}
                   to={link.to}
                   className={({ isActive }) =>
                     [
-                      "text-slate-300 hover:text-brand transition",
+                      "block text-slate-300 hover:text-brand transition",
                       isActive && "text-brand",
                     ]
                       .filter(Boolean)
@@ -104,11 +109,35 @@ function Footer() {
             </div>
           </div>
 
-          {/* Column 2: programs summary */}
+          <div className="space-y-3">
+            <h3 className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+              Explore
+            </h3>
+            <div className="space-y-1.5 text-[11px] md:text-xs">
+              {exploreLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  className={({ isActive }) =>
+                    [
+                      "block text-slate-300 hover:text-brand transition",
+                      isActive && "text-brand",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+
           <div className="space-y-3">
             <h3 className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
               Programs
             </h3>
+
             <ul className="space-y-1.5 text-[11px] md:text-xs text-slate-300">
               {programLinks.map((item) => (
                 <li key={item} className="flex items-center gap-2">
@@ -117,6 +146,7 @@ function Footer() {
                 </li>
               ))}
             </ul>
+
             <NavLink
               to="/programs"
               className="inline-flex items-center gap-1 text-[11px] md:text-xs text-brand hover:text-brand/80 mt-2"
@@ -126,25 +156,42 @@ function Footer() {
             </NavLink>
           </div>
 
-          {/* Column 3: contact + socials */}
           <div className="space-y-3">
             <h3 className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
               Stay connected
             </h3>
+
             <p className="text-[11px] md:text-xs text-slate-300">
-              Ask about blocks, outdoor sessions, or gear. We reply faster on
-              WhatsApp and Instagram.
+              Ask about blocks, outdoor sessions, memberships, or gear. We reply
+              faster on WhatsApp and Instagram.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="dale.clive20@gmail.com"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] md:text-xs text-slate-100 hover:border-brand hover:bg-brand/10 transition"
-              >
-                <Mail className="h-3.5 w-3.5" />
-                <span>Contact via email</span>
-              </a>
+            <div className="space-y-1.5 text-[11px] md:text-xs">
+              {supportLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  className={({ isActive }) =>
+                    [
+                      "block text-slate-300 hover:text-brand transition",
+                      isActive && "text-brand",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
             </div>
+
+            <a
+              href="mailto:dale.clive20@gmail.com"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] md:text-xs text-slate-100 hover:border-brand hover:bg-brand/10 transition"
+            >
+              <Mail className="h-3.5 w-3.5" />
+              <span>Contact via email</span>
+            </a>
 
             <div className="flex gap-3 pt-1">
               <a
@@ -154,6 +201,7 @@ function Footer() {
               >
                 <Instagram className="h-4 w-4" />
               </a>
+
               <a
                 href="https://www.facebook.com/phelix.mwasafi"
                 aria-label="Combatfit Facebook"
@@ -161,9 +209,10 @@ function Footer() {
               >
                 <Facebook className="h-4 w-4" />
               </a>
+
               <a
                 href="https://www.tiktok.com/@combatfitkenya"
-                aria-label="Combatfit YouTube"
+                aria-label="Combatfit TikTok"
                 className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-slate-200 hover:bg-brand hover:text-dark transition"
               >
                 <FaTiktok className="h-4 w-4" />
@@ -172,13 +221,13 @@ function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="flex flex-col gap-2 border-t border-white/5 pt-4 text-[10px] md:text-[11px] text-slate-500 md:flex-row md:items-center md:justify-between">
           <p>
-            © {year} Combatfit Outdoor. Built for Nairobi movement and real
-            life training.
+            © {year} Combatfit Outdoor. Built for Nairobi movement and real life
+            training.
           </p>
-          <p className="text-slate-500">
+
+          <p>
             Dashboard and booking tools for the team run on the internal
             Safarishape system.
           </p>

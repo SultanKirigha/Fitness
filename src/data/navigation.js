@@ -3,7 +3,7 @@ export const NAV_LINKS = [
   { label: "Events", path: "/events" },
   { label: "Programs", path: "/programs" },
   { label: "Trainers", path: "/trainers" },
-  { label: "Pricing", path: "/pricing" },
+  { label: "Become a Member", path: "/pricing" },
   { label: "Contact", path: "/contact" },
   { label: "Dashboard", path: "/dashboard" },
 ];

@@ -6,31 +6,27 @@ import ThemeToggle from "../common/ThemeToggle.jsx";
 
 const CLOUD = import.meta.env.VITE_CLOUDINARY_BASE;
 
-// Cloudinary logo path
 const logoUrl = CLOUD ? `${CLOUD}/combatfit/logos/logo_trqhzr.svg` : null;
 
 const navItems = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
   { to: "/programs", label: "Programs" },
-  { to: "/trainers", label: "Trainers" },
   { to: "/events", label: "Events" },
   { to: "/shop", label: "Shop" },
-  { to: "/corporate", label: "Corporate" },
-  { to: "/pricing", label: "Pricing" },
+  { to: "/pricing", label: "Become a Member" },
   { to: "/contact", label: "Contact" },
 ];
 
-// --- CART (temporary storage using localStorage) ---
 const CART_KEY = "combatfit_cart_v1";
 
 function readCartCount() {
   try {
     const raw = localStorage.getItem(CART_KEY);
     if (!raw) return 0;
+
     const cart = JSON.parse(raw);
     const items = Array.isArray(cart?.items) ? cart.items : [];
-    return items.reduce((sum, it) => sum + Number(it.qty || 0), 0);
+
+    return items.reduce((sum, item) => sum + Number(item.qty || 0), 0);
   } catch {
     return 0;
   }
@@ -49,11 +45,15 @@ function Navbar() {
   useEffect(() => {
     setCartCount(readCartCount());
 
-    const onStorage = (e) => {
-      if (e.key === CART_KEY) setCartCount(readCartCount());
+    const onStorage = (event) => {
+      if (event.key === CART_KEY) {
+        setCartCount(readCartCount());
+      }
     };
 
-    const onCartUpdated = () => setCartCount(readCartCount());
+    const onCartUpdated = () => {
+      setCartCount(readCartCount());
+    };
 
     window.addEventListener("storage", onStorage);
     window.addEventListener("cart:updated", onCartUpdated);
@@ -65,16 +65,17 @@ function Navbar() {
   }, []);
 
   const linkBase =
-    "text-xs md:text-sm font-medium tracking-wide transition-colors";
+    "text-xs md:text-sm font-semibold tracking-wide transition-colors";
   const linkActive = "text-brand";
   const linkIdle = "text-slate-300 hover:text-slate-100";
 
   return (
-    <header className="navbar-shell sticky top-0 z-30 border-b border-white/10 bg-[#020617]/80 backdrop-blur">
+    <header className="navbar-shell sticky top-0 z-30 border-b border-white/10 bg-[#050914]/90 backdrop-blur">
       <nav className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 h-14 md:h-16 flex items-center justify-between gap-4">
         <Link
           to="/"
           className="flex items-center gap-2 shrink-0 hover:opacity-90 transition"
+          aria-label="Go to home page"
         >
           {logoUrl ? (
             <img
@@ -83,7 +84,7 @@ function Navbar() {
               className="h-7 w-auto md:h-8"
             />
           ) : (
-            <span className="text-sm md:text-base font-semibold">
+            <span className="text-sm md:text-base font-bold text-brand">
               Combatfit
             </span>
           )}
@@ -108,11 +109,12 @@ function Navbar() {
           <div className="flex items-center gap-3">
             <Link
               to="/cart"
-              className="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/40 text-slate-100 hover:text-white"
+              className="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/40 text-slate-100 hover:border-brand hover:text-brand transition"
               aria-label="Open cart"
               title="Cart"
             >
               <ShoppingCart className="h-5 w-5" />
+
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-brand text-[10px] leading-[18px] text-dark font-bold text-center">
                   {cartCount > 99 ? "99+" : cartCount}
@@ -127,11 +129,12 @@ function Navbar() {
         <div className="flex items-center gap-2 md:hidden">
           <Link
             to="/cart"
-            className="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/40 text-slate-100 hover:text-white"
+            className="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/40 text-slate-100 hover:border-brand hover:text-brand transition"
             aria-label="Open cart"
             title="Cart"
           >
             <ShoppingCart className="h-5 w-5" />
+
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-brand text-[10px] leading-[18px] text-dark font-bold text-center">
                 {cartCount > 99 ? "99+" : cartCount}
@@ -143,7 +146,7 @@ function Navbar() {
 
           <button
             type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/40 text-slate-100"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/40 text-slate-100 hover:border-brand hover:text-brand transition"
             onClick={() => setMenuOpen((open) => !open)}
             aria-label="Toggle navigation menu"
           >
@@ -157,7 +160,7 @@ function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-[#020617]/95 backdrop-blur-sm">
+        <div className="md:hidden border-t border-white/10 bg-[#050914]/95 backdrop-blur-sm">
           <div className="max-w-6xl mx-auto px-4 py-3 space-y-2">
             {navItems.map((item) => (
               <NavLink
